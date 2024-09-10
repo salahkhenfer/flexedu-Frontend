@@ -30,10 +30,14 @@ const FeedBack = () => {
               spaceBetween: 30,
             },
             600: {
-              slidesPerView: 2,
+              slidesPerView: 1,
               spaceBetween: 10,
             },
             500: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            300: {
               slidesPerView: 1,
               spaceBetween: 10,
             },

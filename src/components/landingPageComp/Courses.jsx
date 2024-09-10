@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
   return (
@@ -38,7 +39,11 @@ const Courses = () => {
               slidesPerView: 2,
               spaceBetween: 10,
             },
-            400: {
+            500: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            300: {
               slidesPerView: 1,
               spaceBetween: 10,
             },
@@ -49,13 +54,15 @@ const Courses = () => {
           {courses &&
             courses.map((course) => (
               <SwiperSlide key={course.id}>
-                <CourseCard
-                  title={course.title}
-                  category={course.category}
-                  rating={course.rating}
-                  price={course.price}
-                  linkImg={course.linkImg}
-                />
+                <Link to={`/CourseDetails`}>
+                  <CourseCard
+                    title={course.title}
+                    category={course.category}
+                    rating={course.rating}
+                    price={course.price}
+                    linkImg={course.linkImg}
+                  />
+                </Link>
               </SwiperSlide>
             ))}
         </Swiper>
