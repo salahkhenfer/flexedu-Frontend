@@ -6,6 +6,7 @@ import Login from "./Auth/Login/Login";
 import Register from "./Auth/Register/Register";
 import ContactPage from "./components/landingPageComp/ContactPage";
 import { Achievement, Courses } from "./components/landingPageComp";
+import CourseDetails from "./components/landingPageComp/CourseDetails";
 
 const Routers = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const Routers = createBrowserRouter([
       {
         path: "Courses",
         element: <Courses />,
+      },
+      {
+        path: "CourseDetails",
+        element: <CourseDetails />,
       },
     ],
   },
