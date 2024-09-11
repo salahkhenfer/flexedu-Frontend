@@ -15,7 +15,6 @@ import ContactPage from "../components/landingPageComp/ContactPage";
 function LandingPage() {
   return (
     <div className=" dark:bg-black dark:text-white scroll-smooth duration-500 scroll-d relative min-h-h-screen overflow-y-auto custom-overflow overflow-x-hidden ">
-      <NavBar />
       <HeroSection />
       <Courses />
       <Achievement />
