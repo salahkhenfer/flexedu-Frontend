@@ -21,7 +21,7 @@ function Register() {
           className=" w-full h-full object-cover "
         />
       </div>
-      <div className="w-1/2 h-screen  py-12 bg-white flex flex-col items-center justify-center ">
+      <div className="md:w-1/2 w-full h-screen  py-12 bg-white flex flex-col items-center justify-center ">
         <div className=" w-[80%] text-black_text">
           <div className=" pb-4 pt-24 md:pt-0 ">
             <div className=" text-3xl font-semibold ">Create an account</div>

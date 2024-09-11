@@ -17,7 +17,7 @@ function Login() {
           className=" w-full h-full object-cover "
         />
       </div>
-      <div className="w-1/2 h-screen bg-white flex flex-col items-center justify-center ">
+      <div className="md:w-1/2 w-full h-screen bg-white flex flex-col items-center justify-center ">
         <div className=" w-[80%] text-black_text">
           <div className=" pb-4 ">
             <div className=" text-3xl font-semibold ">Log in</div>
