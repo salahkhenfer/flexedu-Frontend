@@ -5,7 +5,10 @@ import Login from "./Auth/Login/Login";
 import Register from "./Auth/Register/Register";
 
 import Student from "./components/Student/Student";
+
 import Teacher from "./components/Teacher/Teacher";
+import Teacher_Default from "./components/Teacher/Teacher_Default";
+import Teacher_Profile from "./components/Teacher/Teacher_Profile/Teacher_Profile";
 
 import ErrorElement from "./components/ErrorElement";
 import LandingPage from "./landingPage/LandingPage";
@@ -36,6 +39,17 @@ const Routers = createBrowserRouter([
                 path: "/Teacher",
                 element: <Teacher />,
                 errorElement: <ErrorElement />,
+                children: [
+                    {
+                        index: true,
+                        element: <Teacher_Default />,
+                        errorElement: <ErrorElement />,
+                    },
+                    {
+                        path: "/Teacher/Profile",
+                        element: <Teacher_Profile />,
+                    },
+                ],
             },
             {
                 path: "/Contact",

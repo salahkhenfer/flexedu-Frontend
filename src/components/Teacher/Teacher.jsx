@@ -9,17 +9,8 @@ import Logo from "../../../public/Logo.png";
 function Teacher() {
     const Navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const {
-        userId,
-        userType,
-        isAuth,
-        set_user,
-        user,
-        set_Profile_Completed,
-        show_Alert_completeProfile,
-        set_show_Alert_completeProfile,
-        set_Notifications,
-    } = useAppContext();
+    const { userId, userType, isAuth, set_user, user, set_Notifications } =
+        useAppContext();
 
     useEffect(() => {
         if (!isAuth || !userId) {
@@ -98,18 +89,17 @@ function Teacher() {
             });
     }, []);
 
-    
     if (loading)
         return (
             <div className=" w-screen h-screen flex flex-col items-center justify-center">
-                <img src={Logo} alt="Logo" />
+                {/* <img src={Logo} alt="Logo" /> */}
                 <span className="loader"></span>
             </div>
         );
     else
         return (
             <div className="relative h-screen overflow-y-auto custom-overflow overflow-x-hidden ">
-                <NavBar  />
+                <NavBar />
                 <div className=" pt-[60px]">
                     <Outlet />
                 </div>
