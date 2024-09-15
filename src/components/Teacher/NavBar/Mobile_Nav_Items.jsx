@@ -21,7 +21,7 @@ function Mobile_Nav_Items({
                 <div className="  h-screen text-xl  pt-8 overflow-y-auto ">
                     <div className=" flex flex-col justify-start items-center h-[80%]  ">
                         <div className="text-center flex flex-col gap-8 my-8 ">
-                            <Link
+                            {/* <Link
                                 onClick={Toogle_Menu_Bar}
                                 to={"/Teacher/Complete_Profile"}
                                 className={`${
@@ -38,7 +38,7 @@ function Mobile_Nav_Items({
                                         Edite profile
                                     </span>
                                 </Link>
-                            </Link>
+                            </Link> */}
                             <Link
                                 onClick={Toogle_Menu_Bar}
                                 to={"/Teacher/Profile"}
@@ -51,8 +51,7 @@ function Mobile_Nav_Items({
                                 Profile
                             </Link>
 
-                            <>
-                                <Link
+                            {/* <Link
                                     onClick={Toogle_Menu_Bar}
                                     to={"/Teacher/Projects"}
                                     className={`${
@@ -62,19 +61,7 @@ function Mobile_Nav_Items({
                                     } select-none   `}
                                 >
                                     Projects
-                                </Link>
-                                {/* <Link
-                                        onClick={Toogle_Menu_Bar}
-                                        to={"/Teacher/Profile"}
-                                        className={`${
-                                            Active_nav == "Process"
-                                                ? "text-perpol_v"
-                                                : "text-black_text"
-                                        } select-none   `}
-                                    >
-                                        Process
-                                    </Link> */}
-                            </>
+                                </Link> */}
                         </div>
                         <div className=" w-screen h-[2px] bg-gray_white "></div>
 

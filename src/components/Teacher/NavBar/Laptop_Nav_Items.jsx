@@ -55,7 +55,7 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                 </Link>
             </div>
             <div className="flex gap-6 lg:gap-14">
-                <div
+                {/* <div
                     className={` ${
                         Active_nav == "Complete_Profile"
                             ? "text-perpol_v"
@@ -68,7 +68,7 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                     >
                         <span className=" relative">Edite profile </span>
                     </Link>
-                </div>
+                </div> */}
 
                 <div
                     className={` ${
@@ -81,7 +81,7 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                         Profil{" "}
                     </Link>
                 </div>
-                <>
+                {/* 
                     <div
                         className={` ${
                             Active_nav == "Projects"
@@ -93,21 +93,7 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                             Projects
                         </Link>
                     </div>
-                    {/* <div
-                            className={` ${
-                                Active_nav == "Process"
-                                    ? "text-perpol_v"
-                                    : "text-black_text"
-                            } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
-                        >
-                            <Link
-                                to={"/Teacher/Process"}
-                                className="  select-none"
-                            >
-                                Process
-                            </Link>
-                        </div> */}
-                </>
+                 */}
             </div>
             <div className=" flex items center justify-center gap-5">
                 <div className="flex items-center justify-center gap-6 ">
