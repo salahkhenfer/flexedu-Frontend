@@ -9,9 +9,9 @@ async function handleLogin(values, { setSubmitting }) {
 
         if (response.status == 200) {
             if (response.data.userType == "client") {
-                window.location.href = `/Client`;
+                window.location.href = `/Teacher`;
             } else if (response.data.userType == "freelancer") {
-                window.location.href = `/Freelancer`;
+                window.location.href = `/Student`;
             } else window.location.href = `/Home`;
         } else if (response.status == 401) {
             setSubmitting(false);
