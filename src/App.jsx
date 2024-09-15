@@ -4,7 +4,7 @@ import { Outlet } from "react-router";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useAppContext } from "./AppContext";
-
+import Logo from "../public/Logo.png";
 import "./App.css";
 // import NavBar from "./landingPage/NavBar/NavBar";
 
