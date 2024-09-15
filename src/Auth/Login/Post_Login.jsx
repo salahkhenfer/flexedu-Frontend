@@ -8,9 +8,9 @@ async function handleLogin(values, { setSubmitting }) {
         });
 
         if (response.status == 200) {
-            if (response.data.userType == "client") {
+            if (response.data.userType == "teacher") {
                 window.location.href = `/Teacher`;
-            } else if (response.data.userType == "freelancer") {
+            } else if (response.data.userType == "student") {
                 window.location.href = `/Student`;
             } else window.location.href = `/Home`;
         } else if (response.status == 401) {
