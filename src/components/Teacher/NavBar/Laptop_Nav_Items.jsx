@@ -8,12 +8,7 @@ import { TbLogout2 } from "react-icons/tb";
 import { FiUser } from "react-icons/fi";
 import { useAppContext } from "../../../AppContext";
 import { useNavigate } from "react-router-dom";
-import Project_Accepted_Notification from "../../../../public/Notifications/Project_Accepted.png";
-import Projet_refused_Notification from "../../../../public/Notifications/Projet_refused.png";
-import Freelancer_found_Notification from "../../../../public/Notifications/Freelancer_found.png";
-import payment_accepted_Notification from "../../../../public/Notifications/payment_accepted.png";
-import payment_rejected_Notification from "../../../../public/Notifications/payment_rejected.png";
-import Freelancer_uploaded_work_Notification from "../../../../public/Notifications/Freelancer_uploaded_work.png";
+
 import { IoMdNotificationsOutline } from "react-icons/io";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -255,63 +250,7 @@ function Laptop_Nav_Items({
                                             className="flex items-center gap-3 py-1 px-3 border-b cursor-pointer hover:bg-gray-100"
                                         >
                                             <div className=" flex gap-2 ">
-                                                {notification.type ==
-                                                "Project_Accepted" ? (
-                                                    <img
-                                                        src={
-                                                            Project_Accepted_Notification
-                                                        }
-                                                        className=" w-fit h-fit"
-                                                        alt=""
-                                                    />
-                                                ) : notification.type ==
-                                                  "Projet_refused" ? (
-                                                    <img
-                                                        src={
-                                                            Projet_refused_Notification
-                                                        }
-                                                        className=" w-fit h-fit"
-                                                        alt=""
-                                                    />
-                                                ) : notification.type ==
-                                                  "Freelancer_found" ? (
-                                                    <img
-                                                        src={
-                                                            Freelancer_found_Notification
-                                                        }
-                                                        className=" w-fit h-fit"
-                                                        alt=""
-                                                    />
-                                                ) : notification.type ==
-                                                  "payment_accepted" ? (
-                                                    <img
-                                                        src={
-                                                            payment_accepted_Notification
-                                                        }
-                                                        className=" w-fit h-fit"
-                                                        alt=""
-                                                    />
-                                                ) : notification.type ==
-                                                  "payment_rejected" ? (
-                                                    <img
-                                                        src={
-                                                            payment_rejected_Notification
-                                                        }
-                                                        className=" w-fit h-fit"
-                                                        alt=""
-                                                    />
-                                                ) : notification.type ==
-                                                  "Freelancer_uploaded_work" ? (
-                                                    <img
-                                                        src={
-                                                            Freelancer_uploaded_work_Notification
-                                                        }
-                                                        className=" w-fit h-fit"
-                                                        alt=""
-                                                    />
-                                                ) : (
-                                                    <IoMdNotificationsOutline />
-                                                )}
+                                                <IoMdNotificationsOutline />
                                                 <div>
                                                     <div className="text-black_text font-semibold">
                                                         {notification?.title}

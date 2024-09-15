@@ -5,25 +5,8 @@ import { useAppContext } from "../../AppContext";
 import axios from "axios";
 import { Outlet } from "react-router";
 import NavBar from "./NavBar/NavBar";
-import user_image from "../../../public/user2.png";
-import message_icon from "../../../public/Profile/message.png";
-import notification_icon from "../../../public/Profile/Notification.png";
-import user_default from "../../../public/Profile/user_default.png";
-import Logo from "../../../public/Logo.png";
-import Project_Accpted from "../../../public/Project/Project_Accpted.png";
-import Project_Waiting from "../../../public/Project/Project_Waiting.png";
-import Project_Done from "../../../public/Project/Project_Done.png";
-import Project_Waiting2 from "../../../public/Project/Project_Waiting2.png";
-import Project_Rejected from "../../../public/Project/Project_Rejected.png";
-import Alert_icon from "../../../public//Project/Alert.png";
-import EditeIcon from "../../../public/Profile/EditeIcon.png";
 
-import Project_Accepted_Notification from "../../../public/Notifications/Project_Accepted.png";
-import Projet_refused_Notification from "../../../public/Notifications/Projet_refused.png";
-import Freelancer_found_Notification from "../../../public/Notifications/Freelancer_found.png";
-import payment_accepted_Notification from "../../../public/Notifications/payment_accepted.png";
-import payment_rejected_Notification from "../../../public/Notifications/payment_rejected.png";
-import Freelancer_uploaded_work_Notification from "../../../public/Notifications/Freelancer_uploaded_work.png";
+import Logo from "../../../public/Logo.png";
 
 function Teacher() {
     const Navigate = useNavigate();
@@ -90,25 +73,7 @@ function Teacher() {
         };
         const fetch_images = () => {
             return new Promise((resolve, reject) => {
-                const images = [
-                    EditeIcon,
-                    user_image,
-                    message_icon,
-                    notification_icon,
-                    user_default,
-                    Project_Accpted,
-                    Project_Done,
-                    Project_Waiting2,
-                    Project_Rejected,
-                    Alert_icon,
-                    Project_Waiting,
-                    Project_Accepted_Notification,
-                    Projet_refused_Notification,
-                    payment_accepted_Notification,
-                    payment_rejected_Notification,
-                    Freelancer_uploaded_work_Notification,
-                    Freelancer_found_Notification,
-                ];
+                const images = [Logo];
                 let loadedCount = 0;
                 if (images.length === 0) resolve();
                 images.forEach((imageSrc) => {
