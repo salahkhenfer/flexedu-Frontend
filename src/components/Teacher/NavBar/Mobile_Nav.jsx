@@ -15,15 +15,10 @@ dayjs.extend(customParseFormat);
 import axios from "axios";
 import { useAppContext } from "../../../AppContext";
 
-function Mobile_Nav({
-    isProfileCompleted,
-    Active_nav,
-    handleLogout,
-    LogoutClicked,
-}) {
+function Mobile_Nav({ Active_nav, handleLogout, LogoutClicked }) {
     const Navigate = useNavigate();
     const [MobileNav_Open, set_MobileNav_Open] = useState(false);
-    function Toogle_Menu_Bar({ Active_nav }) {
+    function Toogle_Menu_Bar() {
         set_MobileNav_Open(!MobileNav_Open);
     }
     const { user, Notifications, set_Notifications } = useAppContext();
@@ -61,26 +56,24 @@ function Mobile_Nav({
                     </Link>
                 </div>
                 <div className=" flex items-center justify-center gap-4 md:gap-6">
-                    {isProfileCompleted && (
-                        <>
-                            <Link
-                                to={"/Teacher/rooms"}
-                                onClick={() => {
-                                    setopen_Notifications(false);
-                                    set_MobileNav_Open(false);
-                                }}
-                            >
-                                <img src={message_icon} alt="" />
-                            </Link>
-                            <div>
-                                <img
-                                    src={notification_icon}
-                                    alt=""
-                                    onClick={toogleopen_Notifications}
-                                />
-                            </div>
-                        </>
-                    )}
+                    <>
+                        <Link
+                            to={"/Teacher/rooms"}
+                            onClick={() => {
+                                setopen_Notifications(false);
+                                set_MobileNav_Open(false);
+                            }}
+                        >
+                            <img src={message_icon} alt="" />
+                        </Link>
+                        <div>
+                            <img
+                                src={notification_icon}
+                                alt=""
+                                onClick={toogleopen_Notifications}
+                            />
+                        </div>
+                    </>
                     <Menu_Toogler
                         MobileNav_Open={MobileNav_Open}
                         set_MobileNav_Open={set_MobileNav_Open}
@@ -89,7 +82,6 @@ function Mobile_Nav({
                 </div>
             </div>
             <Mobile_Nav_Items
-                isProfileCompleted={isProfileCompleted}
                 MobileNav_Open={MobileNav_Open}
                 Toogle_Menu_Bar={Toogle_Menu_Bar}
                 Active_nav={Active_nav}

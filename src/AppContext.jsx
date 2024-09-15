@@ -11,7 +11,6 @@ const initialState = {
     userId: null,
     userType: null,
     user: null,
-    isProfileCompleted: false,
     show_Alert_completeProfile: false,
     Notifications: null,
 };
@@ -31,7 +30,6 @@ const reducer = (state, action) => {
                 userId: null,
                 userType: null,
                 user: null,
-                isProfileCompleted: false,
             };
         case "SET_AUTH":
             return {
@@ -43,11 +41,7 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.payload, // Update user data
             };
-        case "SET_PROFILE_COMPLETED":
-            return {
-                ...state,
-                isProfileCompleted: action.payload,
-            };
+        
         case "SET_SHOW_ALERT_COMPLETE_PROFILE":
             return {
                 ...state,
@@ -84,12 +78,7 @@ export const AppProvider = ({ children }) => {
     const set_user = (user) => {
         dispatch({ type: "SET_USER", payload: user });
     };
-    const set_Profile_Completed = (isProfileCompleted) => {
-        dispatch({
-            type: "SET_PROFILE_COMPLETED",
-            payload: isProfileCompleted,
-        });
-    };
+    
     const set_show_Alert_completeProfile = (show_Alert_completeProfile) => {
         dispatch({
             type: "SET_SHOW_ALERT_COMPLETE_PROFILE",

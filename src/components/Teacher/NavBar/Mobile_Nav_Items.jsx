@@ -4,7 +4,6 @@ import { TbLogout2 } from "react-icons/tb";
 function Mobile_Nav_Items({
     MobileNav_Open,
     Toogle_Menu_Bar,
-    isProfileCompleted,
     Active_nav,
     handleLogout,
     LogoutClicked,
@@ -35,21 +34,9 @@ function Mobile_Nav_Items({
                                     to={"/Teacher/Complete_Profile"}
                                     className={"select-none"}
                                 >
-                                    {isProfileCompleted ? (
-                                        <span className=" relative">
-                                            Edite profile
-                                            {/* {!isProfileCompleted && (
-                                            <span className=" absolute top-[-3px] right-[-9px] h-3 w-3 rounded-full bg-red-500 "></span>
-                                        )} */}
-                                        </span>
-                                    ) : (
-                                        <span className=" relative">
-                                            Complete profile
-                                            {/* {!isProfileCompleted && ( */}
-                                            <span className=" absolute top-[-3px] right-[-9px] h-3 w-3 rounded-full bg-red-500 "></span>
-                                            {/* )} */}
-                                        </span>
-                                    )}
+                                    <span className=" relative">
+                                        Edite profile
+                                    </span>
                                 </Link>
                             </Link>
                             <Link
@@ -64,20 +51,19 @@ function Mobile_Nav_Items({
                                 Profile
                             </Link>
 
-                            {isProfileCompleted && (
-                                <>
-                                    <Link
-                                        onClick={Toogle_Menu_Bar}
-                                        to={"/Teacher/Projects"}
-                                        className={`${
-                                            Active_nav == "Projects"
-                                                ? "text-perpol_v"
-                                                : "text-black_text"
-                                        } select-none   `}
-                                    >
-                                        Projects
-                                    </Link>
-                                    {/* <Link
+                            <>
+                                <Link
+                                    onClick={Toogle_Menu_Bar}
+                                    to={"/Teacher/Projects"}
+                                    className={`${
+                                        Active_nav == "Projects"
+                                            ? "text-perpol_v"
+                                            : "text-black_text"
+                                    } select-none   `}
+                                >
+                                    Projects
+                                </Link>
+                                {/* <Link
                                         onClick={Toogle_Menu_Bar}
                                         to={"/Teacher/Profile"}
                                         className={`${
@@ -88,8 +74,7 @@ function Mobile_Nav_Items({
                                     >
                                         Process
                                     </Link> */}
-                                </>
-                            )}
+                            </>
                         </div>
                         <div className=" w-screen h-[2px] bg-gray_white "></div>
 

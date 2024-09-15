@@ -9,7 +9,6 @@ import Logo from "../../../public/Logo.png";
 function Teacher() {
     const Navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [isProfileCompleted, setisProfileCompleted] = useState(false);
     const {
         userId,
         userType,
@@ -99,29 +98,7 @@ function Teacher() {
             });
     }, []);
 
-    useEffect(() => {
-        if (!user) return;
-        else if (
-            !user?.firstName ||
-            !user?.lastName ||
-            !user?.email ||
-            !user?.telephone ||
-            !user?.nationalCardNumber ||
-            !user?.company_Name ||
-            !user?.company_WorkField
-            // ||
-            // !user?.profile_pic_link
-        ) {
-            // if (isProfileIncomplete(user)) {
-            setisProfileCompleted(false);
-            set_Profile_Completed(false);
-            set_show_Alert_completeProfile(true);
-        } else {
-            setisProfileCompleted(true);
-            set_Profile_Completed(true);
-            set_show_Alert_completeProfile(false);
-        }
-    }, [user]);
+    
     if (loading)
         return (
             <div className=" w-screen h-screen flex flex-col items-center justify-center">
@@ -132,7 +109,7 @@ function Teacher() {
     else
         return (
             <div className="relative h-screen overflow-y-auto custom-overflow overflow-x-hidden ">
-                <NavBar isProfileCompleted={isProfileCompleted} />
+                <NavBar  />
                 <div className=" pt-[60px]">
                     <Outlet />
                 </div>

@@ -14,12 +14,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 import axios from "axios";
-function Laptop_Nav_Items({
-    isProfileCompleted,
-    Active_nav,
-    handleLogout,
-    LogoutClicked,
-}) {
+function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
     const Navigate = useNavigate();
     const { user, Notifications, set_Notifications } = useAppContext();
     const [ProfileClicked, setProfileClicked] = useState(false);
@@ -71,21 +66,7 @@ function Laptop_Nav_Items({
                         to={"/Teacher/Complete_Profile"}
                         className={"select-none"}
                     >
-                        {isProfileCompleted ? (
-                            <span className=" relative">
-                                Edite profile{" "}
-                                {/* {!isProfileCompleted ? (
-                                    <span className=" absolute top-[-3px] right-[-9px] h-3 w-3 rounded-full bg-red-500 "></span>
-                                ) : null} */}
-                            </span>
-                        ) : (
-                            <span className=" relative">
-                                Complete profile{" "}
-                                {/* {!isProfileCompleted ? ( */}
-                                <span className=" absolute top-[-3px] right-[-9px] h-3 w-3 rounded-full bg-red-500 "></span>
-                                {/* ) : null} */}
-                            </span>
-                        )}
+                        <span className=" relative">Edite profile </span>
                     </Link>
                 </div>
 
@@ -100,23 +81,19 @@ function Laptop_Nav_Items({
                         Profil{" "}
                     </Link>
                 </div>
-                {isProfileCompleted && (
-                    <>
-                        <div
-                            className={` ${
-                                Active_nav == "Projects"
-                                    ? "text-perpol_v"
-                                    : "text-black_text"
-                            } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
-                        >
-                            <Link
-                                to={"/Teacher/Projects"}
-                                className=" select-none"
-                            >
-                                Projects
-                            </Link>
-                        </div>
-                        {/* <div
+                <>
+                    <div
+                        className={` ${
+                            Active_nav == "Projects"
+                                ? "text-perpol_v"
+                                : "text-black_text"
+                        } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
+                    >
+                        <Link to={"/Teacher/Projects"} className=" select-none">
+                            Projects
+                        </Link>
+                    </div>
+                    {/* <div
                             className={` ${
                                 Active_nav == "Process"
                                     ? "text-perpol_v"
@@ -130,36 +107,31 @@ function Laptop_Nav_Items({
                                 Process
                             </Link>
                         </div> */}
-                    </>
-                )}
+                </>
             </div>
             <div className=" flex items center justify-center gap-5">
-                {isProfileCompleted ? (
-                    <div className="flex items-center justify-center gap-6 ">
-                        <Link
-                            to={"/Teacher/rooms"}
-                            onClick={() => {
-                                setopen_Notifications(false);
-                                setProfileClicked(false);
-                            }}
-                        >
-                            <img src={message_icon} alt="" />
-                        </Link>
-                        <div className="relative">
-                            {Notifications?.length > 0 && (
-                                <div className=" w-2 h-2 rounded-full bg-red-500 absolute top-0 right-0 "></div>
-                            )}
-                            <img
-                                src={notification_icon}
-                                alt=""
-                                className=" cursor-pointer"
-                                onClick={toogleopen_Notifications}
-                            />
-                        </div>
+                <div className="flex items-center justify-center gap-6 ">
+                    <Link
+                        to={"/Teacher/rooms"}
+                        onClick={() => {
+                            setopen_Notifications(false);
+                            setProfileClicked(false);
+                        }}
+                    >
+                        <img src={message_icon} alt="" />
+                    </Link>
+                    <div className="relative">
+                        {Notifications?.length > 0 && (
+                            <div className=" w-2 h-2 rounded-full bg-red-500 absolute top-0 right-0 "></div>
+                        )}
+                        <img
+                            src={notification_icon}
+                            alt=""
+                            className=" cursor-pointer"
+                            onClick={toogleopen_Notifications}
+                        />
                     </div>
-                ) : (
-                    <div></div>
-                )}
+                </div>
                 <div className=" relative">
                     {user?.profile_pic_link ? (
                         <img

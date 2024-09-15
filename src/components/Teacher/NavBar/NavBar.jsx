@@ -8,7 +8,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
-function NavBar({ isProfileCompleted }) {
+function NavBar() {
     const Navigate = useNavigate();
 
     const { set_Auth, store_logout } = useAppContext();
@@ -48,13 +48,11 @@ function NavBar({ isProfileCompleted }) {
             className={` fixed  h-[60px] m-0  z-40 w-full bg-white  border-b   `}
         >
             <Laptop_Nav_Items
-                isProfileCompleted={isProfileCompleted}
                 Active_nav={Active_nav}
                 handleLogout={handleLogout}
                 LogoutClicked={LogoutClicked}
             />
             <Mobile_Nav
-                isProfileCompleted={isProfileCompleted}
                 Active_nav={Active_nav}
                 handleLogout={handleLogout}
                 LogoutClicked={LogoutClicked}
