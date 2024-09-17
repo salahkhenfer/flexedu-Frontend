@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppContext } from "../../../AppContext";
 
-function Teacher_Profile() {
+function Student_Profile() {
     const { user } = useAppContext();
 
     useEffect(() => {
@@ -10,7 +10,7 @@ function Teacher_Profile() {
 
     return (
         <div className=" p-6">
-            <h1>Teacher Profile</h1>
+            <h1>Student Profile</h1>
             {user ? (
                 <div>
                     <p>
@@ -65,4 +65,4 @@ function Teacher_Profile() {
     );
 }
 
-export default Teacher_Profile;
+export default Student_Profile;
