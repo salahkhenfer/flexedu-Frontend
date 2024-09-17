@@ -29,6 +29,8 @@ function Teacher() {
 
                 if (response.status == 200) {
                     set_user(response.data.User);
+                    console.log("response.data.User : ", response.data.User);
+                    
                 } else {
                     set_Auth(false);
                     // window.location.href = "/Login";
@@ -40,25 +42,25 @@ function Teacher() {
                 Navigate("/Login");
             }
         };
-        const fetchNotifications = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:3000/Teachers/${userId}/Notifications`,
-                    {
-                        withCredentials: true,
-                        // validateStatus: () => true,
-                    }
-                );
+        // const fetchNotifications = async () => {
+        //     try {
+        //         const response = await axios.get(
+        //             `http://localhost:3000/Teachers/${userId}/Notifications`,
+        //             {
+        //                 withCredentials: true,
+        //                 // validateStatus: () => true,
+        //             }
+        //         );
 
-                if (response.status == 200) {
-                    set_Notifications(response.data.Notifications);
-                } else {
-                    set_Notifications([]);
-                }
-            } catch (error) {
-                set_Notifications([]);
-            }
-        };
+        //         if (response.status == 200) {
+        //             set_Notifications(response.data.Notifications);
+        //         } else {
+        //             set_Notifications([]);
+        //         }
+        //     } catch (error) {
+        //         set_Notifications([]);
+        //     }
+        // };
         const fetch_images = () => {
             return new Promise((resolve, reject) => {
                 const images = [Logo];
@@ -80,7 +82,8 @@ function Teacher() {
             });
         };
         // Promise.all([fetchData()]);
-        Promise.all([fetch_images(), fetchData(), fetchNotifications()])
+        // Promise.all([fetch_images(), fetchData(), fetchNotifications()]);
+        Promise.all([fetch_images(), fetchData()])
             .then(() => {
                 setLoading(false);
             })
