@@ -97,15 +97,6 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
             </div>
             <div className=" flex items center justify-center gap-5">
                 <div className="flex items-center justify-center gap-6 ">
-                    <Link
-                        to={"/Teacher/rooms"}
-                        onClick={() => {
-                            setopen_Notifications(false);
-                            setProfileClicked(false);
-                        }}
-                    >
-                        <img src={message_icon} alt="" />
-                    </Link>
                     <div className="relative">
                         {Notifications?.length > 0 && (
                             <div className=" w-2 h-2 rounded-full bg-red-500 absolute top-0 right-0 "></div>

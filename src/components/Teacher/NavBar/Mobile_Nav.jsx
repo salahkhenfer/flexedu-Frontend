@@ -56,24 +56,13 @@ function Mobile_Nav({ Active_nav, handleLogout, LogoutClicked }) {
                     </Link>
                 </div>
                 <div className=" flex items-center justify-center gap-4 md:gap-6">
-                    <>
-                        <Link
-                            to={"/Teacher/rooms"}
-                            onClick={() => {
-                                setopen_Notifications(false);
-                                set_MobileNav_Open(false);
-                            }}
-                        >
-                            <img src={message_icon} alt="" />
-                        </Link>
-                        <div>
-                            <img
-                                src={notification_icon}
-                                alt=""
-                                onClick={toogleopen_Notifications}
-                            />
-                        </div>
-                    </>
+                    <div>
+                        <img
+                            src={notification_icon}
+                            alt=""
+                            onClick={toogleopen_Notifications}
+                        />
+                    </div>
                     <Menu_Toogler
                         MobileNav_Open={MobileNav_Open}
                         set_MobileNav_Open={set_MobileNav_Open}
