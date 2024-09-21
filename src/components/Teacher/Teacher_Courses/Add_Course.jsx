@@ -22,7 +22,7 @@ function Add_Course() {
                             Description: "",
                             Price: 0,
                             Category: "",
-                            TeacherId: user.id,
+                            TeacherId: user?.id,
                         }}
                         validate={(values) => {
                             const errors = {};

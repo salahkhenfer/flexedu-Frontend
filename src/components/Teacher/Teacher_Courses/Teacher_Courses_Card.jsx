@@ -18,7 +18,7 @@ function Teacher_Courses_Card({ course, setCourses }) {
         setDeleteLoading(true);
         try {
             const response = await axios.delete(
-                `http://localhost:3000/Teachers/${user.id}/Courses/${course.id}`,
+                `http://localhost:3000/Teachers/${user?.id}/Courses/${course.id}`,
                 {
                     withCredentials: true,
                     validateStatus: () => true,

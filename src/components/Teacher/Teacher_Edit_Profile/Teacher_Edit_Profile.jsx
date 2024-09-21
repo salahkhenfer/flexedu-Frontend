@@ -1,14 +1,25 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAppContext } from "../../../AppContext";
 import Swal from "sweetalert2";
 import Axios from "axios";
+import { FaRegImage } from "react-icons/fa";
+import Delete_Profile_Pic from "./Api/Delete_Profile_Pic";
 
 function Edit_Profile() {
-    const { user } = useAppContext();
+    const { user, set_user } = useAppContext();
+    const fileInputRef = useRef(null);
+    const [imageChanged, setimageChanged] = useState(false);
+    const [image_state, setimage_state] = useState(null);
+    const [imageDeleteLoading, setimageDeleteLoading] = useState(false);
 
+    useEffect(() => {
+        if (image_state) setimageChanged(true);
+        else if (!image_state) setimageChanged(false);
+        else setimageChanged(false);
+    }, [image_state]);
     return (
         <div className="w-full h-screen bg-white flex flex-col items-center pt-12">
             <div className="text-black_text">
@@ -25,6 +36,7 @@ function Edit_Profile() {
                             linkedIn_Link: user?.linkedIn_Link || "",
                             facebook_Link: user?.facebook_Link || "",
                             // password: user?.password || "",
+                            profile_pic_link: user?.profile_pic_link || "",
                             TeacherId: user?.id,
                         }}
                         validate={(values) => {
@@ -105,6 +117,61 @@ function Edit_Profile() {
                                 );
                             } else {
                                 try {
+                                    if (image_state) {
+                                        let formData = new FormData();
+                                        formData.append(
+                                            "ProfilePic",
+                                            image_state
+                                        );
+                                        let Image_Response = await Axios.post(
+                                            `http://localhost:3000/upload/Teacher/ProfilePic`,
+                                            formData,
+                                            {
+                                                withCredentials: true,
+                                                validateStatus: () => true,
+                                            }
+                                        );
+                                        if (Image_Response.status == 200) {
+                                            // set_user({
+                                            //     profile_pic_link: Image_Response.data.profile_pic_link,
+                                            // });
+                                        } else if (
+                                            Image_Response.status == 401
+                                        ) {
+                                            // Swal.fire("Error", `${Image_Response.data.message} `, "error");
+                                            window.location.href = "/Login";
+                                        } else if (
+                                            Image_Response.status == 400
+                                        ) {
+                                            Swal.fire(
+                                                "Error",
+                                                `${Image_Response.data.message} `,
+                                                "error"
+                                            );
+                                        } else if (
+                                            Image_Response.status == 409
+                                        ) {
+                                            Swal.fire(
+                                                "Error!",
+                                                `${Image_Response.data.message} `,
+                                                "error"
+                                            );
+                                        } else if (
+                                            Image_Response.status == 500
+                                        ) {
+                                            Swal.fire(
+                                                "Error!",
+                                                `Internal Server Error   `,
+                                                "error"
+                                            );
+                                        } else {
+                                            Swal.fire(
+                                                "Error!",
+                                                `Something Went Wrong ,please trye again latter, ${Image_Response.data.message} `,
+                                                "error"
+                                            );
+                                        }
+                                    }
                                     let response = await Axios.put(
                                         `http://localhost:3000/Teachers/${values.TeacherId}/Profile`,
                                         values,
@@ -115,8 +182,10 @@ function Edit_Profile() {
                                     );
 
                                     if (response.status === 200) {
-                                        window.location.href =
-                                            "/Teacher/Profile";
+                                        set_user(response.data.user);
+
+                                        // window.location.href =
+                                        //     "/Teacher/Profile";
                                     } else if (response.status === 400) {
                                         setSubmitting(false);
                                         Swal.fire(
@@ -159,6 +228,93 @@ function Edit_Profile() {
                     >
                         {({ isSubmitting }) => (
                             <Form className="flex flex-col text-sm md:text-lg gap-4 text-black_text">
+                                <div className=" w-full">
+                                    <input
+                                        id="Step1_image"
+                                        type="file"
+                                        name="image"
+                                        accept="image/*"
+                                        onChange={(event) => {
+                                            setimage_state(
+                                                event.currentTarget.files[0]
+                                            );
+                                        }}
+                                        ref={fileInputRef}
+                                        // disabled={isSubmitting}
+                                        className="hidden" // Hide the default file input button
+                                    />
+                                </div>
+                                <div className="flex flex-col items-center gap-1">
+                                    {user?.profile_pic_link ? (
+                                        <>
+                                            <img
+                                                src={
+                                                    "http://localhost:3000/" +
+                                                    user?.profile_pic_link
+                                                }
+                                                alt="Profile Pic"
+                                                className=" w-[150px] h-[150px] object-cover rounded-full"
+                                            />
+                                            {imageDeleteLoading ? (
+                                                <span className="small-loader mt-5"></span>
+                                            ) : (
+                                                <div
+                                                    className="  mt-2 text-white w-fit mx-auto rounded-lg px-3 font-semibold text-lg
+                                         bg-gray-400 cursor-pointer"
+                                                    onClick={() => {
+                                                        Delete_Profile_Pic(
+                                                            setimageDeleteLoading,
+                                                            set_user,
+                                                            setimage_state
+                                                        );
+                                                    }}
+                                                >
+                                                    {/* <IoClose /> */}
+                                                    Remove
+                                                </div>
+                                            )}
+                                        </>
+                                    ) : image_state ? (
+                                        <div className=" relative ">
+                                            <img
+                                                src={URL.createObjectURL(
+                                                    image_state
+                                                )} // Create a URL for the selected image
+                                                alt="Selected Image"
+                                                // ref={fileInputRef}
+                                                className=" w-[150px] h-[150px]  object-cover rounded-full"
+                                            />
+                                            <div
+                                                className="  mt-2 text-white w-fit mx-auto rounded-lg px-3 font-semibold text-lg
+                                         bg-gray-400 cursor-pointer"
+                                                onClick={() => {
+                                                    setimage_state(null);
+                                                    // setimageChanged(false);
+                                                    if (fileInputRef.current) {
+                                                        fileInputRef.current.value =
+                                                            "";
+                                                    }
+                                                }}
+                                            >
+                                                {/* <IoClose /> */}
+                                                Cancel
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div
+                                            className="w-[150px] h-[150px]  bg-gray_white text-gray rounded-full flex items-center justify-center cursor-pointer"
+                                            onClick={() =>
+                                                document
+                                                    .getElementById(
+                                                        "Step1_image"
+                                                    )
+                                                    .click()
+                                            }
+                                        >
+                                            <FaRegImage className=" text-gray_v text-2xl" />
+                                        </div>
+                                    )}
+                                </div>
                                 <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-4 w-full pb-6">
                                     <div className="w-full md:w-[50%] relative">
                                         <div className="font-semibold text-sm pb-1">

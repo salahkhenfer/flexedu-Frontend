@@ -22,11 +22,11 @@ function Teacher_Profile() {
                 Edit Profile
             </Link>
             <div className=" py-6">
-                {user.profile_pic_link ? (
+                {user?.profile_pic_link ? (
                     <img
                         className="w-[200px] h-[200px] object-cover"
-                        src={`http://localhost:3000/ProfilePic/${course.profile_pic_link}`}
-                        alt="course image"
+                        src={`http://localhost:3000/${user?.profile_pic_link}`}
+                        alt="user image"
                     />
                 ) : (
                     <div className="flex items-center justify-center w-[200px] h-[200px] bg-gray-100 ">
@@ -38,48 +38,50 @@ function Teacher_Profile() {
             {user ? (
                 <div>
                     <p>
-                        <strong>ID:</strong> {user.id}
+                        <strong>ID:</strong> {user?.id}
                     </p>
                     <p>
-                        <strong>First Name:</strong> {user.firstName}
+                        <strong>First Name:</strong> {user?.firstName}
                     </p>
                     <p>
-                        <strong>Last Name:</strong> {user.lastName}
+                        <strong>Last Name:</strong> {user?.lastName}
                     </p>
                     <p>
-                        <strong>Email:</strong> {user.email}
+                        <strong>Email:</strong> {user?.email}
                     </p>
                     <p>
-                        <strong>Telephone:</strong> {user.telephone || "N/A"}
+                        <strong>Telephone:</strong> {user?.telephone || "N/A"}
                     </p>
                     <p>
                         <strong>Instagram:</strong>{" "}
-                        {user.instgram_Link || "N/A"}
+                        {user?.instgram_Link || "N/A"}
                     </p>
                     <p>
-                        <strong>LinkedIn:</strong> {user.linkedIn_Link || "N/A"}
+                        <strong>LinkedIn:</strong>{" "}
+                        {user?.linkedIn_Link || "N/A"}
                     </p>
                     <p>
-                        <strong>Facebook:</strong> {user.facebook_Link || "N/A"}
+                        <strong>Facebook:</strong>{" "}
+                        {user?.facebook_Link || "N/A"}
                     </p>
                     <p>
                         <strong>Profile Picture:</strong>{" "}
-                        {user.profile_pic_link ? (
-                            <img src={user.profile_pic_link} alt="Profile" />
+                        {user?.profile_pic_link ? (
+                            <img src={user?.profile_pic_link} alt="Profile" />
                         ) : (
                             "N/A"
                         )}
                     </p>
                     <p>
-                        <strong>Rate:</strong> {user.Rate}
+                        <strong>Rate:</strong> {user?.Rate}
                     </p>
                     <p>
                         <strong>Created At:</strong>{" "}
-                        {new Date(user.createdAt).toLocaleString()}
+                        {new Date(user?.createdAt).toLocaleString()}
                     </p>
                     <p>
                         <strong>Updated At:</strong>{" "}
-                        {new Date(user.updatedAt).toLocaleString()}
+                        {new Date(user?.updatedAt).toLocaleString()}
                     </p>
                 </div>
             ) : (
