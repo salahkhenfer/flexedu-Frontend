@@ -4,10 +4,10 @@ import Default from "./Default";
 import Login from "./Auth/Login/Login";
 import Register from "./Auth/Register/Register";
 
-
 import Teacher from "./components/Teacher/Teacher";
 import Teacher_Default from "./components/Teacher/Teacher_Default";
 import Teacher_Profile from "./components/Teacher/Teacher_Profile/Teacher_Profile";
+import Teacher_Courses from "./components/Teacher/Teacher_Courses/Teacher_Courses";
 
 import Student from "./components/Student/Student";
 import Student_Default from "./components/Student/Student_Default";
@@ -46,6 +46,10 @@ const Routers = createBrowserRouter([
                     {
                         path: "/Teacher/Profile",
                         element: <Teacher_Profile />,
+                    },
+                    {
+                        path: "/Teacher/Courses",
+                        element: <Teacher_Courses />,
                     },
                 ],
             },

@@ -21,24 +21,6 @@ function Mobile_Nav_Items({
                 <div className="  h-screen text-xl  pt-8 overflow-y-auto ">
                     <div className=" flex flex-col justify-start items-center h-[80%]  ">
                         <div className="text-center flex flex-col gap-8 my-8 ">
-                            {/* <Link
-                                onClick={Toogle_Menu_Bar}
-                                to={"/Teacher/Complete_Profile"}
-                                className={`${
-                                    Active_nav == "Complete_Profile"
-                                        ? "text-perpol_v"
-                                        : "text-black_text"
-                                } select-none    `}
-                            >
-                                <Link
-                                    to={"/Teacher/Complete_Profile"}
-                                    className={"select-none"}
-                                >
-                                    <span className=" relative">
-                                        Edite profile
-                                    </span>
-                                </Link>
-                            </Link> */}
                             <Link
                                 onClick={Toogle_Menu_Bar}
                                 to={"/Teacher/Profile"}
@@ -50,18 +32,17 @@ function Mobile_Nav_Items({
                             >
                                 Profile
                             </Link>
-
-                            {/* <Link
-                                    onClick={Toogle_Menu_Bar}
-                                    to={"/Teacher/Projects"}
-                                    className={`${
-                                        Active_nav == "Projects"
-                                            ? "text-perpol_v"
-                                            : "text-black_text"
-                                    } select-none   `}
-                                >
-                                    Projects
-                                </Link> */}
+                            <Link
+                                onClick={Toogle_Menu_Bar}
+                                to={"/Teacher/Profile"}
+                                className={`${
+                                    Active_nav == "Profile"
+                                        ? "text-perpol_v"
+                                        : "text-black_text"
+                                } select-none   `}
+                            >
+                                Profile
+                            </Link>
                         </div>
                         <div className=" w-screen h-[2px] bg-gray_white "></div>
 
