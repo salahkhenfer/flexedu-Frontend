@@ -1,19 +1,18 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAppContext } from "../../../AppContext";
 import Swal from "sweetalert2";
 import add_course from "./Api/add_course";
+import Axios from "axios";
 function Add_Course() {
     const { user } = useAppContext();
     return (
         <div className=" w-full h-screen   bg-white flex flex-col items-center pt-12 ">
             <div className=" text-black_text">
                 <div className="   ">
-                    <div className=" text-3xl font-semibold ">
-                        Add Course
-                    </div>
+                    <div className=" text-3xl font-semibold ">Add Course</div>
                 </div>
 
                 <div>
@@ -21,7 +20,7 @@ function Add_Course() {
                         initialValues={{
                             Title: "",
                             Description: "",
-                            Price:0,
+                            Price: 0,
                             Category: "",
                             TeacherId: user.id,
                         }}
@@ -52,7 +51,7 @@ function Add_Course() {
 
                             return errors;
                         }}
-                        onSubmit={(values, { setSubmitting }) => {
+                        onSubmit={async (values, { setSubmitting }) => {
                             // console.log(values);
                             // setSubmitting(false);
                             if (!values.TeacherId) {
@@ -62,7 +61,20 @@ function Add_Course() {
                                     "Unauthorized: missing userId",
                                     "error"
                                 );
-                            } else add_course(values, { setSubmitting });
+                            } else {
+                                try {
+                                    add_course(values, { setSubmitting });
+                                } catch (error) {
+                                    setSubmitting(false);
+                                    console.log(error);
+
+                                    Swal.fire(
+                                        "Error!",
+                                        `Something Went Wrong ,please trye again latter`,
+                                        "error"
+                                    );
+                                }
+                            }
                         }}
                     >
                         {({ isSubmitting, setFieldValue }) => (

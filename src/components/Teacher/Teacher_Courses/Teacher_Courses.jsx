@@ -7,6 +7,7 @@ import { IoIosWarning } from "react-icons/io";
 import Swal from "sweetalert2";
 import { IoAdd } from "react-icons/io5";
 import dayjs from "dayjs";
+import Card from "./Teacher_Courses_Card";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 function Teacher_Courses() {
@@ -79,43 +80,19 @@ function Teacher_Courses() {
                         </div>
                     ) : (
                         <div className=" flex flex-col items-center justify-center">
+                            <Link
+                                to={"/Teacher/Courses/Add"}
+                                className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-600 text-white cursor-pointer  rounded-lg "
+                            >
+                                <IoAdd className="  font-bold text-xl" />
+                                Add course
+                            </Link>
                             <div className=" w-[90%] mx-auto">
                                 {Courses.map((course) => (
-                                    <div
-                                        key={course.id}
-                                        className="flex flex-col items-center justify-center border  rounded-md p-4 my-4"
-                                    >
-                                        <div className="flex items-center justify-between w-full">
-                                            <div className="text-sm  mb-6 font-semibold text-white">
-                                                <div className=" text-gray_v text-lg">
-                                                    {course?.Title}
-                                                </div>
-                                            </div>
-                                            <Link
-                                                to={`/Teacher/Courses/${course.id}`}
-                                                className="bg-perpol_v px-3 py-2 rounded-md cursor-pointer text-white font-semibold text-base"
-                                            >
-                                                View
-                                            </Link>
-                                        </div>
-                                        <div className="flex items-center justify-between w-full">
-                                            <div
-                                                className={`text-sm  font-semibold text-gray_v `}
-                                            ></div>
-                                        </div>
-
-                                        <div className="flex items-center justify-between w-full font-semibold">
-                                            <div className="text-sm pt-1 text-gray_v">
-                                                Created at :{" "}
-                                                {/* {new Date(
-                                                    course?.createdAt
-                                                ).toLocaleDateString()} */}
-                                                {dayjs(
-                                                    course?.createdAt
-                                                ).format("DD MMMM YYYY")}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <Card
+                                        course={course}
+                                        setCourses={setCourses}
+                                    />
                                 ))}
                             </div>
                         </div>

@@ -11,8 +11,7 @@ async function handleRegister(values, { setSubmitting }) {
             }
         );
         if (response.status == 200) {
-            Swal.fire("Success", "Registered Successfully", "success");
-            window.href.location = "/Teacher/Courses";
+            window.location.href = "/Teacher/Courses";
         } else if (response.status == 400) {
             setSubmitting(false);
             Swal.fire("Error", `${response.data.message} `, "error");
