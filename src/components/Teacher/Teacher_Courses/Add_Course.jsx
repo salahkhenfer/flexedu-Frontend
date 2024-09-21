@@ -155,7 +155,7 @@ function Add_Course() {
                                 </div>
 
                                 {isSubmitting ? (
-                                    <span className="small-loader my-5  w-full m-auto"></span>
+                                    <span className="small-loader my-5   m-auto"></span>
                                 ) : (
                                     <button
                                         type="submit"

@@ -139,7 +139,7 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                             <div className="">
                                 {LogoutClicked ? (
                                     <div className="w-full ">
-                                        <span className="small-loader font-bold  w-full m-auto"></span>
+                                        <span className="small-loader font-bold m-auto"></span>
                                     </div>
                                 ) : (
                                     <div

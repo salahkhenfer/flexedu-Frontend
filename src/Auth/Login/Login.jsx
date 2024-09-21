@@ -118,7 +118,7 @@ function Login() {
                     </div>
                   </div> */}
                                     {isSubmitting ? (
-                                        <span className="small-loader my-5  w-full m-auto"></span>
+                                        <span className="small-loader my-5  m-auto"></span>
                                     ) : Privacy ? (
                                         <button
                                             type="submit"
