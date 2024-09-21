@@ -56,7 +56,6 @@ function Login() {
                                 return errors;
                             }}
                             onSubmit={(values, { setSubmitting }) => {
-                                // console.log(values);
                                 handleLogin(values, { setSubmitting });
                             }}
                         >

@@ -35,7 +35,6 @@ const ContactPage = () => {
         })
             .then((response) => response.json())
             .then((response) => {
-                console.log(response);
                 setSubmitting(false);
                 resetForm();
                 setIsMessageSent(true);

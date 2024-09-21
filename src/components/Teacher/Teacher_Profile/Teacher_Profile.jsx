@@ -7,9 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Teacher_Profile() {
     const { user } = useAppContext();
 
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
+   
 
     return (
         <div className=" p-6">

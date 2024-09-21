@@ -76,7 +76,6 @@ function Register() {
                                 return errors;
                             }}
                             onSubmit={(values, { setSubmitting }) => {
-                                // console.log(values);
                                 // setSubmitting(false);
                                 handleRegister(values, { setSubmitting });
                             }}

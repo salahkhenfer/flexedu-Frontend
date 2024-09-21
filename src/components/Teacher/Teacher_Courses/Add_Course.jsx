@@ -52,7 +52,6 @@ function Add_Course() {
                             return errors;
                         }}
                         onSubmit={async (values, { setSubmitting }) => {
-                            // console.log(values);
                             // setSubmitting(false);
                             if (!values.TeacherId) {
                                 setSubmitting(false);
@@ -66,7 +65,6 @@ function Add_Course() {
                                     add_course(values, { setSubmitting });
                                 } catch (error) {
                                     setSubmitting(false);
-                                    console.log(error);
 
                                     Swal.fire(
                                         "Error!",

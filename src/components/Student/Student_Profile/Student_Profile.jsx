@@ -4,10 +4,7 @@ import { useAppContext } from "../../../AppContext";
 function Student_Profile() {
     const { user } = useAppContext();
 
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
-
+   
     return (
         <div className=" p-6">
             <h1>Student Profile</h1>

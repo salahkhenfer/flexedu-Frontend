@@ -29,7 +29,6 @@ function Teacher() {
 
                 if (response.status == 200) {
                     set_user(response.data.User);
-                    console.log("response.data.User : ", response.data.User);
                 } else {
                     set_Auth(false);
                     // window.location.href = "/Login";
