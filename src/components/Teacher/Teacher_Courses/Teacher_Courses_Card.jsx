@@ -63,6 +63,18 @@ function Teacher_Courses_Card({ course, setCourses }) {
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <div className="text-sm text-gray_v font-semibold">
+                                {course?.Category}
+                            </div>
+                        </div>
+                        <div>
+                            {course?.Price ? (
+                                <div className="text-sm text-gray_v font-semibold">
+                                    {course?.Price} DA
+                                </div>
+                            ) : null}
+                        </div>
                         <div className="flex items-center justify-between w-full font-semibold">
                             <div className="text-sm pt-1 text-gray_v">
                                 Created at :{" "}
