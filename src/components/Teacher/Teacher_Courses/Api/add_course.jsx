@@ -1,11 +1,9 @@
 import Swal from "sweetalert2";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
 async function handleRegister(values, { setSubmitting }) {
-    const Navigate = useNavigate();
     try {
         let response = await Axios.post(
-            `http://localhost:3000/Techers/${values.TeacherId}/Courses`,
+            `http://localhost:3000/Teachers/${values.TeacherId}/Courses`,
             values,
             {
                 withCredentials: true,
@@ -14,7 +12,7 @@ async function handleRegister(values, { setSubmitting }) {
         );
         if (response.status == 200) {
             Swal.fire("Success", "Registered Successfully", "success");
-            Navigate("/Teacher/Courses");
+            window.href.location = "/Teacher/Courses";
         } else if (response.status == 400) {
             setSubmitting(false);
             Swal.fire("Error", `${response.data.message} `, "error");

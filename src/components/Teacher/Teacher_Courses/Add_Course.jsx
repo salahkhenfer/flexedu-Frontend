@@ -8,13 +8,12 @@ import add_course from "./Api/add_course";
 function Add_Course() {
     const { user } = useAppContext();
     return (
-        <div className="md:w-1/2 w-full h-screen  py-12 bg-white flex flex-col items-center justify-center ">
-            <div className=" w-[80%] text-black_text">
-                <div className=" pb-4 pt-24 md:pt-0 ">
+        <div className=" w-full h-screen   bg-white flex flex-col items-center pt-12 ">
+            <div className=" text-black_text">
+                <div className="   ">
                     <div className=" text-3xl font-semibold ">
-                        Create an account
+                        Add Course
                     </div>
-                    <div>Let’s get started your freelance journey.</div>
                 </div>
 
                 <div>
@@ -22,7 +21,7 @@ function Add_Course() {
                         initialValues={{
                             Title: "",
                             Description: "",
-                            Price: "",
+                            Price:0,
                             Category: "",
                             TeacherId: user.id,
                         }}
@@ -45,7 +44,7 @@ function Add_Course() {
                                 errors.Price = "Price is Required";
                             } else if (values.Price < 0)
                                 errors.Price = "Price must be positive";
-                            else if (typeof values.Price !== "number")
+                            else if (isNaN(values.Price))
                                 errors.Price = "Price must be a number";
                             if (!values.Category) {
                                 errors.Category = "Category is Required";
@@ -151,21 +150,12 @@ function Add_Course() {
                                         className=" bg-perpol_v py-2 mt-4 rounded-2xl text-white font-semibold "
                                         disabled={isSubmitting}
                                     >
-                                        Get Started
+                                        Add course
                                     </button>
                                 )}
                             </Form>
                         )}
                     </Formik>
-                    <div className="pt-6 text-sm font-semibold text-gray_v text-center">
-                        Already have an account?{" "}
-                        <Link
-                            to={"/Login"}
-                            className=" underline text-perpol_v"
-                        >
-                            Sign in
-                        </Link>
-                    </div>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosWarning } from "react-icons/io";
 import Swal from "sweetalert2";
+import { IoAdd } from "react-icons/io5";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
@@ -63,11 +64,18 @@ function Teacher_Courses() {
             <div>
                 <div>
                     {!Courses || Courses?.length == 0 ? (
-                        <div className=" flex flex-col items-center justify-center">
+                        <div className=" flex flex-col gap-6 items-center justify-center">
                             <div className="pt-24 flex justify-center items-center gap-2 text-gray_v text-base font-semibold">
                                 <IoIosWarning />
                                 <h1>No Courses Found</h1>
                             </div>
+                            <Link
+                                to={"/Teacher/Courses/Add"}
+                                className=" flex items-center justify-center font-bold p-2 bg-green-600 text-white cursor-pointer  rounded-lg "
+                            >
+                                <IoAdd className="  font-bold text-xl" />
+                                Add course
+                            </Link>
                         </div>
                     ) : (
                         <div className=" flex flex-col items-center justify-center">
