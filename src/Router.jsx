@@ -71,6 +71,12 @@ const Routers = createBrowserRouter([
                         path: "/Teacher/Courses/:id/Edit",
                         element: <Teacher_Edit_Course />,
                     },
+                    {
+                        path: "/Teacher/Courses/:id/Vedios/:vedioId",
+                    },
+                    {
+                        path: "/Teacher/Courses/:id/Vedios/Add",
+                    },
                 ],
             },
             {
