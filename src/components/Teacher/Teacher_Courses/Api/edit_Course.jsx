@@ -3,7 +3,7 @@ import Axios from "axios";
 async function handleRegister(values, { setSubmitting }) {
     try {
         let response = await Axios.put(
-            `http://localhost:3000/Teachers/${values.TeacherId}/Courses`,
+            `http://localhost:3000/Teachers/${values.TeacherId}/Courses/${values.CourseId}`,
             values,
             {
                 withCredentials: true,
@@ -11,7 +11,7 @@ async function handleRegister(values, { setSubmitting }) {
             }
         );
         if (response.status == 200) {
-            window.location.href = "/Teacher/Courses";
+            // window.location.href = `/Teacher/Courses/${values.CourseId}`;
         } else if (response.status == 400) {
             setSubmitting(false);
             Swal.fire("Error", `${response.data.message} `, "error");

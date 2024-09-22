@@ -39,12 +39,7 @@ function Edit_Course() {
         if (image_state) setimageChanged(true);
         else if (!image_state) setimageChanged(false);
         else setimageChanged(false);
-    }, [image_state]);
-
-    const [showDescription, setShowDescription] = useState(false);
-    function toggleDescription() {
-        setShowDescription(!showDescription);
-    }
+    }, [image_state]);    
     useEffect(() => {
         setLoading(true);
         const FetchCourse = async ({ setCourse, setLoading, setError }) => {
@@ -111,6 +106,7 @@ function Edit_Course() {
                                 CoursePic: Course?.Image || "",
 
                                 TeacherId: user?.id,
+                                CourseId: CourseId,
                             }}
                             validate={(values) => {
                                 const errors = {};

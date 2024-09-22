@@ -9,13 +9,15 @@ async function Delete_Profile_Pic(
     setimageDeleteLoading(true);
     try {
         let Image_Response = await Axios.delete(
-            `http://localhost:3000/upload/Courses/${CourseId}/Image`,
+            `http://localhost:3000/upload/Courses/${Course.id}/Image`,
             // {},
             {
                 withCredentials: true,
                 validateStatus: () => true,
             }
         );
+        console.log(Image_Response);
+
         if (Image_Response.status == 200) {
             Swal.fire(
                 "Success",
