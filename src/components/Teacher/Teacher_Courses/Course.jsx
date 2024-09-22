@@ -22,6 +22,7 @@ function Course() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [Course, setCourse] = useState();
+    const [Vedios, setVedios] = useState([]);
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
     const [showDescription, setShowDescription] = useState(false);
@@ -45,6 +46,7 @@ function Course() {
                 if (response.status == 200) {
                     const Course = response.data.Course;
                     setCourse(Course);
+                    setVedios[Course.Course_Videos];
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
                     Naviagte("/Login");
@@ -260,38 +262,42 @@ function Course() {
                             </Link>
                             <div>
                                 <div className=" flex flex-col gap-4">
-                                    {Course.Vedios.map((Vedio) => (
-                                        <div
-                                            className=" flex justify-between w-full bg-gray-100 p-4 rounded-lg"
-                                            key={Vedio.id}
-                                        >
-                                            <div className=" flex gap-2">
-                                                <div className="flex items-center justify-center w-[100px] h-[100px] bg-gray-200">
-                                                    <CiImageOn className=" text-xl" />
+                                    {Vedios &&
+                                        Vedios.length > 0 &&
+                                        Vedios.map((vedio, index) => (
+                                            <div
+                                                className=" flex  w-full bg-gray-100 py-2 px-4 mb-4 rounded-lg"
+                                                key={vedio.id}
+                                            >
+                                                <div className=" font-semibold pr-6">{index}.</div>
+                                                
+                                                <div className=" flex gap-2">
+                                                    <div className="flex items-center justify-center w-[100px] h-[100px] bg-gray-200">
+                                                        <CiImageOn className=" text-xl" />
+                                                    </div>
+                                                    <div className="flex flex-col gap-2">
+                                                        <div className="text-sm text-gray_v font-semibold">
+                                                            {vedio.Title}
+                                                        </div>
+                                                        <div className="text-sm text-gray_v font-semibold">
+                                                            {vedio.Description}
+                                                        </div>
+                                                        <div className="text-sm text-gray_v font-semibold">
+                                                            {vedio.Duration}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="flex flex-col gap-2">
-                                                    <div className="text-sm text-gray_v font-semibold">
-                                                        {Vedio.Title}
-                                                    </div>
-                                                    <div className="text-sm text-gray_v font-semibold">
-                                                        {Vedio.Description}
-                                                    </div>
-                                                    <div className="text-sm text-gray_v font-semibold">
-                                                        {Vedio.Duration}
-                                                    </div>
+                                                <div className=" flex items-center justify-center">
+                                                    <Link
+                                                        to={`/Teacher/Courses/${Course.id}/vedios/${vedio.id}/Edit`}
+                                                        className="bg-gray-500  px-3 py-2 rounded-md cursor-pointer
+                                                     text-white font-semibold text-base"
+                                                    >
+                                                        Edit
+                                                    </Link>
                                                 </div>
                                             </div>
-                                            <div className=" flex items-center justify-center">
-                                                <Link
-                                                    to={`/Teacher/Courses/${Course.id}/Vedios/${Vedio.id}/Edit`}
-                                                    className="bg-gray-500  px-3 py-2 rounded-md cursor-pointer
-                                                  text-white font-semibold text-base"
-                                                >
-                                                    Edit
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    ))}
+                                        ))}
                                 </div>
                             </div>
                         </div>

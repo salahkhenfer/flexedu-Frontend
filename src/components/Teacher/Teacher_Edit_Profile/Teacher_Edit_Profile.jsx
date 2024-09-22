@@ -131,45 +131,10 @@ function Edit_Profile() {
                                                 validateStatus: () => true,
                                             }
                                         );
-                                        if (Image_Response.status == 200) {
-                                            // set_user({
-                                            //     profile_pic_link: Image_Response.data.profile_pic_link,
-                                            // });
-                                        } else if (
-                                            Image_Response.status == 401
-                                        ) {
+
+                                        if (Image_Response.status == 401) {
                                             // Swal.fire("Error", `${Image_Response.data.message} `, "error");
                                             window.location.href = "/Login";
-                                        } else if (
-                                            Image_Response.status == 400
-                                        ) {
-                                            Swal.fire(
-                                                "Error",
-                                                `${Image_Response.data.message} `,
-                                                "error"
-                                            );
-                                        } else if (
-                                            Image_Response.status == 409
-                                        ) {
-                                            Swal.fire(
-                                                "Error!",
-                                                `${Image_Response.data.message} `,
-                                                "error"
-                                            );
-                                        } else if (
-                                            Image_Response.status == 500
-                                        ) {
-                                            Swal.fire(
-                                                "Error!",
-                                                `Internal Server Error   `,
-                                                "error"
-                                            );
-                                        } else {
-                                            Swal.fire(
-                                                "Error!",
-                                                `Something Went Wrong ,please trye again latter, ${Image_Response.data.message} `,
-                                                "error"
-                                            );
                                         }
                                     }
                                     let response = await Axios.put(
@@ -230,7 +195,7 @@ function Edit_Profile() {
                             <Form className="flex flex-col text-sm md:text-lg gap-4 text-black_text">
                                 <div className=" w-full">
                                     <input
-                                        id="Step1_image"
+                                        id="image"
                                         type="file"
                                         name="image"
                                         accept="image/*"
@@ -306,7 +271,7 @@ function Edit_Profile() {
                                             onClick={() =>
                                                 document
                                                     .getElementById(
-                                                        "Step1_image"
+                                                        "image"
                                                     )
                                                     .click()
                                             }
