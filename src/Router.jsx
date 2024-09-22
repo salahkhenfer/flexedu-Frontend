@@ -12,6 +12,8 @@ import Teacher_Add_Course from "./components/Teacher/Teacher_Courses/Add_Course"
 import Teacher_Course from "./components/Teacher/Teacher_Courses/Course";
 import Teacher_Edit_Profile from "./components/Teacher/Teacher_Edit_Profile/Teacher_Edit_Profile";
 import Teacher_Edit_Course from "./components/Teacher/Teacher_Courses/Edit_Course";
+import Teacher_Course_Vedio from "./components/Teacher/Teacher_Courses/Vedio";
+import Teacher_Upload_Vedio from "./components/Teacher/Teacher_Courses/Upload_Vedio";
 
 import Student from "./components/Student/Student";
 import Student_Default from "./components/Student/Student_Default";
@@ -73,9 +75,12 @@ const Routers = createBrowserRouter([
                     },
                     {
                         path: "/Teacher/Courses/:id/Vedios/:vedioId",
+                        element: <Teacher_Course_Vedio />,
+
                     },
                     {
                         path: "/Teacher/Courses/:id/Vedios/Add",
+                        element: <Teacher_Upload_Vedio />,
                     },
                 ],
             },
