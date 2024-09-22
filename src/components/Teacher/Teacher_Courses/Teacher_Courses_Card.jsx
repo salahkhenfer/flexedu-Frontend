@@ -47,7 +47,7 @@ function Teacher_Courses_Card({ course, setCourses }) {
                     {course.Image ? (
                         <img
                             className="w-[120px] h-[120px] object-cover"
-                            src={`http://localhost:3000/Courses_image/${course.Image}`}
+                            src={`http://localhost:3000/${course.Image}`}
                             alt="course image"
                         />
                     ) : (

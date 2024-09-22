@@ -96,7 +96,7 @@ function Course() {
                                             {Course.Image ? (
                                                 <img
                                                     className="w-[220px] h-[220px] object-cover"
-                                                    src={`http://localhost:3000/Courses_image/${Course.Image}`}
+                                                    src={`http://localhost:3000/${Course.Image}`}
                                                     alt="Course image"
                                                 />
                                             ) : (
