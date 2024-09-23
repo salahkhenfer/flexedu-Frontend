@@ -89,6 +89,12 @@ function Edit_Course() {
     else
         return (
             <div className=" w-full h-screen   bg-white flex flex-col items-center pt-12 ">
+                <Link
+                    to={`/Teacher/Courses/${CourseId}`}
+                    className=" text-green-600 pb-6 underline"
+                >
+                    Go back
+                </Link>
                 <div className=" text-black_text">
                     <div className="   ">
                         <div className=" text-3xl font-semibold ">

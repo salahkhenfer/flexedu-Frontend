@@ -95,6 +95,19 @@ function Upload_Vedio() {
             <div className="w-screen h-[80vh] flex items-center justify-center">
                 <div className="text-red-600 font-semibold">
                     {error.message || "An error occurred"}
+                    {delete_loading ? (
+                        <div className="flex justify-center w-fit m-auto mt-6 ">
+                            <span className="small-loader"></span>
+                        </div>
+                    ) : (
+                        <div
+                            onClick={() => DeleteVedio()}
+                            className="bg-red-500 px-3 py-2 text-center rounded-md cursor-pointer w-fit m-auto mt-6
+                                                         text-white font-semibold text-base"
+                        >
+                            Delete Vedio
+                        </div>
+                    )}
                 </div>
             </div>
         );
@@ -105,7 +118,21 @@ function Upload_Vedio() {
             <div className="w-screen h-[80vh] flex items-center justify-center">
                 <div className="text-gray-600 font-semibold">
                     Video data is missing
+                    {delete_loading ? (
+                        <div className="flex justify-center w-fit m-auto mt-6 ">
+                            <span className="small-loader"></span>
+                        </div>
+                    ) : (
+                        <div
+                            onClick={() => DeleteVedio()}
+                            className="bg-red-500 px-3 py-2 text-center rounded-md cursor-pointer w-fit m-auto mt-6
+                                                         text-white font-semibold text-base"
+                        >
+                            Delete Vedio
+                        </div>
+                    )}
                 </div>
+                
             </div>
         );
     }

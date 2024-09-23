@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useAppContext } from "../../../AppContext";
-
+import { useNavigate, Link } from "react-router-dom";
 function Upload_Video() {
     const { user } = useAppContext();
 
@@ -12,6 +12,7 @@ function Upload_Video() {
     const [progress, setProgress] = useState(0); // Track progress
     const [Title, setTitle] = useState("");
     const [videoDuration, setVideoDuration] = useState(null); // Track video duration
+    const [isUploading, setIsUploading] = useState(false); // Track if the upload is in progress
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
 
@@ -69,6 +70,7 @@ function Upload_Video() {
     // Upload video
     const handleUpload = () => {
         if (videoFile) {
+            setIsUploading(true); // Disable buttons during upload
             const formData = new FormData();
             formData.append("CourseVedio", videoFile);
             formData.append("Title", Title);
@@ -97,10 +99,12 @@ function Upload_Video() {
                     alert(`Upload Success: ${response.data.message}`);
                     setProgress(0); // Reset progress after successful upload
                     setVideoFile(null); // Clear file after success
+                    setIsUploading(false); // Re-enable buttons
                 })
                 .catch((error) => {
                     console.error("Upload Error:", error);
                     alert("Upload failed. Please try again.");
+                    setIsUploading(false); // Re-enable buttons even on failure
                 });
         } else {
             alert("Please select a video to upload.");
@@ -109,6 +113,12 @@ function Upload_Video() {
 
     return (
         <div className="flex flex-col items-center justify-center mt-6 max-w-[90vw] m-auto">
+            <Link
+                to={`/Teacher/Courses/${CourseId}`}
+                className=" text-green-600 pb-6 underline"
+            >
+                Go back
+            </Link>
             {/* Drag-and-drop area */}
             <div
                 className={`w-full h-48 border-2 border-dashed rounded-lg flex items-center justify-center mb-4 ${
@@ -148,23 +158,28 @@ function Upload_Video() {
                         type="text"
                         placeholder="Enter Video Title"
                         className="w-[60%] p-2 border border-gray-400 rounded-md mb-2"
+                        value={Title}
                         onChange={(e) => {
                             const input = e.target.value;
                             if (input.length <= 50) {
                                 setTitle(input); // Only set the title if the length is valid
                             }
                         }}
+                        disabled={isUploading} // Disable input while uploading
                     />
 
                     <button
                         className="bg-red-500 text-white px-4 py-2 rounded-md mb-2"
                         onClick={() => setVideoFile(null)}
+                        disabled={isUploading} // Disable "Remove" button during upload
                     >
                         Remove File
                     </button>
 
                     <button
-                        className="bg-green-500 text-white px-4 py-2 rounded-md"
+                        className={`${
+                            isUploading ? "bg-gray-400" : "bg-green-500"
+                        } text-white px-4 py-2 rounded-md`}
                         onClick={() => {
                             setProgress(0); // Reset progress
                             if (!Title)
@@ -177,8 +192,9 @@ function Upload_Video() {
                                 alert("Please select a video file");
                             else if (videoFile && Title) handleUpload();
                         }}
+                        disabled={isUploading} // Disable "Upload" button during upload
                     >
-                        Upload Video
+                        {isUploading ? "Uploading..." : "Upload Video"}
                     </button>
 
                     {/* Progress bar */}
