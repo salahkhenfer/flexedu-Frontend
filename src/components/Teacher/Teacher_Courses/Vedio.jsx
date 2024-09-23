@@ -9,6 +9,7 @@ dayjs.extend(customParseFormat);
 
 function Upload_Vedio() {
     const navigate = useNavigate();
+    const Navigate = useNavigate();
     const { user } = useAppContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -57,7 +58,30 @@ function Upload_Vedio() {
             message: "Video source is unavailable. Please try again later.",
         });
     };
-
+    const [delete_loading, setDeleteLoading] = useState(false);
+    const DeleteVedio = async () => {
+        setDeleteLoading(true);
+        try {
+            const response = await axios.delete(
+                `http://localhost:3000/Teachers/${user?.id}/Courses/${videoData.Course.id}/Videos/${videoData.id}`,
+                {
+                    withCredentials: true,
+                    validateStatus: () => true,
+                }
+            );
+            if (response.status == 200) {
+                Swal.fire("Success", "Course Deleted Successfully", "success");
+                setDeleteLoading(false);
+                Navigate(`/Teacher/Courses/${videoData.Course.id}`);
+            } else {
+                Swal.fire("Error", response.data.error, "error");
+                setDeleteLoading(false);
+            }
+        } catch (error) {
+            Swal.fire("Error", error.message, "error");
+            setDeleteLoading(false);
+        }
+    };
     if (loading) {
         return (
             <div className="w-screen h-[80vh] flex flex-col items-center justify-center">
@@ -125,7 +149,19 @@ function Upload_Vedio() {
                         Course: {videoData.Course.Title}
                     </p>
                 </div>
-
+                {delete_loading ? (
+                    <div className="flex justify-center w-fit m-auto mt-6 ">
+                        <span className="small-loader"></span>
+                    </div>
+                ) : (
+                    <div
+                        onClick={() => DeleteVedio()}
+                        className="bg-red-500 px-3 py-2 text-center rounded-md cursor-pointer w-fit m-auto mt-6
+                                                         text-white font-semibold text-base"
+                    >
+                        Delete Vedio
+                    </div>
+                )}
                 {/* Additional course details */}
                 <div className="border-t pt-4 mt-4">
                     <h2 className="text-xl font-semibold">
