@@ -268,8 +268,7 @@ function Course() {
                                     Course?.Course_Videos.length > 0
                                         ? Course?.Course_Videos.map(
                                               (vedio, index) => (
-                                                  <Link
-                                                      to={`/Teacher/Courses/${Course.id}/Vedios/${vedio.id}`}
+                                                  <div
                                                       className=" flex justify-between  min-w-[70vw] bg-gray-100 py-2 px-4 mb-4 rounded-lg"
                                                       key={vedio.id}
                                                   >
@@ -304,7 +303,7 @@ function Course() {
                                                               View
                                                           </Link>
                                                       </div>
-                                                  </Link>
+                                                  </div>
                                               )
                                           )
                                         : null}
