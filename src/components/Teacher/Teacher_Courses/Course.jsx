@@ -269,33 +269,35 @@ function Course() {
                                         ? Course?.Course_Videos.map(
                                               (vedio, index) => (
                                                   <div
-                                                      className=" flex  w-full bg-gray-100 py-2 px-4 mb-4 rounded-lg"
+                                                      className=" flex justify-between  min-w-[70vw] bg-gray-100 py-2 px-4 mb-4 rounded-lg"
                                                       key={vedio.id}
                                                   >
-                                                      <div className=" font-semibold pr-6">
-                                                          {index}.
+                                                      <div>
+                                                          <div className=" font-semibold pr-6">
+                                                              {index}.
+                                                          </div>
+
+                                                          <div className=" flex gap-2">
+                                                              <div className="flex flex-col gap-2">
+                                                                  <div className="text-sm text-gray_v font-semibold">
+                                                                      {
+                                                                          vedio?.Title
+                                                                      }
+                                                                  </div>
+                                                                  <div className="text-sm text-gray_v font-semibold">
+                                                                      {
+                                                                          vedio?.Description
+                                                                      }
+                                                                  </div>
+                                                                  <div className="text-sm text-gray_v font-semibold">
+                                                                      {
+                                                                          vedio?.Duration
+                                                                      }
+                                                                  </div>
+                                                              </div>
+                                                          </div>
                                                       </div>
 
-                                                      <div className=" flex gap-2">
-                                                          <div className="flex items-center justify-center w-[100px] h-[100px] bg-gray-200">
-                                                              <CiImageOn className=" text-xl" />
-                                                          </div>
-                                                          <div className="flex flex-col gap-2">
-                                                              <div className="text-sm text-gray_v font-semibold">
-                                                                  {vedio.Title}
-                                                              </div>
-                                                              <div className="text-sm text-gray_v font-semibold">
-                                                                  {
-                                                                      vedio.Description
-                                                                  }
-                                                              </div>
-                                                              <div className="text-sm text-gray_v font-semibold">
-                                                                  {
-                                                                      vedio.Duration
-                                                                  }
-                                                              </div>
-                                                          </div>
-                                                      </div>
                                                       <div className=" flex items-center justify-center">
                                                           <Link
                                                               to={`/Teacher/Courses/${Course.id}/Vedios/${vedio.id}`}
