@@ -148,7 +148,12 @@ function Upload_Video() {
                         type="text"
                         placeholder="Enter Video Title"
                         className="w-[60%] p-2 border border-gray-400 rounded-md mb-2"
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {
+                            const input = e.target.value;
+                            if (input.length <= 50) {
+                                setTitle(input); // Only set the title if the length is valid
+                            }
+                        }}
                     />
 
                     <button
@@ -164,6 +169,10 @@ function Upload_Video() {
                             setProgress(0); // Reset progress
                             if (!Title)
                                 alert("Please enter a title for the video");
+                            else if (Title.length < 5 || Title.length > 50)
+                                alert(
+                                    "Title must be between 5 and 50 characters"
+                                );
                             else if (!videoFile)
                                 alert("Please select a video file");
                             else if (videoFile && Title) handleUpload();
