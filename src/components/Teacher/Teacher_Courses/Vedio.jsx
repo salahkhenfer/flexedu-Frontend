@@ -13,6 +13,7 @@ function Upload_Vedio() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [videoData, setVideoData] = useState(null);
+    const [videoAvailable, setVideoAvailable] = useState(true); // Track if video is available
     const videoRef = useRef(null);
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
@@ -29,26 +30,33 @@ function Upload_Vedio() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
-                if (response.status === 200) {
+                if (response.status === 200 && response.data.Vedio) {
                     setVideoData(response.data.Vedio);
-                } else if (response.status === 404) {
-                    setError({ message: "Video not found" });
-                } else if (response.status === 401) {
-                    Swal.fire("Error", "You should login again", "error");
-                    navigate("/Login");
                 } else {
-                    setError({ message: "An unexpected error occurred" });
+                    setVideoAvailable(false); // Video not found
+                    setError({ message: "Video not found or unavailable" });
                 }
             } catch (error) {
-                setError(error);
+                // Handle errors purely on the frontend
+                setError({
+                    message:
+                        "An unexpected error occurred while loading the video",
+                });
             } finally {
                 setLoading(false);
             }
         };
+
         fetchVideo();
     }, [CourseId, VedioId, user?.id, navigate]);
+
+    const handleVideoError = () => {
+        setVideoAvailable(false); // Hide video player on error
+        setError({
+            message: "Video source is unavailable. Please try again later.",
+        });
+    };
 
     if (loading) {
         return (
@@ -80,22 +88,31 @@ function Upload_Vedio() {
 
     return (
         <div className="w-screen h-screen">
-            {/* Video player at the top with full width */}
-            <div className="w-full h-[80vh] bg-black">
-                <video
-                    ref={videoRef}
-                    className="w-full h-full object-cover"
-                    controls
-                >
-                    <source
-                        src={`http://localhost:3000${videoData.Video}`} // Video URL
-                        type="video/mp4"
-                    />
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+            {/* Only show video player if the video is available */}
+            {videoAvailable ? (
+                <div className="w-full h-[80vh] bg-black">
+                    <video
+                        ref={videoRef}
+                        className="w-full h-full object-cover"
+                        controls
+                        onError={handleVideoError} // Handle video loading errors
+                    >
+                        <source
+                            src={`http://localhost:3000${videoData.Video}`} // Video URL
+                            type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            ) : (
+                <div className="w-screen h-[80vh] flex items-center justify-center">
+                    <div className="text-red-600 font-semibold">
+                        Video is not available
+                    </div>
+                </div>
+            )}
 
-            {/* Video info & course details in normal mode */}
+            {/* Video info & course details */}
             <div className="max-w-4xl mx-auto p-4">
                 <div className="mt-4">
                     <h1 className="text-2xl font-bold mb-2">
