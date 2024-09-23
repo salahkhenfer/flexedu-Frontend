@@ -63,7 +63,7 @@ function Upload_Vedio() {
         setDeleteLoading(true);
         try {
             const response = await axios.delete(
-                `http://localhost:3000/Teachers/${user?.id}/Courses/${videoData.Course.id}/Videos/${videoData.id}`,
+                `http://localhost:3000/upload/Courses/${videoData.Course.id}/Vedios/${videoData.id}`,
                 {
                     withCredentials: true,
                     validateStatus: () => true,
