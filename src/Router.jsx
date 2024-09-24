@@ -14,6 +14,13 @@ import Teacher_Edit_Profile from "./components/Teacher/Teacher_Edit_Profile/Teac
 import Teacher_Edit_Course from "./components/Teacher/Teacher_Courses/Edit_Course";
 import Teacher_Course_Vedio from "./components/Teacher/Teacher_Courses/Vedio";
 import Teacher_Upload_Vedio from "./components/Teacher/Teacher_Courses/Upload_Vedio";
+import Teacher_Dashboard from "./components/Teacher/Teacher_Dashboard/Teacher_Dashboard";
+import Teacher_Summaries from "./components/Teacher/Teacher_Summaries/Teacher_Summaries";
+import Teacher_Add_Summary from "./components/Teacher/Teacher_Summaries/Add_Summary";
+import Teacher_Summary from "./components/Teacher/Teacher_Summaries/Summary";
+import Teacher_Edit_Summary from "./components/Teacher/Teacher_Summaries/Edit_Summary";
+
+
 
 import Student from "./components/Student/Student";
 import Student_Default from "./components/Student/Student_Default";
@@ -76,11 +83,30 @@ const Routers = createBrowserRouter([
                     {
                         path: "/Teacher/Courses/:id/Vedios/:vedioId",
                         element: <Teacher_Course_Vedio />,
-
                     },
                     {
                         path: "/Teacher/Courses/:id/Vedios/Add",
                         element: <Teacher_Upload_Vedio />,
+                    },
+                    {
+                        path: "/Teacher/Dashboard",
+                        element: <Teacher_Dashboard />,
+                    },
+                    {
+                        path: "/Teacher/Summaries",
+                        element: <Teacher_Summaries />,
+                    },
+                    {
+                        path: "/Teacher/Summaries/Add",
+                        element: <Teacher_Add_Summary />,
+                    },
+                    {
+                        path: "/Teacher/Summaries/:id",
+                        element: <Teacher_Summary />,
+                    },
+                    {
+                        path: "/Teacher/Summaries/:id/Edit",
+                        element: <Teacher_Edit_Summary />,
                     },
                 ],
             },

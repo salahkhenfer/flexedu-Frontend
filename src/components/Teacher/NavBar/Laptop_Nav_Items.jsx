@@ -57,6 +57,17 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
             <div className="flex gap-6 lg:gap-14">
                 <div
                     className={` ${
+                        Active_nav == "Dashboard"
+                            ? "text-perpol_v"
+                            : "text-black_text"
+                    } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
+                >
+                    <Link to={"/Teacher/Dashboard"} className={" select-none"}>
+                        Dashboard{" "}
+                    </Link>
+                </div>{" "}
+                <div
+                    className={` ${
                         Active_nav == "Profile"
                             ? "text-perpol_v"
                             : "text-black_text"
@@ -75,6 +86,17 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                 >
                     <Link to={"/Teacher/Courses"} className={" select-none"}>
                         Courses{" "}
+                    </Link>
+                </div>
+                <div
+                    className={` ${
+                        Active_nav == "Summaries"
+                            ? "text-perpol_v"
+                            : "text-black_text"
+                    } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
+                >
+                    <Link to={"/Teacher/Summaries"} className={" select-none"}>
+                        Summaries{" "}
                     </Link>
                 </div>
             </div>
