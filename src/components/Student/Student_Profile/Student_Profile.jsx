@@ -47,15 +47,6 @@ function Student_Profile() {
                     </p>
 
                     <p>
-                        <strong>Profile Picture:</strong>{" "}
-                        {user?.profile_pic_link ? (
-                            <img src={user?.profile_pic_link} alt="Profile" />
-                        ) : (
-                            "N/A"
-                        )}
-                    </p>
-
-                    <p>
                         <strong>Created At:</strong>{" "}
                         {new Date(user?.createdAt).toLocaleString()}
                     </p>

@@ -7,8 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 function Teacher_Profile() {
     const { user } = useAppContext();
 
-   
-
     return (
         <div className=" p-6">
             <h1 className="py-3">Teacher Profile</h1>
@@ -62,14 +60,7 @@ function Teacher_Profile() {
                         <strong>Facebook:</strong>{" "}
                         {user?.facebook_Link || "N/A"}
                     </p>
-                    <p>
-                        <strong>Profile Picture:</strong>{" "}
-                        {user?.profile_pic_link ? (
-                            <img src={user?.profile_pic_link} alt="Profile" />
-                        ) : (
-                            "N/A"
-                        )}
-                    </p>
+
                     <p>
                         <strong>Rate:</strong> {user?.Rate}
                     </p>
