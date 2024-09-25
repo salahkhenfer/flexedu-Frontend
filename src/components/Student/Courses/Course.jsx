@@ -29,15 +29,12 @@ function Course() {
         setShowDescription(!showDescription);
     }
     useEffect(() => {
-        console.log("Course: ", Course);
-    });
-    useEffect(() => {
         setLoading(true);
         const FetchCourse = async ({ setCourse, setLoading, setError }) => {
             setLoading(true);
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/Teachers/${user?.id}/Courses/${CourseId}`,
+                    `http://localhost:3000/Students/${user?.id}/Courses/${CourseId}`,
                     {
                         withCredentials: true,
                         validateStatus: () => true,
@@ -62,6 +59,10 @@ function Course() {
         };
         FetchCourse({ setCourse, setLoading, setError });
     }, []);
+
+    useEffect(() => {
+        console.log(Course);
+    }, [Course]);
 
     if (loading) {
         return (
@@ -246,7 +247,7 @@ function Course() {
                                 </div>
                                 <div className=" w-[10%]  ">
                                     <Link
-                                        to={`/Teacher/Courses/${Course.id}/Edit`}
+                                        to={`/Student/Courses/${Course.id}/Edit`}
                                         className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
                                     >
                                         {/* <IoAdd className="  font-bold text-xl" /> */}
@@ -255,7 +256,7 @@ function Course() {
                                 </div>
                             </div>
                             <Link
-                                to={`/Teacher/Courses/${Course.id}/Vedios/Add`}
+                                to={`/Student/Courses/${Course.id}/Vedios/Add`}
                                 className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-600 text-white cursor-pointer  rounded-lg "
                             >
                                 <IoAdd className="  font-bold text-xl" />
@@ -295,7 +296,7 @@ function Course() {
 
                                                       <div className=" flex items-center justify-center">
                                                           <Link
-                                                              to={`/Teacher/Courses/${Course.id}/Vedios/${vedio.id}`}
+                                                              to={`/Student/Courses/${Course.id}/Vedios/${vedio.id}`}
                                                               className="bg-gray-500  px-3 py-2 rounded-md cursor-pointer
                                                      text-white font-semibold text-base"
                                                           >
