@@ -21,24 +21,6 @@ function Mobile_Nav_Items({
                 <div className="  h-screen text-xl  pt-8 overflow-y-auto ">
                     <div className=" flex flex-col justify-start items-center h-[80%]  ">
                         <div className="text-center flex flex-col gap-8 my-8 ">
-                            {/* <Link
-                                onClick={Toogle_Menu_Bar}
-                                to={"/Student/Complete_Profile"}
-                                className={`${
-                                    Active_nav == "Complete_Profile"
-                                        ? "text-perpol_v"
-                                        : "text-black_text"
-                                } select-none    `}
-                            >
-                                <Link
-                                    to={"/Student/Complete_Profile"}
-                                    className={"select-none"}
-                                >
-                                    <span className=" relative">
-                                        Edite profile
-                                    </span>
-                                </Link>
-                            </Link> */}
                             <Link
                                 onClick={Toogle_Menu_Bar}
                                 to={"/Student/Profile"}
@@ -50,18 +32,39 @@ function Mobile_Nav_Items({
                             >
                                 Profile
                             </Link>
-
-                            {/* <Link
-                                    onClick={Toogle_Menu_Bar}
-                                    to={"/Student/Projects"}
-                                    className={`${
-                                        Active_nav == "Projects"
-                                            ? "text-perpol_v"
-                                            : "text-black_text"
-                                    } select-none   `}
-                                >
-                                    Projects
-                                </Link> */}
+                            <Link
+                                onClick={Toogle_Menu_Bar}
+                                to={"/Student/Courses"}
+                                className={`${
+                                    Active_nav == "Courses"
+                                        ? "text-perpol_v"
+                                        : "text-black_text"
+                                } select-none   `}
+                            >
+                                Courses
+                            </Link>
+                            <Link
+                                onClick={Toogle_Menu_Bar}
+                                to={"/Student/Summaries"}
+                                className={`${
+                                    Active_nav == "Summaries"
+                                        ? "text-perpol_v"
+                                        : "text-black_text"
+                                } select-none   `}
+                            >
+                                Summaries
+                            </Link>
+                            <Link
+                                onClick={Toogle_Menu_Bar}
+                                to={"/Student/Purchased"}
+                                className={`${
+                                    Active_nav == "Purchased"
+                                        ? "text-perpol_v"
+                                        : "text-black_text"
+                                } select-none   `}
+                            >
+                                Purchased
+                            </Link>
                         </div>
                         <div className=" w-screen h-[2px] bg-gray_white "></div>
 

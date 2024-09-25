@@ -55,21 +55,6 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                 </Link>
             </div>
             <div className="flex gap-6 lg:gap-14">
-                {/* <div
-                    className={` ${
-                        Active_nav == "Complete_Profile"
-                            ? "text-perpol_v"
-                            : "text-black_text"
-                    } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
-                >
-                    <Link
-                        to={"/Student/Complete_Profile"}
-                        className={"select-none"}
-                    >
-                        <span className=" relative">Edite profile </span>
-                    </Link>
-                </div> */}
-
                 <div
                     className={` ${
                         Active_nav == "Profile"
@@ -81,19 +66,39 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                         Profil{" "}
                     </Link>
                 </div>
-                {/* 
-                    <div
-                        className={` ${
-                            Active_nav == "Projects"
-                                ? "text-perpol_v"
-                                : "text-black_text"
-                        } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
-                    >
-                        <Link to={"/Student/Projects"} className=" select-none">
-                            Projects
-                        </Link>
-                    </div>
-                 */}
+                <div
+                    className={` ${
+                        Active_nav == "Courses"
+                            ? "text-perpol_v"
+                            : "text-black_text"
+                    } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
+                >
+                    <Link to={"/Student/Courses"} className={" select-none"}>
+                        Courses{" "}
+                    </Link>
+                </div>
+                <div
+                    className={` ${
+                        Active_nav == "Summaries"
+                            ? "text-perpol_v"
+                            : "text-black_text"
+                    } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
+                >
+                    <Link to={"/Student/Summaries"} className={" select-none"}>
+                        Summaries{" "}
+                    </Link>
+                </div>
+                <div
+                    className={` ${
+                        Active_nav == "Purchased"
+                            ? "text-perpol_v"
+                            : "text-black_text"
+                    } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
+                >
+                    <Link to={"/Student/Purchased"} className={" select-none"}>
+                        Purchased{" "}
+                    </Link>
+                </div>
             </div>
             <div className=" flex items center justify-center gap-5">
                 <div className="flex items-center justify-center gap-6 ">

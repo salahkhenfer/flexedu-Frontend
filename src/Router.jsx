@@ -20,11 +20,12 @@ import Teacher_Add_Summary from "./components/Teacher/Teacher_Summaries/Add_Summ
 import Teacher_Summary from "./components/Teacher/Teacher_Summaries/Summary";
 import Teacher_Edit_Summary from "./components/Teacher/Teacher_Summaries/Edit_Summary";
 
-
-
 import Student from "./components/Student/Student";
 import Student_Default from "./components/Student/Student_Default";
 import Student_Profile from "./components/Student/Student_Profile/Student_Profile";
+import Student_Courses from "./components/Student/Courses/Courses";
+import Student_Summaries from "./components/Student/Summaries/Summaries";
+import Student_Purchased from "./components/Student/Purchased/Purchased";
 
 import ErrorElement from "./components/ErrorElement";
 import LandingPage from "./landingPage/LandingPage";
@@ -123,6 +124,18 @@ const Routers = createBrowserRouter([
                     {
                         path: "/Student/Profile",
                         element: <Student_Profile />,
+                    },
+                    {
+                        path: "/Student/Courses",
+                        element: <Student_Courses />,
+                    },
+                    {
+                        path: "/Student/Summaries",
+                        element: <Student_Summaries />,
+                    },
+                    {
+                        path: "/Student/Purchased",
+                        element: <Student_Purchased />,
                     },
                 ],
             },
