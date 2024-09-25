@@ -39,7 +39,7 @@ function Edit_Course() {
         if (image_state) setimageChanged(true);
         else if (!image_state) setimageChanged(false);
         else setimageChanged(false);
-    }, [image_state]);    
+    }, [image_state]);
     useEffect(() => {
         setLoading(true);
         const FetchCourse = async ({ setCourse, setLoading, setError }) => {
@@ -57,7 +57,7 @@ function Edit_Course() {
                 if (response.status == 200) {
                     const Course = response.data.Course;
                     setCourse(Course);
-                    setVedios[Course.Course_Videos];
+                    setVedios[Course?.Course_Videos];
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
                     Naviagte("/Login");

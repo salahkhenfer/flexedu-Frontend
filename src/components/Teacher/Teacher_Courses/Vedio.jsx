@@ -63,7 +63,7 @@ function Upload_Vedio() {
         setDeleteLoading(true);
         try {
             const response = await axios.delete(
-                `http://localhost:3000/upload/Courses/${videoData.Course.id}/Vedios/${videoData.id}`,
+                `http://localhost:3000/upload/Courses/${videoData.Course?.id}/Vedios/${videoData.id}`,
                 {
                     withCredentials: true,
                     validateStatus: () => true,
@@ -72,7 +72,7 @@ function Upload_Vedio() {
             if (response.status == 200) {
                 Swal.fire("Success", "Course Deleted Successfully", "success");
                 setDeleteLoading(false);
-                Navigate(`/Teacher/Courses/${videoData.Course.id}`);
+                Navigate(`/Teacher/Courses/${videoData.Course?.id}`);
             } else {
                 Swal.fire("Error", response.data.error, "error");
                 setDeleteLoading(false);
@@ -132,7 +132,6 @@ function Upload_Vedio() {
                         </div>
                     )}
                 </div>
-                
             </div>
         );
     }
@@ -173,7 +172,7 @@ function Upload_Vedio() {
                         Duration: {videoData.Duration}
                     </p>
                     <p className="text-gray-600">
-                        Course: {videoData.Course.Title}
+                        Course: {videoData.Course?.Title}
                     </p>
                 </div>
                 {delete_loading ? (
@@ -195,21 +194,21 @@ function Upload_Vedio() {
                         Course Information
                     </h2>
                     <p>
-                        <strong>Category:</strong> {videoData.Course.Category}
+                        <strong>Category:</strong> {videoData.Course?.Category}
                     </p>
                     <p>
-                        <strong>Price:</strong> ${videoData.Course.Price}
+                        <strong>Price:</strong> ${videoData.Course?.Price}
                     </p>
                     <p>
                         <strong>Description:</strong>{" "}
-                        {videoData.Course.Description}
+                        {videoData.Course?.Description}
                     </p>
                     <p>
-                        <strong>Rating:</strong> {videoData.Course.Rate} stars
+                        <strong>Rating:</strong> {videoData.Course?.Rate} stars
                     </p>
                     <p>
                         <strong>Number of students:</strong>{" "}
-                        {videoData.Course.Students_count}
+                        {videoData.Course?.Students_count}
                     </p>
                 </div>
             </div>

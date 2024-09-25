@@ -94,10 +94,10 @@ function Course() {
                                 <div className=" w-[90%] ">
                                     <div className=" flex flex-col gap-2 ">
                                         <div className=" flex gap-2 ">
-                                            {Course.Image ? (
+                                            {Course?.Image ? (
                                                 <img
                                                     className="w-[220px] h-[220px] object-cover"
-                                                    src={`http://localhost:3000/${Course.Image}`}
+                                                    src={`http://localhost:3000/${Course?.Image}`}
                                                     alt="Course image"
                                                 />
                                             ) : (
@@ -224,9 +224,11 @@ function Course() {
                                                     <FaArrowUp />
                                                 </div>
                                                 <div className="pb-4">
-                                                    {Course.Description && (
+                                                    {Course?.Description && (
                                                         <p className="text-gray text-base">
-                                                            {Course.Description}
+                                                            {
+                                                                Course?.Description
+                                                            }
                                                         </p>
                                                     )}
                                                 </div>
@@ -246,7 +248,7 @@ function Course() {
                                 </div>
                                 <div className=" w-[10%]  ">
                                     <Link
-                                        to={`/Teacher/Courses/${Course.id}/Edit`}
+                                        to={`/Teacher/Courses/${Course?.id}/Edit`}
                                         className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
                                     >
                                         {/* <IoAdd className="  font-bold text-xl" /> */}
@@ -255,7 +257,7 @@ function Course() {
                                 </div>
                             </div>
                             <Link
-                                to={`/Teacher/Courses/${Course.id}/Vedios/Add`}
+                                to={`/Teacher/Courses/${Course?.id}/Vedios/Add`}
                                 className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-600 text-white cursor-pointer  rounded-lg "
                             >
                                 <IoAdd className="  font-bold text-xl" />
@@ -295,7 +297,7 @@ function Course() {
 
                                                       <div className=" flex items-center justify-center">
                                                           <Link
-                                                              to={`/Teacher/Courses/${Course.id}/Vedios/${vedio.id}`}
+                                                              to={`/Teacher/Courses/${Course?.id}/Vedios/${vedio.id}`}
                                                               className="bg-gray-500  px-3 py-2 rounded-md cursor-pointer
                                                      text-white font-semibold text-base"
                                                           >

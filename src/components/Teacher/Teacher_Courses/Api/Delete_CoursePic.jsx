@@ -9,7 +9,7 @@ async function Delete_Profile_Pic(
     setimageDeleteLoading(true);
     try {
         let Image_Response = await Axios.delete(
-            `http://localhost:3000/upload/Courses/${Course.id}/Image`,
+            `http://localhost:3000/upload/Courses/${Course?.id}/Image`,
             // {},
             {
                 withCredentials: true,
