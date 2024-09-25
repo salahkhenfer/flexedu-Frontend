@@ -45,21 +45,7 @@ function Student_Profile() {
                     <p>
                         <strong>Email:</strong> {user?.email}
                     </p>
-                    <p>
-                        <strong>Telephone:</strong> {user?.telephone || "N/A"}
-                    </p>
-                    <p>
-                        <strong>Instagram:</strong>{" "}
-                        {user?.instgram_Link || "N/A"}
-                    </p>
-                    <p>
-                        <strong>LinkedIn:</strong>{" "}
-                        {user?.linkedIn_Link || "N/A"}
-                    </p>
-                    <p>
-                        <strong>Facebook:</strong>{" "}
-                        {user?.facebook_Link || "N/A"}
-                    </p>
+
                     <p>
                         <strong>Profile Picture:</strong>{" "}
                         {user?.profile_pic_link ? (
@@ -68,9 +54,7 @@ function Student_Profile() {
                             "N/A"
                         )}
                     </p>
-                    <p>
-                        <strong>Rate:</strong> {user?.Rate}
-                    </p>
+
                     <p>
                         <strong>Created At:</strong>{" "}
                         {new Date(user?.createdAt).toLocaleString()}
