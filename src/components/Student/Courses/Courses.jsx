@@ -22,7 +22,7 @@ function Student_Courses() {
             setLoading(true);
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/Students/Courses`,
+                    `http://localhost:3000/Geust/Courses`,
                     {
                         withCredentials: true,
                         validateStatus: () => true,
