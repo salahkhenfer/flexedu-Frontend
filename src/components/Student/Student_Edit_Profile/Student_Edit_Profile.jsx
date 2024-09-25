@@ -31,13 +31,8 @@ function Edit_Profile() {
                             firstName: user?.firstName || "",
                             lastName: user?.lastName || "",
                             email: user?.email || "",
-                            telephone: user?.telephone || "",
-                            instgram_Link: user?.instgram_Link || "",
-                            linkedIn_Link: user?.linkedIn_Link || "",
-                            facebook_Link: user?.facebook_Link || "",
-                            // password: user?.password || "",
                             profile_pic_link: user?.profile_pic_link || "",
-                            TeacherId: user?.id,
+                            studentId: user?.id,
                         }}
                         validate={(values) => {
                             const errors = {};
@@ -66,49 +61,10 @@ function Edit_Profile() {
                                 errors.email = "Invalid email Editress";
                             }
 
-                            // if (!values.password) {
-                            //     errors.password = "password is Required";
-                            // } else if (values.password.length < 8) {
-                            //     errors.password =
-                            //         "password must be at least 8 characters long";
-                            // }
-                            if (
-                                (values.telephone &&
-                                    values.telephone.length < 6) ||
-                                isNaN(values.telephone) ||
-                                values.telephone.length > 11
-                            ) {
-                                errors.telephone = "Invalid phone number";
-                            }
-                            if (
-                                values.instgram_Link &&
-                                !/^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9._]+\/?$/.test(
-                                    values.instgram_Link
-                                )
-                            ) {
-                                errors.instgram_Link = "Invalid Instagram Link";
-                            }
-                            if (
-                                values.linkedIn_Link &&
-                                !/^(https?:\/\/)?(www\.)?linkedin.com\/[a-zA-Z0-9_.]+\/?$/.test(
-                                    values.linkedIn_Link
-                                )
-                            ) {
-                                errors.linkedIn_Link = "Invalid LinkedIn Link";
-                            }
-                            if (
-                                values.facebook_Link &&
-                                !/^(https?:\/\/)?(www\.)?facebook.com\/[a-zA-Z0-9_.]+\/?$/.test(
-                                    !values.facebook_Link
-                                )
-                            ) {
-                                errors.facebook_Link = "Invalid Facebook Link";
-                            }
-
                             return errors;
                         }}
                         onSubmit={async (values, { setSubmitting }) => {
-                            if (!values.TeacherId) {
+                            if (!values.studentId) {
                                 setSubmitting(false);
                                 Swal.fire(
                                     "Error",
@@ -124,7 +80,7 @@ function Edit_Profile() {
                                             image_state
                                         );
                                         let Image_Response = await Axios.post(
-                                            `http://localhost:3000/upload/Teacher/ProfilePic`,
+                                            `http://localhost:3000/upload/Student/ProfilePic`,
                                             formData,
                                             {
                                                 withCredentials: true,
@@ -138,7 +94,7 @@ function Edit_Profile() {
                                         }
                                     }
                                     let response = await Axios.put(
-                                        `http://localhost:3000/Teachers/${values.TeacherId}/Profile`,
+                                        `http://localhost:3000/Students/${values.studentId}/Profile`,
                                         values,
                                         {
                                             withCredentials: true,
@@ -150,7 +106,7 @@ function Edit_Profile() {
                                         set_user(response.data.user);
 
                                         window.location.href =
-                                            "/Teacher/Profile";
+                                            "/Student/Profile";
                                     } else if (response.status === 400) {
                                         setSubmitting(false);
                                         Swal.fire(
@@ -328,76 +284,6 @@ function Edit_Profile() {
                                     />
                                     <ErrorMessage
                                         name="email"
-                                        component="div"
-                                        style={errorInputMessage}
-                                    />
-                                </div>
-                                <div>
-                                    <div className="font-semibold text-sm pb-1">
-                                        Telephone
-                                        <div>
-                                            <Field
-                                                placeholder="telephone"
-                                                type="number"
-                                                name="telephone"
-                                                disabled={isSubmitting}
-                                                className="border border-gray_white px-4 py-2 rounded-lg text-sm w-full"
-                                            />
-                                            <ErrorMessage
-                                                name="telephone"
-                                                component="div"
-                                                style={errorInputMessage}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="font-semibold text-sm pb-1">
-                                        Instagram Link
-                                    </div>
-                                    <Field
-                                        placeholder="Instagram Link"
-                                        type="text"
-                                        name="instgram_Link"
-                                        disabled={isSubmitting}
-                                        className="border border-gray_white px-4 py-2 rounded-lg text-sm w-full"
-                                    />
-                                    <ErrorMessage
-                                        name="instgram_Link"
-                                        component="div"
-                                        style={errorInputMessage}
-                                    />
-                                </div>
-                                <div>
-                                    <div className="font-semibold text-sm pb-1">
-                                        LinkedIn Link
-                                    </div>
-                                    <Field
-                                        placeholder="LinkedIn Link"
-                                        type="text"
-                                        name="linkedIn_Link"
-                                        disabled={isSubmitting}
-                                        className="border border-gray_white px-4 py-2 rounded-lg text-sm w-full"
-                                    />
-                                    <ErrorMessage
-                                        name="linkedIn_Link"
-                                        component="div"
-                                        style={errorInputMessage}
-                                    />
-                                </div>
-                                <div>
-                                    <div className="font-semibold text-sm pb-1">
-                                        Facebook Link
-                                    </div>
-                                    <Field
-                                        placeholder="Facebook Link"
-                                        type="text"
-                                        name="facebook_Link"
-                                        disabled={isSubmitting}
-                                        className="border border-gray_white px-4 py-2 rounded-lg text-sm w-full"
-                                    />
-                                    <ErrorMessage
-                                        name="facebook_Link"
                                         component="div"
                                         style={errorInputMessage}
                                     />

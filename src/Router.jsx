@@ -26,6 +26,7 @@ import Student_Profile from "./components/Student/Student_Profile/Student_Profil
 import Student_Courses from "./components/Student/Courses/Courses";
 import Student_Summaries from "./components/Student/Summaries/Summaries";
 import Student_Purchased from "./components/Student/Purchased/Purchased";
+import Student_Edit_Profile from "./components/Student/Student_Edit_Profile/Student_Edit_Profile";
 
 import ErrorElement from "./components/ErrorElement";
 import LandingPage from "./landingPage/LandingPage";
@@ -124,6 +125,10 @@ const Routers = createBrowserRouter([
                     {
                         path: "/Student/Profile",
                         element: <Student_Profile />,
+                    },
+                    {
+                        path: "/Student/Profile/Edit",
+                        element: <Student_Edit_Profile />,
                     },
                     {
                         path: "/Student/Courses",
