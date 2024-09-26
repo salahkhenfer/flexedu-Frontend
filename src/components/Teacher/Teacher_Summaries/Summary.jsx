@@ -40,7 +40,6 @@ function Summary() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
                 if (response.status == 200) {
                     const Summary = response.data.Summary;
@@ -60,9 +59,6 @@ function Summary() {
         FetchSummary({ setSummary, setLoading, setError });
     }, []);
 
-    useEffect(() => {
-        console.log(Summary);
-    }, [Summary]);
 
     if (loading) {
         return (

@@ -52,7 +52,6 @@ function Edit_Course() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
                 if (response.status == 200) {
                     const Course = response.data.Course;

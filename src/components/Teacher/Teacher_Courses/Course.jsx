@@ -28,9 +28,7 @@ function Course() {
     function toggleDescription() {
         setShowDescription(!showDescription);
     }
-    useEffect(() => {
-        console.log("Course: ", Course);
-    });
+   
     useEffect(() => {
         setLoading(true);
         const FetchCourse = async ({ setCourse, setLoading, setError }) => {
@@ -43,7 +41,6 @@ function Course() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
                 if (response.status == 200) {
                     const course = response.data.Course;

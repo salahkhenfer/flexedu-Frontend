@@ -163,7 +163,7 @@ function Not_Enrolled_view({ course }) {
                             </div>
                             <div className=" w-[10%]  ">
                                 <Link
-                                    to={`/Student/courses/${course?.id}/Enrollment`}
+                                    to={`/Student/Courses/${course?.id}/Enrollment`}
                                     className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-500 text-white cursor-pointer  rounded-lg "
                                 >
                                     {/* <IoAdd className="  font-bold text-xl" /> */}

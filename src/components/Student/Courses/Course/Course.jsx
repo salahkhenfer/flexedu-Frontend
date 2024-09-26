@@ -36,7 +36,6 @@ function Course() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
                 if (response.status === 200) {
                     const fetchedCourse = response.data.Course;

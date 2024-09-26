@@ -52,7 +52,6 @@ function Edit_Summary() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
                 if (response.status == 200) {
                     const Summary = response.data.Summary;

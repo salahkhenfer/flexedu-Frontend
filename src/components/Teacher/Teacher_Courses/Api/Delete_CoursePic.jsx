@@ -16,7 +16,6 @@ async function Delete_Profile_Pic(
                 validateStatus: () => true,
             }
         );
-        console.log(Image_Response);
 
         if (Image_Response.status == 200) {
             Swal.fire(
