@@ -23,7 +23,9 @@ function Course() {
     const [isEnrolled, setIsEnrolled] = useState(false); // Fixed state naming
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
-    
+    useEffect(() => {
+        console.log("Course", course);
+    }, [course]);
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -64,7 +66,6 @@ function Course() {
             </div>
         );
     }
-
     if (error) {
         return (
             <div className="w-screen h-[calc(100vh-60px)] flex items-center justify-center">
@@ -74,7 +75,6 @@ function Course() {
             </div>
         );
     }
-
     if (!course) {
         return (
             <div className="flex flex-col gap-6 items-center justify-center">
@@ -85,12 +85,22 @@ function Course() {
             </div>
         );
     }
-
-    if (isEnrolled) {
-        return <div>You are enrolled</div>;
+    if (isEnrolled && course) {
+        navigate(`Student/Purchased/Courses/${CourseId}`);
+        return null;
     }
-
-    return <Not_Enrolled_view course={course} />;
+    if (
+        !isEnrolled &&
+        course &&
+        (!course.paymentStatus || course.paymentStatus === "rejected")
+    ) {
+        return <Not_Enrolled_view course={course} />;
+    }
+    if (!isEnrolled && course && course.paymentStatus === "pending") {
+        navigate(`Student/Courses/${CourseId}/Enrollment`);
+    } else {
+        return null;
+    }
 }
 
 export default Course;
