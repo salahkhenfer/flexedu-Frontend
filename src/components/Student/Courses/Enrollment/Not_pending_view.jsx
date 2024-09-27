@@ -17,7 +17,7 @@ import config from "../../../../config";
 import { FaRegImage } from "react-icons/fa";
 dayjs.extend(customParseFormat);
 import Axios from "axios";
-function Not_pending_view({ course }) {
+function Not_pending_view({ course, Purcase }) {
     const { user } = useAppContext();
 
     const location = useLocation();

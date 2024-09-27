@@ -26,8 +26,13 @@ function Enrollment() {
     const [error, setError] = useState(null);
     const [course, setCourse] = useState(null); // Ensure course state is initialized
     const [isEnrolled, setIsEnrolled] = useState(false); // Fixed state naming
+    const [Payment_Status, setPayment_Status] = useState(false); // Fixed state naming
+    const [Purcase, setPurcase] = useState(null);
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
+    // useEffect(() => {
+    //     console.log("course", course);
+    // }, [course]);
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -40,11 +45,14 @@ function Enrollment() {
                         validateStatus: () => true,
                     }
                 );
+                console.log("response", response);
 
                 if (response.status === 200) {
                     const fetchedCourse = response.data.Course;
                     setCourse(fetchedCourse);
                     setIsEnrolled(response.data.isEnrolled);
+                    setPayment_Status(response.data.paymentStatus);
+                    setPurcase(response.data.purcase);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should log in again", "error");
                     navigate("/Login"); // Fixed typo
@@ -92,10 +100,10 @@ function Enrollment() {
         navigate(`Student/Purchased/Courses/${CourseId}`);
         return null;
     }
-    if (!course.paymentStatus || course.paymentStatus == "rejected")
-        return <Not_pending_view course={course} />;
-    if (course.paymentStatus == "pending")
-        return <Pending_View course={course} />;
+    if (!Payment_Status || Payment_Status == "rejected")
+        return <Not_pending_view course={course} Purcase={Purcase} />;
+    if (Payment_Status == "pending")
+        return <Pending_View course={course} Purcase={Purcase} />;
 }
 
 export default Enrollment;
