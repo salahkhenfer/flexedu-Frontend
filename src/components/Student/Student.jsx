@@ -40,25 +40,25 @@ function Student() {
                 Navigate("/Login");
             }
         };
-        // const fetchNotifications = async () => {
-        //     try {
-        //         const response = await axios.get(
-        //             `http://localhost:3000/Students/${userId}/Notifications`,
-        //             {
-        //                 withCredentials: true,
-        //                 // validateStatus: () => true,
-        //             }
-        //         );
+        const fetchNotifications = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:3000/Students/${userId}/Notifications`,
+                    {
+                        withCredentials: true,
+                        // validateStatus: () => true,
+                    }
+                );
 
-        //         if (response.status == 200) {
-        //             set_Notifications(response.data.Notifications);
-        //         } else {
-        //             set_Notifications([]);
-        //         }
-        //     } catch (error) {
-        //         set_Notifications([]);
-        //     }
-        // };
+                if (response.status == 200) {
+                    set_Notifications(response.data.Notifications);
+                } else {
+                    set_Notifications([]);
+                }
+            } catch (error) {
+                set_Notifications([]);
+            }
+        };
         const fetch_images = () => {
             return new Promise((resolve, reject) => {
                 const images = [Logo];
@@ -80,8 +80,9 @@ function Student() {
             });
         };
         // Promise.all([fetchData()]);
-        // Promise.all([fetch_images(), fetchData(), fetchNotifications()]);
-        Promise.all([fetch_images(), fetchData()])
+        // Promise.all([fetch_images(), fetchData()])
+
+        Promise.all([fetch_images(), fetchData(), fetchNotifications()])
             .then(() => {
                 setLoading(false);
             })

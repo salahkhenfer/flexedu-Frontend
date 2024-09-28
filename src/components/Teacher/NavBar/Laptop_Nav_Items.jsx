@@ -109,7 +109,7 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                         <img
                             src={notification_icon}
                             alt=""
-                            className=" cursor-pointer"
+                            className=" cursor-pointer shrink-0 w-full"
                             onClick={toogleopen_Notifications}
                         />
                     </div>
@@ -204,7 +204,7 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
                                             className="flex items-center gap-3 py-1 px-3 border-b cursor-pointer hover:bg-gray-100"
                                         >
                                             <div className=" flex gap-2 ">
-                                                <IoMdNotificationsOutline />
+                                                <IoMdNotificationsOutline className="shrink-0 mt-2" />
                                                 <div>
                                                     <div className="text-black_text font-semibold">
                                                         {notification?.title}
