@@ -48,7 +48,7 @@ function Student_Courses_Card({ course, setCourses }) {
                         <div>
                             {course?.Price ? (
                                 <div className="text-sm text-gray_v font-semibold">
-                                    {course?.Price} DA
+                                    {course?.Price} {" DA"}
                                 </div>
                             ) : null}
                         </div>

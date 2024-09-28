@@ -118,7 +118,8 @@ function Summary() {
                                                 <div>
                                                     {Summary?.Price ? (
                                                         <div className="text-sm text-gray_v font-semibold">
-                                                            {Summary?.Price} DA
+                                                            {Summary?.Price}
+                                                            {" DA"}
                                                         </div>
                                                     ) : null}
                                                 </div>
@@ -223,7 +224,9 @@ function Summary() {
                                                 <div className="pb-4">
                                                     {Summary.Description && (
                                                         <p className="text-gray text-base">
-                                                            {Summary.Description}
+                                                            {
+                                                                Summary.Description
+                                                            }
                                                         </p>
                                                     )}
                                                 </div>

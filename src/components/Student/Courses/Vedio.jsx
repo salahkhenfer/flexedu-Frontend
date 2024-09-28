@@ -197,7 +197,8 @@ function Upload_Vedio() {
                         <strong>Category:</strong> {videoData.Course?.Category}
                     </p>
                     <p>
-                        <strong>Price:</strong> ${videoData.Course?.Price}
+                        <strong>Price:</strong> {videoData.Course?.Price}
+                        {" DA"}
                     </p>
                     <p>
                         <strong>Description:</strong>{" "}

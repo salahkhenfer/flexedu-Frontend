@@ -71,7 +71,7 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
                         <div>
                             {Summary?.Price ? (
                                 <div className="text-sm text-gray_v font-semibold">
-                                    {Summary?.Price} DA
+                                    {Summary?.Price} {" DA"}
                                 </div>
                             ) : null}
                         </div>

@@ -30,6 +30,8 @@ function Not_pending_view({ course, Purcase, setPayment_Status }) {
     const fileInputRef = useRef(null);
     const [imageChanged, setimageChanged] = useState(false);
     const [image_state, setimage_state] = useState(null);
+    const queryParams = new URLSearchParams(location.search);
+    const rejected = queryParams.get("rejected"); // This will get the value of 'rejected'
     useEffect(() => {
         if (image_state) setimageChanged(true);
         else if (!image_state) setimageChanged(false);
@@ -71,7 +73,7 @@ function Not_pending_view({ course, Purcase, setPayment_Status }) {
                                 <div>
                                     {course?.Price ? (
                                         <div className="text-sm text-gray_v font-semibold">
-                                            {course?.Price} DA
+                                            {course?.Price} {" DA"}
                                         </div>
                                     ) : null}
                                 </div>
@@ -135,6 +137,20 @@ function Not_pending_view({ course, Purcase, setPayment_Status }) {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                {rejected ? (
+                    <div className=" text-center border text-red-500 border-red-200 mb-6 m-auto rounded shadow-sm p-4 w-fit">
+                        <div className="flex items-center justify-center gap-2 text-red-500 text-lg font-semibold">
+                            <IoIosWarning className=" text-2xl" />
+                            <div>Payment Rejected</div>
+                        </div>
+                        <div className=" text-sm font-semibold">
+                            please resend the Payment screenshot or contact the
+                            support.
+                        </div>
+                    </div>
+                ) : null}
             </div>
             <div>
                 <div className=" text-4xl font-semibold text-center">

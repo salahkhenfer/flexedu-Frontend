@@ -61,7 +61,7 @@ function Not_Enrolled_view({ course }) {
                                             <div>
                                                 {course?.Price ? (
                                                     <div className="text-sm text-gray_v font-semibold">
-                                                        {course?.Price} DA
+                                                        {course?.Price} {" DA"}
                                                     </div>
                                                 ) : null}
                                             </div>
@@ -167,7 +167,7 @@ function Not_Enrolled_view({ course }) {
                                     className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-500 text-white cursor-pointer  rounded-lg "
                                 >
                                     {/* <IoAdd className="  font-bold text-xl" /> */}
-                                    Enroll 
+                                    Enroll
                                 </Link>
                             </div>
                         </div>
