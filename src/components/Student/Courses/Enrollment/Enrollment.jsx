@@ -101,7 +101,13 @@ function Enrollment() {
         return null;
     }
     if (!Payment_Status || Payment_Status == "rejected")
-        return <Not_pending_view course={course} Purcase={Purcase} />;
+        return (
+            <Not_pending_view
+                course={course}
+                Purcase={Purcase}
+                setPayment_Status={setPayment_Status}
+            />
+        );
     if (Payment_Status == "pending")
         return <Pending_View course={course} Purcase={Purcase} />;
 }

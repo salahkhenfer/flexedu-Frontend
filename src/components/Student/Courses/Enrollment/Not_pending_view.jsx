@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import axios from "axios";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import { IoIosWarning } from "react-icons/io";
 import Swal from "sweetalert2";
 import { IoAdd } from "react-icons/io5";
@@ -17,9 +17,9 @@ import config from "../../../../config";
 import { FaRegImage } from "react-icons/fa";
 dayjs.extend(customParseFormat);
 import Axios from "axios";
-function Not_pending_view({ course, Purcase }) {
+function Not_pending_view({ course, Purcase, setPayment_Status }) {
     const { user } = useAppContext();
-
+    const Navigate = useNavigate();
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
     const PAYMENT_EMAIL = config.PAYMENT_EMAIL;
@@ -262,6 +262,10 @@ function Not_pending_view({ course, Purcase }) {
                                                 "success"
                                             );
                                             setSubmitting(false);
+                                            setPayment_Status(true);
+                                            Navigate(
+                                                `/Student/Courses/${course.id}`
+                                            );
                                         } else if (
                                             Image_Response.status === 400
                                         ) {
