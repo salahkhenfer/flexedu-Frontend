@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useAppContext } from "../../../AppContext";
 import { useNavigate, Link } from "react-router-dom";
+
 function Upload_Video() {
     const { user } = useAppContext();
 
@@ -15,6 +16,8 @@ function Upload_Video() {
     const [isUploading, setIsUploading] = useState(false); // Track if the upload is in progress
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
+
+    const MAX_FILE_SIZE = 2 * 1024 * 1024 * 1024; // 2GB limit
 
     // Function to format seconds to HH:MM:SS
     const formatDuration = (seconds) => {
@@ -30,6 +33,11 @@ function Upload_Video() {
     const handleFileSelect = (event) => {
         const file = event.target.files[0];
         if (file && file.type.startsWith("video/")) {
+            if (file.size > MAX_FILE_SIZE) {
+                alert("The file is too large! Maximum size allowed is 2GB.");
+                return;
+            }
+
             setVideoFile(file);
 
             // Create a temporary URL and load it into a hidden video element to extract duration
@@ -52,6 +60,11 @@ function Upload_Video() {
         setDragging(false);
         const file = event.dataTransfer.files[0];
         if (file && file.type.startsWith("video/")) {
+            if (file.size > MAX_FILE_SIZE) {
+                alert("The file is too large! Maximum size allowed is 2GB.");
+                return;
+            }
+
             setVideoFile(file);
             // Extract video duration
             const videoURL = URL.createObjectURL(file);
@@ -96,14 +109,28 @@ function Upload_Video() {
                     }
                 )
                 .then((response) => {
-                    alert(`Upload Success: ${response.data.message}`);
+                    if (response.status === 200) {
+                        alert(`Upload Success: ${response.data.message}`);
+                        window.location.reload(); // Refresh page after successful upload
+                    } else {
+                        alert("Upload failed. Server returned an error.");
+                    }
                     setProgress(0); // Reset progress after successful upload
                     setVideoFile(null); // Clear file after success
                     setIsUploading(false); // Re-enable buttons
                 })
                 .catch((error) => {
-                    console.error("Upload Error:", error);
-                    alert("Upload failed. Please try again.");
+                    console.error(
+                        "Upload Error:",
+                        error.response || error.message
+                    );
+                    if (error.response && error.response.status === 413) {
+                        alert(
+                            "File too large. Please upload a file smaller than 2GB."
+                        );
+                    } else {
+                        alert("Upload failed. Please try again.");
+                    }
                     setIsUploading(false); // Re-enable buttons even on failure
                 });
         } else {
