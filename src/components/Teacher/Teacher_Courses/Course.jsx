@@ -28,7 +28,7 @@ function Course() {
     function toggleDescription() {
         setShowDescription(!showDescription);
     }
-   
+
     useEffect(() => {
         setLoading(true);
         const FetchCourse = async ({ setCourse, setLoading, setError }) => {
@@ -192,11 +192,13 @@ function Course() {
                                                         )}
                                                     </div>
                                                     <div className=" shrink-0">
-                                                        {Course?.Vedios_count ? (
+                                                        {Course?.Course_Video ? (
                                                             <div>
                                                                 {" "}
                                                                 {
-                                                                    Course?.Vedios_count
+                                                                    Course
+                                                                        ?.Course_Video
+                                                                        .length
                                                                 }{" "}
                                                                 Vedios
                                                             </div>

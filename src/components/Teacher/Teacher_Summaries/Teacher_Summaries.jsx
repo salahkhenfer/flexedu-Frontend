@@ -18,7 +18,11 @@ function Teacher_Summaries() {
     const [Summaries, setSummaries] = useState([]);
     useEffect(() => {
         setLoading(true);
-        const FetchSummaries = async ({ setSummaries, setLoading, setError }) => {
+        const FetchSummaries = async ({
+            setSummaries,
+            setLoading,
+            setError,
+        }) => {
             setLoading(true);
             try {
                 const response = await axios.get(
