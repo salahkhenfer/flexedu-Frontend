@@ -39,7 +39,7 @@ function Enrollment() {
             setLoading(true);
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/Students/Summarys/${SummaryId}`,
+                    `http://localhost:3000/Students/Summaries/${SummaryId}`,
                     {
                         withCredentials: true,
                         validateStatus: () => true,

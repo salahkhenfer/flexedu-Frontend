@@ -26,7 +26,7 @@ function Student_Summaries() {
             setLoading(true);
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/Students/${user?.id}/Summaries`,
+                    `http://localhost:3000/Students/Summaries`,
                     
                     {
                         withCredentials: true,

@@ -261,7 +261,7 @@ function Not_pending_view({ summary, Purcase, setPayment_Status }) {
                                             values.CCP_number
                                         );
                                         let Image_Response = await Axios.post(
-                                            `http://localhost:3000/upload/Payment/Summarys/${summary.id}/`,
+                                            `http://localhost:3000/upload/Payment/Summaries/${summary.id}/`,
                                             formData,
                                             {
                                                 withCredentials: true,
@@ -283,7 +283,7 @@ function Not_pending_view({ summary, Purcase, setPayment_Status }) {
                                             setSubmitting(false);
                                             setPayment_Status(true);
                                             Navigate(
-                                                `/Student/Summarys/${summary.id}`
+                                                `/Student/Summaries/${summary.id}`
                                             );
                                         } else if (
                                             Image_Response.status === 400
