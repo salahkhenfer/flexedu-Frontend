@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import Swal from "sweetalert2";
 
-// Use local pdf.worker.js
-pdfjs.GlobalWorkerOptions.workerSrc = "./pdf.worker.js"; // Update the path
+// Use cdn for pdf.worker.js
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const PDFReader = ({ fileLink }) => {
     const [numPages, setNumPages] = useState(null);
