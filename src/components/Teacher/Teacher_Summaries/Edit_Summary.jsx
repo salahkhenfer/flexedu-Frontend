@@ -39,7 +39,7 @@ function Edit_Summary() {
         if (image_state) setimageChanged(true);
         else if (!image_state) setimageChanged(false);
         else setimageChanged(false);
-    }, [image_state]);    
+    }, [image_state]);
     useEffect(() => {
         setLoading(true);
         const FetchSummary = async ({ setSummary, setLoading, setError }) => {
@@ -155,7 +155,7 @@ function Edit_Summary() {
                                         if (image_state) {
                                             let formData = new FormData();
                                             formData.append(
-                                                "SummaryPic",
+                                                "summaryPic",
                                                 image_state
                                             );
                                             let Image_Response =
@@ -168,6 +168,7 @@ function Edit_Summary() {
                                                             true,
                                                     }
                                                 );
+                                            console.log(Image_Response);
 
                                             if (Image_Response.status == 401) {
                                                 window.location.href = "/Login";

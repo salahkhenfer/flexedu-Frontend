@@ -121,10 +121,10 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
                         )}
                     </div>
                     <div className=" shrink-0">
-                        {Summary?.Vedios_count ? (
-                            <div> {Summary?.Vedios_count} Vedios</div>
+                        {Summary?.Pages_Count ? (
+                            <div> {Summary?.Pages_Count} Pages</div>
                         ) : (
-                            <div>No Vedios in this Summary</div>
+                            <div>0 Pages</div>
                         )}
                     </div>
                 </div>

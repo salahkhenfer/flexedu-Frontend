@@ -11,7 +11,7 @@ async function handleRegister(values, { setSubmitting }) {
             }
         );
         if (response.status == 200) {
-            window.location.href = "/Teacher/Summaries`,";
+            window.location.href = "/Teacher/Summaries";
         } else if (response.status == 400) {
             setSubmitting(false);
             Swal.fire("Error", `${response.data.message} `, "error");

@@ -59,7 +59,6 @@ function Summary() {
         FetchSummary({ setSummary, setLoading, setError });
     }, []);
 
-
     if (loading) {
         return (
             <div className=" w-screen h-[80vh] flex flex-col items-center justify-center">
@@ -192,19 +191,16 @@ function Summary() {
                                                         )}
                                                     </div>
                                                     <div className=" shrink-0">
-                                                        {Summary?.Vedios_count ? (
+                                                        {Summary?.Pages_Count ? (
                                                             <div>
                                                                 {" "}
                                                                 {
-                                                                    Summary?.Vedios_count
+                                                                    Summary?.Pages_Count
                                                                 }{" "}
-                                                                Vedios
+                                                                Pages
                                                             </div>
                                                         ) : (
-                                                            <div>
-                                                                No Vedios in
-                                                                this Summary
-                                                            </div>
+                                                            <div>0 Pages</div>
                                                         )}
                                                     </div>
                                                 </div>
