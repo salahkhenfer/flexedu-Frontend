@@ -41,6 +41,7 @@ function Summary() {
                         validateStatus: () => true,
                     }
                 );
+                console.log(response);
 
                 if (response.status == 200) {
                     const Summary = response.data.Summary;
@@ -251,18 +252,12 @@ function Summary() {
                                     </Link>
                                 </div>
                             </div>
-                            <Link
-                                to={`/Teacher/Summaries/${Summary.id}/Vedios/Add`}
-                                className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-600 text-white cursor-pointer  rounded-lg "
-                            >
-                                <IoAdd className="  font-bold text-xl" />
-                                Upload Vedio
-                            </Link>
+
                             <div>
                                 <div className=" flex flex-col gap-4">
                                     {Summary?.file_link ? (
                                         <PDFReader
-                                            fileLink={Summary.file_link}
+                                            fileLink={`http://localhost:3000/${Summary.file_link}`}
                                         />
                                     ) : (
                                         <div>No file uploaded</div>

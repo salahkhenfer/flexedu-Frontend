@@ -16,7 +16,7 @@ function Add_Summary() {
     const [dragging, setDragging] = useState(false); // Track drag status
     const fileInputRef = useRef(null); // Ref to access file input
     const [progress, setProgress] = useState(0); // Track progress
-    const [Title, setTitle] = useState("");
+    // const [Title, setTitle] = useState("");
     const [summaryPages, setSummaryPages] = useState(0); // Track the page count
     const [isUploading, setIsUploading] = useState(false); // Track if the upload is in progress
     const handleFileSelect = async (event) => {
@@ -177,7 +177,7 @@ function Add_Summary() {
                                         setIsUploading(true); // Disable buttons during upload
                                         const formData = new FormData();
                                         formData.append("Resume", summaryFile);
-                                        formData.append("Title", Title);
+                                        formData.append("Title", values.Title);
                                         formData.append(
                                             "Description",
                                             values.Description
@@ -410,7 +410,7 @@ function Add_Summary() {
                                     {/* Summary info & control buttons */}
                                     {summaryFile && (
                                         <div className="flex flex-col items-center w-full">
-                                            <input
+                                            {/* <input
                                                 type="text"
                                                 placeholder="Enter Summary Title"
                                                 className="w-[60%] p-2 border border-gray-400 rounded-md mb-2"
@@ -419,7 +419,7 @@ function Add_Summary() {
                                                     setTitle(e.target.value)
                                                 }
                                                 disabled={isUploading} // Disable input while uploading
-                                            />
+                                            /> */}
 
                                             <button
                                                 className="bg-red-500 text-white px-4 py-2 rounded-md mb-2"
