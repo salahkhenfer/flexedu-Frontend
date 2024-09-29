@@ -10,7 +10,6 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { CiImageOn } from "react-icons/ci";
 import { FaStar, FaStarHalf } from "react-icons/fa";
 import { useAppContext } from "../../../../AppContext";
-import Enrolled_view from "./Enrolled_view";
 import Not_Enrolled_view from "./Not_Enrolled_view";
 dayjs.extend(customParseFormat);
 

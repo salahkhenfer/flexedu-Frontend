@@ -241,7 +241,15 @@ function Summary() {
                                         )}
                                     </div>
                                 </div>
-                                
+                                <div className=" w-[10%]  ">
+                                    <Link
+                                        to={`/Student/Summaries/${Summary?.id}/Enrollment`}
+                                        className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-500 text-white cursor-pointer  rounded-lg "
+                                    >
+                                        {/* <IoAdd className="  font-bold text-xl" /> */}
+                                        Enroll
+                                    </Link>
+                                </div>
                             </div>
 
                             <div>
