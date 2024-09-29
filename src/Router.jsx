@@ -24,11 +24,13 @@ import Student from "./components/Student/Student";
 import Student_Default from "./components/Student/Student_Default";
 import Student_Profile from "./components/Student/Student_Profile/Student_Profile";
 import Student_Courses from "./components/Student/Courses/Courses";
-import Student_Summaries from "./components/Student/Summaries/Summaries";
 import Student_Purchased from "./components/Student/Purchased/Purchased";
 import Student_Edit_Profile from "./components/Student/Student_Edit_Profile/Student_Edit_Profile";
 import Student_Course from "./components/Student/Courses/Course/Course";
-import Student_Enrollemnt from "./components/Student/Courses/Enrollment/Enrollment";
+import Student_Course_Enrollemnt from "./components/Student/Courses/Enrollment/Enrollment";
+import Student_Summaries from "./components/Student/Summaries/Student_Summaries";
+import Student_Summary from "./components/Student/Summaries/Summary";
+import Student_Summary_Enrollemnt from "./components/Student/Summaries/Enrollment/Enrollment";
 
 import ErrorElement from "./components/ErrorElement";
 import LandingPage from "./landingPage/LandingPage";
@@ -140,17 +142,26 @@ const Routers = createBrowserRouter([
                         path: "/Student/Courses/:id",
                         element: <Student_Course />,
                     },
-                    {
-                        path: "/Student/Summaries",
-                        element: <Student_Summaries />,
-                    },
+
                     {
                         path: "/Student/Purchased",
                         element: <Student_Purchased />,
                     },
                     {
                         path: "/Student/Courses/:id/Enrollment",
-                        element: <Student_Enrollemnt />,
+                        element: <Student_Course_Enrollemnt />,
+                    },
+                    {
+                        path: "/Student/Summaries",
+                        element: <Student_Summaries />,
+                    },
+                    {
+                        path: "/Student/Summaries/:id",
+                        element: <Student_Summary />,
+                    },
+                    {
+                        path: "/Student/Summaries/:id/Enrollment",
+                        element: <Student_Summary_Enrollemnt />,
                     },
                 ],
             },
