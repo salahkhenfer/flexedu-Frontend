@@ -27,11 +27,13 @@ function Student_Summaries() {
             try {
                 const response = await axios.get(
                     `http://localhost:3000/Students/${user?.id}/Summaries`,
+                    
                     {
                         withCredentials: true,
                         validateStatus: () => true,
                     }
                 );
+                
                 if (response.status == 200) {
                     const Summaries = response.data.Summaries;
                     setSummaries(Summaries);
