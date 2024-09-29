@@ -15,7 +15,8 @@ dayjs.extend(customParseFormat);
 import { CiImageOn } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
-
+import Upload_Sumarry from "./Upload_Sumarry";
+import PDFReader from "./PdfReader";
 function Summary() {
     const Naviagte = useNavigate();
     const { user } = useAppContext();
@@ -259,49 +260,13 @@ function Summary() {
                             </Link>
                             <div>
                                 <div className=" flex flex-col gap-4">
-                                    {Summary?.Summary_Videos &&
-                                    Summary?.Summary_Videos.length > 0
-                                        ? Summary?.Summary_Videos.map(
-                                              (vedio, index) => (
-                                                  <div
-                                                      className=" flex justify-between  min-w-[70vw] bg-gray-100 py-2 px-4 mb-4 rounded-lg"
-                                                      key={vedio.id}
-                                                  >
-                                                      <div className=" flex gap-4">
-                                                          <div className=" font-semibold ">
-                                                              {index + 1}.
-                                                          </div>
-
-                                                          <div className=" flex gap-2">
-                                                              <div className="flex flex-col gap-1">
-                                                                  <div className="text-md  font-semibold">
-                                                                      {
-                                                                          vedio?.Title
-                                                                      }
-                                                                  </div>
-
-                                                                  <div className="text-sm text-gray_v font-semibold">
-                                                                      {
-                                                                          vedio?.Duration
-                                                                      }
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-
-                                                      <div className=" flex items-center justify-center">
-                                                          <Link
-                                                              to={`/Teacher/Summaries/${Summary.id}/Vedios/${vedio.id}`}
-                                                              className="bg-gray-500  px-3 py-2 rounded-md cursor-pointer
-                                                     text-white font-semibold text-base"
-                                                          >
-                                                              View
-                                                          </Link>
-                                                      </div>
-                                                  </div>
-                                              )
-                                          )
-                                        : null}
+                                    {Summary?.file_link ? (
+                                        <PDFReader
+                                            fileLink={Summary.file_link}
+                                        />
+                                    ) : (
+                                        <div>No file uploaded</div>
+                                    )}
                                 </div>
                             </div>
                         </div>
