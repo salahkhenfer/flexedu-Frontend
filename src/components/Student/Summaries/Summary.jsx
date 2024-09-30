@@ -91,10 +91,10 @@ function Summary() {
                                 <div className=" w-[90%] ">
                                     <div className=" flex flex-col gap-2 ">
                                         <div className=" flex gap-2 ">
-                                            {Summary.Image ? (
+                                            {Summary?.Image ? (
                                                 <img
                                                     className="w-[220px] h-[220px] object-cover"
-                                                    src={`http://localhost:3000/${Summary.Image}`}
+                                                    src={`http://localhost:3000/${Summary?.Image}`}
                                                     alt="Summary image"
                                                 />
                                             ) : (
@@ -219,10 +219,10 @@ function Summary() {
                                                     <FaArrowUp />
                                                 </div>
                                                 <div className="pb-4">
-                                                    {Summary.Description && (
+                                                    {Summary?.Description && (
                                                         <p className="text-gray text-base">
                                                             {
-                                                                Summary.Description
+                                                                Summary?.Description
                                                             }
                                                         </p>
                                                     )}

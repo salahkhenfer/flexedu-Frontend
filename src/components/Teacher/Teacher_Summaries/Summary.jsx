@@ -92,10 +92,10 @@ function Summary() {
                                 <div className=" w-[90%] ">
                                     <div className=" flex flex-col gap-2 ">
                                         <div className=" flex gap-2 ">
-                                            {Summary.Image ? (
+                                            {Summary?.Image ? (
                                                 <img
                                                     className="w-[220px] h-[220px] object-cover"
-                                                    src={`http://localhost:3000/${Summary.Image}`}
+                                                    src={`http://localhost:3000/${Summary?.Image}`}
                                                     alt="Summary image"
                                                 />
                                             ) : (
@@ -220,10 +220,10 @@ function Summary() {
                                                     <FaArrowUp />
                                                 </div>
                                                 <div className="pb-4">
-                                                    {Summary.Description && (
+                                                    {Summary?.Description && (
                                                         <p className="text-gray text-base">
                                                             {
-                                                                Summary.Description
+                                                                Summary?.Description
                                                             }
                                                         </p>
                                                     )}
@@ -244,7 +244,7 @@ function Summary() {
                                 </div>
                                 <div className=" w-[10%]  ">
                                     <Link
-                                        to={`/Teacher/Summaries/${Summary.id}/Edit`}
+                                        to={`/Teacher/Summaries/${Summary?.id}/Edit`}
                                         className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
                                     >
                                         {/* <IoAdd className="  font-bold text-xl" /> */}
@@ -257,7 +257,7 @@ function Summary() {
                                 <div className=" flex flex-col gap-4">
                                     {Summary?.file_link ? (
                                         <PDFReader
-                                            fileLink={`http://localhost:3000/${Summary.file_link}`}
+                                            fileLink={`http://localhost:3000/${Summary?.file_link}`}
                                         />
                                     ) : (
                                         <div>No file uploaded</div>

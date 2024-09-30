@@ -56,7 +56,7 @@ function Edit_Summary() {
                 if (response.status == 200) {
                     const Summary = response.data.Summary;
                     setSummary(Summary);
-                    setVedios[Summary.Summary_Videos];
+                    setVedios[Summary?.Summary_Videos];
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
                     Naviagte("/Login");

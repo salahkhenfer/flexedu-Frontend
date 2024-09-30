@@ -18,7 +18,7 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
         setDeleteLoading(true);
         try {
             const response = await axios.delete(
-                `http://localhost:3000/Teachers/${user?.id}/Summaries/${Summary.id}`,
+                `http://localhost:3000/Teachers/${user?.id}/Summaries/${Summary?.id}`,
                 {
                     withCredentials: true,
                     validateStatus: () => true,
@@ -27,7 +27,9 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
             if (response.status == 200) {
                 Swal.fire("Success", "Summary Deleted Successfully", "success");
                 setDeleteLoading(false);
-                setSummaries((prev) => prev.filter((c) => c.id !== Summary.id));
+                setSummaries((prev) =>
+                    prev.filter((c) => c.id !== Summary?.id)
+                );
             } else {
                 Swal.fire("Error", response.data.error, "error");
                 setDeleteLoading(false);
@@ -39,15 +41,15 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
     };
     return (
         <div
-            key={Summary.id}
+            key={Summary?.id}
             className="flex items-center justify-between  border  rounded-md p-4 my-4"
         >
             <div className=" flex flex-col gap-2 ">
                 <div className=" flex gap-2">
-                    {Summary.Image ? (
+                    {Summary?.Image ? (
                         <img
                             className="w-[120px] h-[120px] object-cover"
-                            src={`http://localhost:3000/${Summary.Image}`}
+                            src={`http://localhost:3000/${Summary?.Image}`}
                             alt="Summary image"
                         />
                     ) : (
@@ -131,7 +133,7 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
             </div>
             <div className=" flex flex-col gap-4">
                 <Link
-                    to={`/Teacher/Summaries/${Summary.id}`}
+                    to={`/Teacher/Summaries/${Summary?.id}`}
                     className="bg-perpol_v text-center px-3 py-2 rounded-md cursor-pointer
                                                  text-white font-semibold text-base"
                 >
