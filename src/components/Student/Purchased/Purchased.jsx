@@ -30,7 +30,9 @@ function Purcased() {
                     const data = response.data;
                     setpurcased(data);
                     setCourses(data.course_Purcase_Requests);
-                    setSummaries(data.summary_Purcase_Requests);
+                  setSummaries(data.summary_Purcase_Requests);
+                  console.log(data);
+                  
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
                 } else {
@@ -85,7 +87,7 @@ function Purcased() {
                     </div>
                 ) : (
                     Summaries.map((summary) => (
-                        <SummaryCard key={summary.id} summary={summary} />
+                        <SummaryCard key={summary.id} Summary={summary} />
                     ))
                 )}
             </div>

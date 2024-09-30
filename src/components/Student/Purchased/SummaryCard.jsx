@@ -16,15 +16,15 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
 
     return (
         <div
-            key={Summary?.id}
+            key={Summary?.Summary?.id}
             className="flex items-center justify-between  border  rounded-md p-4 my-4"
         >
             <div className=" flex flex-col gap-2 ">
                 <div className=" flex gap-2">
-                    {Summary?.Image ? (
+                    {Summary?.Summary?.Image ? (
                         <img
                             className="w-[120px] h-[120px] object-cover"
-                            src={`http://localhost:3000/${Summary?.Image}`}
+                            src={`http://localhost:3000/${Summary?.Summary?.Image}`}
                             alt="Summary image"
                         />
                     ) : (
@@ -36,19 +36,19 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
                         <div className="flex items-center justify-between w-full">
                             <div className="text-sm  mb-6 font-semibold text-white">
                                 <div className=" text-gray_v text-lg">
-                                    {Summary?.Title}
+                                    {Summary?.Summary?.Title}
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div className="text-sm text-gray_v font-semibold">
-                                {Summary?.Category}
+                                {Summary?.Summary?.Category}
                             </div>
                         </div>
                         <div>
-                            {Summary?.Price ? (
+                            {Summary?.Summary?.Price ? (
                                 <div className="text-sm text-gray_v font-semibold">
-                                    {Summary?.Price} {" DA"}
+                                    {Summary?.Summary?.Price} {" DA"}
                                 </div>
                             ) : null}
                         </div>
@@ -58,7 +58,7 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
                                 {/* {new Date(
                                                     Summary?.createdAt
                                                 ).toLocaleDateString()} */}
-                                {dayjs(Summary?.createdAt).format(
+                                {dayjs(Summary?.Summary?.createdAt).format(
                                     "DD MMMM YYYY"
                                 )}
                             </div>
@@ -70,12 +70,14 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
                     <div className="flex gap-4 w-full">
                         <div className="flex gap-1">
                             {[...Array(5)].map((_, index) =>
-                                index < Math.floor(Summary?.Rate || 0) ? (
+                                index <
+                                Math.floor(Summary?.Summary?.Rate || 0) ? (
                                     <FaStar
                                         key={index}
                                         className="text-yellow-400"
                                     />
-                                ) : index < Math.ceil(Summary?.Rate || 0) ? (
+                                ) : index <
+                                  Math.ceil(Summary?.Summary?.Rate || 0) ? (
                                     <FaStarHalf
                                         key={index}
                                         className="text-yellow-400"
@@ -91,15 +93,18 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
                     </div>
 
                     <div className=" shrink-0">
-                        {Summary?.Students_count ? (
-                            <div> {Summary?.Students_count} Enrolment</div>
+                        {Summary?.Summary?.Students_count ? (
+                            <div>
+                                {" "}
+                                {Summary?.Summary?.Students_count} Enrolment
+                            </div>
                         ) : (
                             <div>0 Enrolment</div>
                         )}
                     </div>
                     <div className=" shrink-0">
-                        {Summary?.Pages_Count ? (
-                            <div> {Summary?.Pages_Count} Pages</div>
+                        {Summary?.Summary?.Pages_Count ? (
+                            <div> {Summary?.Summary?.Pages_Count} Pages</div>
                         ) : (
                             <div>0 Pages</div>
                         )}
@@ -108,7 +113,7 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
             </div>
             <div className=" flex flex-col gap-4">
                 <Link
-                    to={`/Student/Summaries/${Summary?.id}`}
+                    to={`/Student/Summaries/${Summary?.Summary?.id}`}
                     className="bg-perpol_v text-center px-3 py-2 rounded-md cursor-pointer
                                                  text-white font-semibold text-base"
                 >

@@ -16,15 +16,15 @@ function Student_Courses_Card({ course, setCourses }) {
 
     return (
         <div
-            key={course?.id}
+            key={course?.Course?.id}
             className="flex items-center justify-between  border  rounded-md p-4 my-4"
         >
             <div className=" flex flex-col gap-2 ">
                 <div className=" flex gap-2">
-                    {course?.Image ? (
+                    {course?.Course?.Image ? (
                         <img
                             className="w-[120px] h-[120px] object-cover"
-                            src={`http://localhost:3000/${course?.Image}`}
+                            src={`http://localhost:3000/${course?.Course?.Image}`}
                             alt="course image"
                         />
                     ) : (
@@ -36,25 +36,25 @@ function Student_Courses_Card({ course, setCourses }) {
                         <div className="flex items-center justify-between w-full">
                             <div className="text-sm  mb-6 font-semibold text-white">
                                 <div className=" text-gray_v text-lg">
-                                    {course?.Title}
+                                    {course?.Course?.Title}
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div className="text-sm text-gray_v font-semibold">
-                                {course?.Category}
+                                {course?.Course?.Category}
                             </div>
                         </div>
                         <div>
-                            {course?.Price ? (
+                            {course?.Course?.Price ? (
                                 <div className="text-sm text-gray_v font-semibold">
-                                    {course?.Price} {" DA"}
+                                    {course?.Course?.Price} {" DA"}
                                 </div>
                             ) : null}
                         </div>
                         <div className="flex items-center justify-between w-full font-semibold">
                             <div className="text-sm pt-1 text-gray_v">
-                                Created at :{" "}
+                                Purcased at :{" "}
                                 {/* {new Date(
                                                     course?.createdAt
                                                 ).toLocaleDateString()} */}
@@ -70,12 +70,14 @@ function Student_Courses_Card({ course, setCourses }) {
                     <div className="flex gap-4 w-full">
                         <div className="flex gap-1">
                             {[...Array(5)].map((_, index) =>
-                                index < Math.floor(course?.Rate || 0) ? (
+                                index <
+                                Math.floor(course?.Course?.Rate || 0) ? (
                                     <FaStar
                                         key={index}
                                         className="text-yellow-400"
                                     />
-                                ) : index < Math.ceil(course?.Rate || 0) ? (
+                                ) : index <
+                                  Math.ceil(course?.Course?.Rate || 0) ? (
                                     <FaStarHalf
                                         key={index}
                                         className="text-yellow-400"
@@ -91,15 +93,21 @@ function Student_Courses_Card({ course, setCourses }) {
                     </div>
 
                     <div className=" shrink-0">
-                        {course?.Students_count ? (
-                            <div> {course?.Students_count} Enrolment</div>
+                        {course?.Course?.Students_count ? (
+                            <div>
+                                {" "}
+                                {course?.Course?.Students_count} Enrolment
+                            </div>
                         ) : (
                             <div>0 Enrolment</div>
                         )}
                     </div>
                     <div className=" shrink-0">
-                        {course?.Course_Video ? (
-                            <div> {course?.Course_Video.length} Vedios</div>
+                        {course?.Course?.Course_Video ? (
+                            <div>
+                                {" "}
+                                {course?.Course?.Course_Video.length} Vedios
+                            </div>
                         ) : (
                             <div>No Vedios in this course</div>
                         )}
@@ -108,7 +116,7 @@ function Student_Courses_Card({ course, setCourses }) {
             </div>
             <div className=" flex flex-col gap-4">
                 <Link
-                    to={`/Student/Courses/${course?.id}`}
+                    to={`/Student/Purcased/Courses/${course?.Course?.id}`}
                     className="bg-perpol_v text-center px-3 py-2 rounded-md cursor-pointer
                                                  text-white font-semibold text-base"
                 >
