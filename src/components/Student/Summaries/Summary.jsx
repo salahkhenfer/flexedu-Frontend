@@ -251,18 +251,6 @@ function Summary() {
                                     </Link>
                                 </div>
                             </div>
-
-                            <div>
-                                <div className=" flex flex-col gap-4">
-                                    {Summary?.file_link ? (
-                                        <PDFReader
-                                            fileLink={`http://localhost:3000/${Summary.file_link}`}
-                                        />
-                                    ) : (
-                                        <div>No file uploaded</div>
-                                    )}
-                                </div>
-                            </div>
                         </div>
                     )}
                 </div>
