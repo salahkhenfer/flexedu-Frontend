@@ -225,15 +225,15 @@ function Not_pending_view({ course, Purcase, setPayment_Status }) {
                         }}
                         validate={(values) => {
                             const errors = {};
-                            if (!values.CCP_number) {
+                            const ccpNumber = values.CCP_number;
+
+                            if (!ccpNumber) {
                                 errors.CCP_number = "Required";
-                            } else if (values.CCP_number.length < 5) {
+                            } else if (!/^\d+\/\d{2}$/.test(ccpNumber)) {
                                 errors.CCP_number =
-                                    "CCP number must be 5 digits";
-                            } else if (isNaN(values.CCP_number)) {
-                                errors.CCP_number =
-                                    "CCP number must be a number";
+                                    "CCP number must be in 'xxxxx/xx' format";
                             }
+
                             return errors;
                         }}
                         onSubmit={async (values, { setSubmitting }) => {
@@ -352,10 +352,10 @@ function Not_pending_view({ course, Purcase, setPayment_Status }) {
                                 </div>
                                 <div className=" max-w-[400px] mx-auto">
                                     <div className=" font-semibold text-sm pb-1">
-                                        your ccp number{" "}
+                                        your ccp number and key{" "}
                                     </div>
                                     <Field
-                                        placeholder="***********"
+                                        placeholder="***********/**"
                                         type="CCP_number"
                                         name="CCP_number"
                                         disabled={isSubmitting}
