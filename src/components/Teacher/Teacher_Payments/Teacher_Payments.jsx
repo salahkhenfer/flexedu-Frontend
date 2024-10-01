@@ -28,6 +28,8 @@ function Purchased() {
                     validateStatus: () => true,
                 }
             );
+            console.log(response);
+            
             if (response.status === 200) {
                 Swal.fire(
                     "Success",
