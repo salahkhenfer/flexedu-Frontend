@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 
-function Upload_Vedio() {
+function Vedio_Component() {
     const navigate = useNavigate();
     const Navigate = useNavigate();
     const { user } = useAppContext();
@@ -217,4 +217,4 @@ function Upload_Vedio() {
     );
 }
 
-export default Upload_Vedio;
+export default Vedio_Component;

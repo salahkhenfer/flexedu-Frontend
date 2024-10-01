@@ -113,7 +113,7 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
             </div>
             <div className=" flex flex-col gap-4">
                 <Link
-                    to={`/Student/Summaries/${Summary?.Summary?.id}`}
+                    to={`/Student/Purchased/Summaries/${Summary?.Summary?.id}`}
                     className="bg-perpol_v text-center px-3 py-2 rounded-md cursor-pointer
                                                  text-white font-semibold text-base"
                 >

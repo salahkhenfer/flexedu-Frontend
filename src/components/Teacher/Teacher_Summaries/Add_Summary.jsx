@@ -240,6 +240,7 @@ function Add_Summary() {
                                                         `${response.data.message} `,
                                                         "error"
                                                     );
+                                                    window.location.reload(); // Refresh page after failed upload
                                                 } else {
                                                     setSubmitting(false);
                                                     Swal.fire(
@@ -247,6 +248,7 @@ function Add_Summary() {
                                                         `${response.data.message} `,
                                                         "error"
                                                     );
+                                                    window.location.reload(); // Refresh page after failed upload
                                                 }
                                             })
                                             .catch((error) => {
@@ -259,6 +261,7 @@ function Add_Summary() {
                                                     "Upload failed. Please try again.",
                                                     "error"
                                                 );
+                                                window.location.reload(); // Refresh page after failed upload
                                                 setIsUploading(false); // Re-enable buttons even on failure
                                             });
                                     } else {
@@ -267,6 +270,7 @@ function Add_Summary() {
                                             "Please select a summary to upload.",
                                             "error"
                                         );
+                                        window.location.reload(); // Refresh page after failed upload
                                     }
                                 } catch (error) {
                                     setSubmitting(false);
@@ -276,6 +280,7 @@ function Add_Summary() {
                                         `Something Went Wrong ,please trye again latter`,
                                         "error"
                                     );
+                                    window.location.reload(); // Refresh page after failed upload
                                 }
                             }
                         }}

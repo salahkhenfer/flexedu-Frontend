@@ -57,13 +57,13 @@ function Laptop_Nav_Items({ Active_nav, handleLogout, LogoutClicked }) {
             <div className="flex gap-6 lg:gap-14">
                 <div
                     className={` ${
-                        Active_nav == "Dashboard"
+                        Active_nav == "Payments"
                             ? "text-perpol_v"
                             : "text-black_text"
                     } md:hover:text-perpol_v transition-all duration-150  cursor-pointer`}
                 >
-                    <Link to={"/Teacher/Dashboard"} className={" select-none"}>
-                        Dashboard{" "}
+                    <Link to={"/Teacher/Payments"} className={" select-none"}>
+                        Payments{" "}
                     </Link>
                 </div>{" "}
                 <div

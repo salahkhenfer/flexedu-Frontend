@@ -23,14 +23,14 @@ function Mobile_Nav_Items({
                         <div className="text-center flex flex-col gap-8 my-8 ">
                             <Link
                                 onClick={Toogle_Menu_Bar}
-                                to={"/Teacher/Dashboard"}
+                                to={"/Teacher/Payments"}
                                 className={`${
-                                    Active_nav == "Dashboard"
+                                    Active_nav == "Payments"
                                         ? "text-perpol_v"
                                         : "text-black_text"
                                 } select-none   `}
                             >
-                                Dashboard
+                                Payments
                             </Link>
                             <Link
                                 onClick={Toogle_Menu_Bar}

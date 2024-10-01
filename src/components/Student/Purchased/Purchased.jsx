@@ -7,20 +7,20 @@ import Swal from "sweetalert2";
 import Courses_Card from "./CourseCard";
 import SummaryCard from "./SummaryCard";
 
-function Purcased() {
+function Purchased() {
     const { user } = useAppContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [purcased, setpurcased] = useState([]);
+    const [Purchased, setPurchased] = useState([]);
     const [Courses, setCourses] = useState([]);
     const [Summaries, setSummaries] = useState([]);
 
     useEffect(() => {
         setLoading(true);
-        const Fetchpurcased = async () => {
+        const FetchPurchased = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/Students/${user.id}/Purcased`,
+                    `http://localhost:3000/Students/${user.id}/Purchased`,
                     {
                         withCredentials: true,
                         validateStatus: () => true,
@@ -28,11 +28,10 @@ function Purcased() {
                 );
                 if (response.status == 200) {
                     const data = response.data;
-                    setpurcased(data);
+                    setPurchased(data);
                     setCourses(data.course_Purcase_Requests);
-                  setSummaries(data.summary_Purcase_Requests);
-                  console.log(data);
-                  
+                    setSummaries(data.summary_Purcase_Requests);
+                    console.log(data);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
                 } else {
@@ -44,7 +43,7 @@ function Purcased() {
                 setLoading(false);
             }
         };
-        Fetchpurcased();
+        FetchPurchased();
     }, [user.id]);
 
     if (loading) {
@@ -95,4 +94,4 @@ function Purcased() {
     );
 }
 
-export default Purcased;
+export default Purchased;

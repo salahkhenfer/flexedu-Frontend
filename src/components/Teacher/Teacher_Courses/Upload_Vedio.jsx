@@ -114,6 +114,7 @@ function Upload_Video() {
                         window.location.reload(); // Refresh page after successful upload
                     } else {
                         alert("Upload failed. Server returned an error.");
+                        window.location.reload(); // Refresh page after failed upload
                     }
                     setProgress(0); // Reset progress after successful upload
                     setVideoFile(null); // Clear file after success
@@ -132,6 +133,7 @@ function Upload_Video() {
                         alert("Upload failed. Please try again.");
                     }
                     setIsUploading(false); // Re-enable buttons even on failure
+                    window.location.reload(); // Refresh page after failed upload
                 });
         } else {
             alert("Please select a video to upload.");

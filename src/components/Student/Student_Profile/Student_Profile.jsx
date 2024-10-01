@@ -56,7 +56,9 @@ function Student_Profile() {
                     </p>
                 </div>
             ) : (
-                <p>Loading...</p>
+                <div className=" w-screen h-[80vh] flex flex-col items-center justify-center">
+                    <span className="loader"></span>
+                </div>
             )}
         </div>
     );

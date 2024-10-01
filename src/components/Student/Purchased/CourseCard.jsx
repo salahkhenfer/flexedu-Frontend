@@ -54,7 +54,7 @@ function Student_Courses_Card({ course, setCourses }) {
                         </div>
                         <div className="flex items-center justify-between w-full font-semibold">
                             <div className="text-sm pt-1 text-gray_v">
-                                Purcased at :{" "}
+                                Purchased at :{" "}
                                 {/* {new Date(
                                                     course?.createdAt
                                                 ).toLocaleDateString()} */}
@@ -116,7 +116,7 @@ function Student_Courses_Card({ course, setCourses }) {
             </div>
             <div className=" flex flex-col gap-4">
                 <Link
-                    to={`/Student/Purcased/Courses/${course?.Course?.id}`}
+                    to={`/Student/Purchased/Courses/${course?.Course?.id}`}
                     className="bg-perpol_v text-center px-3 py-2 rounded-md cursor-pointer
                                                  text-white font-semibold text-base"
                 >
