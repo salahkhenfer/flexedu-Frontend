@@ -26,6 +26,7 @@ import Student_Profile from "./components/Student/Student_Profile/Student_Profil
 import Student_Courses from "./components/Student/Courses/Courses";
 import Student_Purchased from "./components/Student/Purchased/Purchased";
 import Student_Purchased_Course from "./components/Student/Purchased/Course";
+import Student_Purchased_Summary from "./components/Student/Purchased/Summary";
 
 import Student_Edit_Profile from "./components/Student/Student_Edit_Profile/Student_Edit_Profile";
 import Student_Course from "./components/Student/Courses/Course/Course";
@@ -170,6 +171,11 @@ const Routers = createBrowserRouter([
                     {
                         path: "/Student/Purchased/Courses/:id",
                         element: <Student_Purchased_Course />,
+                        errorElement: <ErrorElement />,
+                    },
+                    {
+                        path: "/Student/Purchased/Summaries/:id",
+                        element: <Student_Purchased_Summary />,
                         errorElement: <ErrorElement />,
                     },
                     {
