@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import VideoComponent from "./Vedio_Component";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../../AppContext";
+import CourseReview from "./Review/Course_Review";
 
 function CourseComponent() {
     const { user } = useAppContext();
@@ -15,7 +16,6 @@ function CourseComponent() {
     const [error, setError] = useState(null);
     const vedioId = new URLSearchParams(location.search).get("video");
     const [activeVideoIndex, setActiveVideoIndex] = useState(0); // Handle active video state
-
     // Fetch course data
     useEffect(() => {
         const fetchCourseData = async () => {
@@ -24,6 +24,8 @@ function CourseComponent() {
                     `http://localhost:3000/Students/${user.id}/Purchased/Courses/${courseId}`,
                     { withCredentials: true }
                 );
+                console.log(response);
+
                 if (response.status === 200) {
                     setCourseData(response.data);
                 } else if (response.status === 401) {
@@ -117,6 +119,11 @@ function CourseComponent() {
                         {courseData?.Course?.Students_count}
                     </p>
                 </div>
+                <hr />
+                {/* {!courseData?.isReviewed ? ( */}
+                    <CourseReview userId={user.id} courseId={courseId} />
+                {/* ) : null} */}
+                
             </div>
 
             {/* Right: Video List */}

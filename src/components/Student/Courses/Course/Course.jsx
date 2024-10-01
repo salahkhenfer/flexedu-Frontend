@@ -37,7 +37,7 @@ function Course() {
                         validateStatus: () => true,
                     }
                 );
-
+                
                 if (response.status === 200) {
                     const fetchedCourse = response.data.Course;
                     setCourse(fetchedCourse);
