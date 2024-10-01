@@ -5,6 +5,7 @@ import VideoComponent from "./Vedio_Component";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../../AppContext";
 import PDFReader from "./Summary/PdfReader";
+import SummaryReview from "./Review/Summary_Review";
 function SummaryComponent() {
     const { user } = useAppContext();
     const location = useLocation();
@@ -24,6 +25,8 @@ function SummaryComponent() {
                     `http://localhost:3000/Students/${user.id}/Purchased/Summaries/${summaryId}`,
                     { withCredentials: true }
                 );
+                console.log(response);
+                
                 if (response.status === 200) {
                     setSummaryData(response.data);
                 } else if (response.status === 401) {
@@ -112,6 +115,10 @@ function SummaryComponent() {
                         {summaryData?.Summary?.Students_count}
                     </p>
                 </div>
+                {!summaryData?.isReviewed ||
+                summaryData?.isReviewed == false ? (
+                    <SummaryReview userId={user.id} summaryId={summaryId} />
+                ) : null}
             </div>
         </div>
     );
