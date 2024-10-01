@@ -36,6 +36,7 @@ const CourseReview = ({ userId, courseId }) => {
             console.log(response);
             
             setSuccess("Review submitted successfully!");
+            window.location.reload();
         } catch (err) {
             setError("Failed to submit the review.");
         } finally {

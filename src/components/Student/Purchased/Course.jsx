@@ -120,10 +120,9 @@ function CourseComponent() {
                     </p>
                 </div>
                 <hr />
-                {/* {!courseData?.isReviewed ? ( */}
+                {!courseData?.isReviewed || courseData?.isReviewed == false ? (
                     <CourseReview userId={user.id} courseId={courseId} />
-                {/* ) : null} */}
-                
+                ) : null}
             </div>
 
             {/* Right: Video List */}
