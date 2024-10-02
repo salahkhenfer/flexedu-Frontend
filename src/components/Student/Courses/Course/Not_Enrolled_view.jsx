@@ -130,12 +130,12 @@ function Not_Enrolled_view({ course }) {
                                                     )}
                                                 </div>
                                                 <div className=" shrink-0">
-                                                    {course?.Course_Video ? (
+                                                    {course?.Course_Videos ? (
                                                         <div>
                                                             {" "}
                                                             {
                                                                 course
-                                                                    ?.Course_Video
+                                                                    ?.Course_Videos
                                                                     .length
                                                             }{" "}
                                                             Vedios

@@ -106,9 +106,9 @@ function Not_pending_view({ course, Purcase }) {
                                 )}
                             </div>
                             <div className="shrink-0">
-                                {course?.Course_Video ? (
+                                {course?.Course_Videos ? (
                                     <div>
-                                        {course?.Course_Video.lengh} Videos
+                                        {course?.Course_Videos.lengh} Videos
                                     </div>
                                 ) : (
                                     <div>No Videos in this course</div>

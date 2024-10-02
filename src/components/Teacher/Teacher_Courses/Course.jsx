@@ -192,12 +192,12 @@ function Course() {
                                                         )}
                                                     </div>
                                                     <div className=" shrink-0">
-                                                        {Course?.Course_Video ? (
+                                                        {Course?.Course_Videos ? (
                                                             <div>
                                                                 {" "}
                                                                 {
                                                                     Course
-                                                                        ?.Course_Video
+                                                                        ?.Course_Videos
                                                                         .length
                                                                 }{" "}
                                                                 Vedios

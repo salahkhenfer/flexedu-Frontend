@@ -103,10 +103,10 @@ function Student_Courses_Card({ course, setCourses }) {
                         )}
                     </div>
                     <div className=" shrink-0">
-                        {course?.Course?.Course_Video ? (
+                        {course?.Course?.Course_Videos ? (
                             <div>
                                 {" "}
-                                {course?.Course?.Course_Video.length} Vedios
+                                {course?.Course?.Course_Videos.length} Vedios
                             </div>
                         ) : (
                             <div>No Vedios in this course</div>
