@@ -1,444 +1,324 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
-import axios from "axios";
-import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  FaStar,
+  FaStarHalf,
+  FaUsers,
+  FaVideo,
+  FaMoneyBillWave,
+  FaRegImage,
+} from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
-import Swal from "sweetalert2";
-import { IoAdd } from "react-icons/io5";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import { CiImageOn } from "react-icons/ci";
-import { FaStar, FaStarHalf } from "react-icons/fa";
-import { useAppContext } from "../../../../AppContext";
 import config from "../../../../config";
-import { FaRegImage } from "react-icons/fa";
-dayjs.extend(customParseFormat);
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../../../AppContext";
+import Swal from "sweetalert2";
 import Axios from "axios";
-function Not_pending_view({ course, Purcase, setPayment_Status }) {
-    const { user } = useAppContext();
-    const Navigate = useNavigate();
-    const location = useLocation();
-    const CourseId = location.pathname.split("/")[3];
-    const PAYMENT_EMAIL = config.PAYMENT_EMAIL;
-    const PAYMENT_CCP = config.PAYMENT_CCP;
-    const PAYMENT_CCP_NAME = config.PAYMENT_CCP_NAME;
-    const PAYMENT_EMAIL_TITLE = config.PAYMENT_EMAIL_TITLE;
-    const PAYMENT_CCP_CLE = config.PAYMENT_CCP_CLE;
-    const fileInputRef = useRef(null);
-    const [imageChanged, setimageChanged] = useState(false);
-    const [image_state, setimage_state] = useState(null);
-    const queryParams = new URLSearchParams(location.search);
-    const rejected = queryParams.get("rejected"); // This will get the value of 'rejected'
-    useEffect(() => {
-        if (image_state) setimageChanged(true);
-        else if (!image_state) setimageChanged(false);
-        else setimageChanged(false);
-    }, [image_state]);
-    return (
-        <div>
-            <div className=" ">
-                <div
-                    key={course?.id}
-                    className="flex items-center justify-between  border  rounded-md p-4 my-4 "
-                >
-                    <div className=" flex flex-col gap-2 ">
-                        <div className=" flex gap-2">
-                            {course?.Image ? (
-                                <img
-                                    className="w-[120px] h-[120px] object-cover"
-                                    src={`http://localhost:3000/${course?.Image}`}
-                                    alt="course image"
-                                />
-                            ) : (
-                                <div className="flex items-center justify-center w-[120px] h-[120px] bg-gray-100 ">
-                                    <CiImageOn className=" text-xl" />
-                                </div>
-                            )}
-                            <div>
-                                <div className="flex items-center justify-between w-full">
-                                    <div className="text-sm  mb-6 font-semibold text-white">
-                                        <div className=" text-gray_v text-lg">
-                                            {course?.Title}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="text-sm text-gray_v font-semibold">
-                                        {course?.Category}
-                                    </div>
-                                </div>
-                                <div>
-                                    {course?.Price ? (
-                                        <div className="text-sm text-gray_v font-semibold">
-                                            {course?.Price} {" DA"}
-                                        </div>
-                                    ) : null}
-                                </div>
-                                <div className="flex items-center justify-between w-full font-semibold">
-                                    <div className="text-sm pt-1 text-gray_v">
-                                        Created at :{" "}
-                                        {/* {new Date(
-                                                    course?.createdAt
-                                                ).toLocaleDateString()} */}
-                                        {dayjs(course?.createdAt).format(
-                                            "DD MMMM YYYY"
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className=" flex justify-start gap-6 font-semibold text-sm text-gray_v pt-6">
-                            <div className="flex gap-4 w-full">
-                                <div className="flex gap-1">
-                                    {[...Array(5)].map((_, index) =>
-                                        index <
-                                        Math.floor(course?.Rate || 0) ? (
-                                            <FaStar
-                                                key={index}
-                                                className="text-yellow-400"
-                                            />
-                                        ) : index <
-                                          Math.ceil(course?.Rate || 0) ? (
-                                            <FaStarHalf
-                                                key={index}
-                                                className="text-yellow-400"
-                                            />
-                                        ) : (
-                                            <FaStar
-                                                key={index}
-                                                className="text-gray-400"
-                                            />
-                                        )
-                                    )}
-                                </div>
-                            </div>
+const EnhancedPaymentProcessView = ({ course, Purcase, setPayment_Status }) => {
+  const PAYMENT_EMAIL = config.PAYMENT_EMAIL;
+  const PAYMENT_CCP = config.PAYMENT_CCP;
+  const PAYMENT_CCP_NAME = config.PAYMENT_CCP_NAME;
+  const PAYMENT_EMAIL_TITLE = config.PAYMENT_EMAIL_TITLE;
+  const PAYMENT_CCP_CLE = config.PAYMENT_CCP_CLE;
+  const fileInputRef = useRef(null);
+  const { user } = useAppContext();
+  const Navigate = useNavigate();
+  const location = useLocation();
+  const CourseId = location.pathname.split("/")[3];
+  const [imageChanged, setimageChanged] = useState(false);
+  const [image_state, setimage_state] = useState(null);
+  const queryParams = new URLSearchParams(location.search);
+  const rejected = queryParams.get("rejected");
 
-                            <div className=" shrink-0">
-                                {course?.Students_count ? (
-                                    <div>
-                                        {" "}
-                                        {course?.Students_count} Enrolment
-                                    </div>
-                                ) : (
-                                    <div>0 Enrolment</div>
-                                )}
-                            </div>
-                            <div className=" shrink-0">
-                                {course?.Course_Videos ? (
-                                    <div>
-                                        {" "}
-                                        {course?.Course_Videos.length} Vedios
-                                    </div>
-                                ) : (
-                                    <div>No Vedios in this course</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
+  useEffect(() => {
+    if (image_state) setimageChanged(true);
+    else if (!image_state) setimageChanged(false);
+    else setimageChanged(false);
+  }, [image_state]);
+
+  const renderStars = (rating) => {
+    return [...Array(5)].map((_, index) => {
+      if (index < Math.floor(rating)) {
+        return <FaStar key={index} className="text-yellow-400" />;
+      } else if (index < Math.ceil(rating)) {
+        return <FaStarHalf key={index} className="text-yellow-400" />;
+      } else {
+        return <FaStar key={index} className="text-gray-300" />;
+      }
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden"
+      >
+        <div className="p-8 border-b">
+          <div className="flex flex-col md:flex-row md:items-center">
+            <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+              {course?.Image ? (
+                <img
+                  className="w-32 h-32 object-cover rounded-lg"
+                  src={`http://localhost:3000/${course.Image}`}
+                  alt={course.Title}
+                />
+              ) : (
+                <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <FaRegImage className="text-4xl text-gray-400" />
                 </div>
+              )}
             </div>
-            <div>
-                {rejected ? (
-                    <div className=" text-center border text-red-500 border-red-200 mb-6 m-auto rounded shadow-sm p-4 w-fit">
-                        <div className="flex items-center justify-center gap-2 text-red-500 text-lg font-semibold">
-                            <IoIosWarning className=" text-2xl" />
-                            <div>Payment Rejected</div>
-                        </div>
-                        <div className=" text-sm font-semibold">
-                            please resend the Payment screenshot or contact the
-                            support.
-                        </div>
-                    </div>
-                ) : null}
-            </div>
-            <div>
-                <div className=" text-4xl font-semibold text-center">
-                    Step 1 :
+            <div className="flex-grow">
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                {course?.Title}
+              </h1>
+              <p className="text-sm text-gray-600 mb-2">{course?.Category}</p>
+              <div className="flex items-center mb-2">
+                <div className="flex mr-2">
+                  {renderStars(course?.Rate || 0)}
                 </div>
-                <div className="mb-6 border rounded-md shadow-sm flex flex-col py-6 px-3 w-fit mx-auto ">
-                    <div>
-                        {" "}
-                        Please send the screen shot of the payment via email :{" "}
-                    </div>
-                    <div>
-                        {PAYMENT_EMAIL ? (
-                            <div className="flex items-center justify-between">
-                                <div className="text-gray_v font-semibold">
-                                    Email : {PAYMENT_EMAIL}
-                                </div>
-                            </div>
-                        ) : null}
-                    </div>
-                    <div>
-                        {PAYMENT_CCP ? (
-                            <div className="flex items-center justify-between">
-                                <div className="text-gray_v font-semibold">
-                                    CCP : {PAYMENT_CCP}
-                                </div>
-                            </div>
-                        ) : null}
-                    </div>{" "}
-                    <div>
-                        {PAYMENT_CCP_CLE ? (
-                            <div className="flex items-center justify-between">
-                                <div className="text-gray_v font-semibold">
-                                    Clé : {PAYMENT_CCP_CLE}
-                                </div>
-                            </div>
-                        ) : null}
-                    </div>
-                    <div>
-                        {PAYMENT_CCP_NAME ? (
-                            <div className="flex items-center justify-between">
-                                <div className="text-gray_v font-semibold">
-                                    CCP Name : {PAYMENT_CCP_NAME}
-                                </div>
-                            </div>
-                        ) : null}
-                    </div>
-                    <div>
-                        {PAYMENT_EMAIL_TITLE ? (
-                            <div className="flex items-center justify-between">
-                                <div className="text-gray_v font-semibold">
-                                    use this Title in the email please :{" "}
-                                    {PAYMENT_EMAIL_TITLE}
-                                </div>
-                            </div>
-                        ) : null}
-                    </div>
+                <span className="text-sm text-gray-600">
+                  ({course?.Rate || 0})
+                </span>
+              </div>
+              <div className="flex flex-wrap items-center text-sm text-gray-600 gap-4">
+                <div className="flex items-center">
+                  <FaUsers className="mr-1" />
+                  {course?.Students_count || 0} Enrollments
                 </div>
-                <div className=" text-4xl font-semibold text-center">
-                    Step 2 :
+                <div className="flex items-center">
+                  <FaVideo className="mr-1" />
+                  {course?.Course_Videos?.length || 0} Videos
                 </div>
-
+                <div className="flex items-center">
+                  <FaMoneyBillWave className="mr-1" />
+                  {course?.Price} DA
+                </div>
                 <div>
-                    <Formik
-                        initialValues={{
-                            imageLink: "",
-                            studentId: user?.id,
-                            courseId: CourseId,
-                            CCP_number: "",
-                        }}
-                        validate={(values) => {
-                            const errors = {};
-                            const ccpNumber = values.CCP_number;
-
-                            if (!ccpNumber) {
-                                errors.CCP_number = "Required";
-                            } else if (!/^\d+\/\d{2}$/.test(ccpNumber)) {
-                                errors.CCP_number =
-                                    "CCP number must be in 'xxxxx/xx' format";
-                            }
-
-                            return errors;
-                        }}
-                        onSubmit={async (values, { setSubmitting }) => {
-                            if (!values.studentId || !values.courseId) {
-                                setSubmitting(false);
-                                Swal.fire(
-                                    "Error",
-                                    "Unauthorized: missing userId",
-                                    "error"
-                                );
-                            } else {
-                                try {
-                                    if (!image_state) {
-                                        setSubmitting(false);
-                                        Swal.fire(
-                                            "Error",
-                                            "Please select an image",
-                                            "error"
-                                        );
-                                    } else {
-                                        let formData = new FormData();
-                                        formData.append("image", image_state);
-                                        formData.append(
-                                            "CCP_number",
-                                            values.CCP_number
-                                        );
-                                        let Image_Response = await Axios.post(
-                                            `http://localhost:3000/upload/Payment/Courses/${course.id}/`,
-                                            formData,
-                                            {
-                                                withCredentials: true,
-                                                validateStatus: () => true,
-                                            }
-                                        );
-
-                                        if (Image_Response.status == 401) {
-                                            // Swal.fire("Error", `${Image_Response.data.message} `, "error");
-                                            window.location.href = "/Login";
-                                        }
-
-                                        if (Image_Response.status === 200) {
-                                            Swal.fire(
-                                                "Success",
-                                                "Payment Screen Shot uploaded successfully , ower team is validating your payment , you will get a notification when your payment is validated",
-                                                "success"
-                                            );
-                                            setSubmitting(false);
-                                            setPayment_Status(true);
-                                            Navigate(
-                                                `/Student/Courses/${course.id}`
-                                            );
-                                        } else if (
-                                            Image_Response.status === 400
-                                        ) {
-                                            setSubmitting(false);
-                                            Swal.fire(
-                                                "Error",
-                                                `${Image_Response.data.message}`,
-                                                "error"
-                                            );
-                                        } else if (
-                                            Image_Response.status === 409
-                                        ) {
-                                            setSubmitting(false);
-                                            Swal.fire(
-                                                "Error",
-                                                `${Image_Response.data.message}`,
-                                                "error"
-                                            );
-                                        } else if (
-                                            Image_Response.status === 500
-                                        ) {
-                                            setSubmitting(false);
-                                            Swal.fire(
-                                                "Error",
-                                                "Internal Server Error",
-                                                "error"
-                                            );
-                                        } else {
-                                            setSubmitting(false);
-                                            Swal.fire(
-                                                "Error",
-                                                `Something Went Wrong, please try again later, ${Image_Response.data.message}`,
-                                                "error"
-                                            );
-                                        }
-                                    }
-                                } catch (error) {
-                                    setSubmitting(false);
-                                    Swal.fire(
-                                        "Error",
-                                        "Something Went Wrong, please try again later",
-                                        "error"
-                                    );
-                                }
-                            }
-                        }}
-                    >
-                        {({ isSubmitting }) => (
-                            <Form className="flex flex-col text-sm md:text-lg gap-4 text-black_text">
-                                <div className=" w-full">
-                                    <input
-                                        id="image"
-                                        type="file"
-                                        name="image"
-                                        accept="image/*"
-                                        onChange={(event) => {
-                                            setimage_state(
-                                                event.currentTarget.files[0]
-                                            );
-                                        }}
-                                        ref={fileInputRef}
-                                        // disabled={isSubmitting}
-                                        className="hidden" // Hide the default file input button
-                                    />
-                                </div>
-                                <div className=" max-w-[400px] mx-auto">
-                                    <div className=" font-semibold text-sm pb-1">
-                                        your ccp number and key{" "}
-                                    </div>
-                                    <Field
-                                        placeholder="***********/**"
-                                        type="CCP_number"
-                                        name="CCP_number"
-                                        disabled={isSubmitting}
-                                        className="border border-gray_white px-4 py-2 rounded-lg  text-sm  w-full"
-                                    />
-                                    <ErrorMessage
-                                        name="CCP_number"
-                                        component="div"
-                                        style={errorInputMessage}
-                                    />
-                                </div>
-                                <div className="flex flex-col items-center gap-1">
-                                    {image_state ? (
-                                        <div className=" relative ">
-                                            <img
-                                                src={URL.createObjectURL(
-                                                    image_state
-                                                )} // Create a URL for the selected image
-                                                alt="Selected Image"
-                                                // ref={fileInputRef}
-                                                className=" w-[150px] h-[150px]  object-cover rounded-full"
-                                            />
-                                            <div
-                                                className="  mt-2 text-white w-fit mx-auto rounded-lg px-3 font-semibold text-lg
-                                         bg-gray-400 cursor-pointer"
-                                                onClick={() => {
-                                                    setimage_state(null);
-                                                    // setimageChanged(false);
-                                                    if (fileInputRef.current) {
-                                                        fileInputRef.current.value =
-                                                            "";
-                                                    }
-                                                }}
-                                            >
-                                                {/* <IoClose /> */}
-                                                Cancel
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div
-                                            className="w-[150px] h-[150px]  bg-gray_white text-gray rounded-full flex items-center justify-center cursor-pointer"
-                                            onClick={() =>
-                                                document
-                                                    .getElementById("image")
-                                                    .click()
-                                            }
-                                        >
-                                            <FaRegImage className=" text-gray_v text-2xl" />
-                                        </div>
-                                    )}
-                                </div>
-                                <div className=" w-full flex items-center justify-center mb-6">
-                                    {isSubmitting ? (
-                                        <span className=" small-loader"></span>
-                                    ) : (
-                                        <button
-                                            type="submit"
-                                            className=" mx-auto  bg-green-500 px-3 py-2 text-center rounded-md cursor-pointer
-                                                         text-white font-semibold text-base w-fit "
-                                            disabled={isSubmitting}
-                                        >
-                                            upload Payment ScreenShotc
-                                        </button>
-                                    )}
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
+                  Created: {dayjs(course?.createdAt).format("DD MMMM YYYY")}
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    );
-}
-const errorInputMessage = {
-    fontSize: "12px",
-    color: "red",
+
+        {rejected && (
+          <div className="text-center border text-red-500 border-red-200 mb-6 m-auto rounded shadow-sm p-4 w-fit">
+            <div className="flex items-center justify-center gap-2 text-red-500 text-lg font-semibold">
+              <IoIosWarning className=" text-2xl" />
+              <div>Payment Rejected</div>
+            </div>
+            <div className="text-sm font-semibold">
+              Please resend the Payment screenshot or contact support.
+            </div>
+          </div>
+        )}
+
+        <div className="p-8 bg-gray-50">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            Payment Process
+          </h2>
+
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">
+              Step 1: Send Payment
+            </h3>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <p className="mb-4">
+                Please send the screenshot of the payment via email:
+              </p>
+              <ul className="space-y-2 text-gray-600">
+                {PAYMENT_EMAIL && (
+                  <li>
+                    <strong>Email:</strong> {PAYMENT_EMAIL}
+                  </li>
+                )}
+                {PAYMENT_CCP && (
+                  <li>
+                    <strong>CCP:</strong> {PAYMENT_CCP}
+                  </li>
+                )}
+                {PAYMENT_CCP_CLE && (
+                  <li>
+                    <strong>Clé:</strong> {PAYMENT_CCP_CLE}
+                  </li>
+                )}
+                {PAYMENT_CCP_NAME && (
+                  <li>
+                    <strong>CCP Name:</strong> {PAYMENT_CCP_NAME}
+                  </li>
+                )}
+                {PAYMENT_EMAIL_TITLE && (
+                  <li>
+                    <strong>Email Title:</strong> {PAYMENT_EMAIL_TITLE}
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">
+              Step 2: Confirm Payment
+            </h3>
+            <div>
+              <Formik
+                initialValues={{
+                  imageLink: "",
+                  studentId: user?.id,
+                  courseId: CourseId,
+                  CCP_number: "",
+                }}
+                validate={(values) => {
+                  const errors = {};
+                  const ccpNumber = values.CCP_number;
+
+                  if (!ccpNumber) {
+                    errors.CCP_number = "Required";
+                  } else if (!/^\d+\/\d{2}$/.test(ccpNumber)) {
+                    errors.CCP_number =
+                      "CCP number must be in 'xxxxx/xx' format";
+                  }
+
+                  return errors;
+                }}
+                onSubmit={async (values, { setSubmitting }) => {
+                  if (!values.studentId || !values.courseId) {
+                    setSubmitting(false);
+                    Swal.fire("Error", "Unauthorized: missing userId", "error");
+                  } else {
+                    try {
+                      if (!image_state) {
+                        setSubmitting(false);
+                        Swal.fire("Error", "Please select an image", "error");
+                      } else {
+                        let formData = new FormData();
+                        formData.append("image", image_state);
+                        formData.append("CCP_number", values.CCP_number);
+                        let Image_Response = await Axios.post(
+                          `http://localhost:3000/upload/Payment/Courses/${course.id}/`,
+                          formData,
+                          {
+                            withCredentials: true,
+                            validateStatus: () => true,
+                          }
+                        );
+
+                        if (Image_Response.status === 401) {
+                          window.location.href = "/Login";
+                        }
+
+                        if (Image_Response.status === 200) {
+                          Swal.fire(
+                            "Success",
+                            "Payment Screen Shot uploaded successfully, our team is validating your payment. You will get a notification when it's validated.",
+                            "success"
+                          );
+                          setSubmitting(false);
+                          setPayment_Status(true);
+                          Navigate(`/Student/Courses/${course.id}`);
+                        } else if (Image_Response.status === 400) {
+                          setSubmitting(false);
+                          Swal.fire(
+                            "Error",
+                            `${Image_Response.data.message}`,
+                            "error"
+                          );
+                        } else if (Image_Response.status === 409) {
+                          setSubmitting(false);
+                          Swal.fire(
+                            "Error",
+                            `${Image_Response.data.message}`,
+                            "error"
+                          );
+                        } else if (Image_Response.status === 500) {
+                          setSubmitting(false);
+                          Swal.fire("Error", "Server error", "error");
+                        }
+                      }
+                    } catch (error) {
+                      setSubmitting(false);
+                      Swal.fire("Error", error.message, "error");
+                    }
+                  }
+                }}
+              >
+                {({ isSubmitting, setFieldValue }) => (
+                  <Form>
+                    <div className="mb-4">
+                      <label
+                        htmlFor="CCP_number"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        CCP Number
+                      </label>
+                      <Field
+                        type="text"
+                        name="CCP_number"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                      <ErrorMessage
+                        name="CCP_number"
+                        component="div"
+                        className="text-red-500 text-xs mt-2"
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="image"
+                      >
+                        Payment Screenshot
+                      </label>
+                      <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        accept="image/*"
+                        onChange={(event) => {
+                          const file = event.target.files[0];
+                          setimage_state(file);
+                          setFieldValue("image", file);
+                        }}
+                        ref={fileInputRef}
+                        className="border border-gray-300 p-2 rounded-md"
+                      />
+                      {image_state && (
+                        <div className="mt-4">
+                          <img
+                            src={URL.createObjectURL(image_state)}
+                            alt="Selected screenshot"
+                            className="w-32 h-32 object-cover rounded-md shadow-md"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Submitting..." : "Submit"}
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
 };
 
-const names_errorInputMessage = {
-    position: "absolute",
-    bottom: "-22px",
-    left: "5px",
-    fontSize: "12px",
-    color: "red",
-};
-export default Not_pending_view;
+export default EnhancedPaymentProcessView;

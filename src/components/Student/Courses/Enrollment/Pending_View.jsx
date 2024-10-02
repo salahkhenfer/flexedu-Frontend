@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CiImageOn } from "react-icons/ci";
 import { FaStar, FaStarHalf } from "react-icons/fa";
@@ -9,144 +9,102 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 
 function Not_pending_view({ course, Purcase }) {
-    const { user } = useAppContext();
-    const location = useLocation();
-    const CourseId = location.pathname.split("/")[3];
-    const fileInputRef = useRef(null);
-    const [imageChanged, setimageChanged] = useState(false);
-    const [image_state, setimage_state] = useState(null);
-    useEffect(() => {
-        console.log("Purcase", Purcase);
-    }, [Purcase]);
+  const { user } = useAppContext();
+  const location = useLocation();
+  const fileInputRef = useRef(null);
+  const [imageChanged, setimageChanged] = useState(false);
+  const [image_state, setimage_state] = useState(null);
 
-    return (
-        <div>
-            <div className=" ">
-                <div
-                    key={course?.id}
-                    className="flex items-center justify-between border rounded-md p-4 my-4"
-                >
-                    <div className="flex flex-col gap-2">
-                        <div className="flex gap-2">
-                            {course?.Image ? (
-                                <img
-                                    className="w-[120px] h-[120px] object-cover"
-                                    src={`http://localhost:3000/${course?.Image}`}
-                                    alt="course image"
-                                />
-                            ) : (
-                                <div className="flex items-center justify-center w-[120px] h-[120px] bg-gray-100">
-                                    <CiImageOn className="text-xl" />
-                                </div>
-                            )}
-                            <div>
-                                <div className="flex items-center justify-between w-full">
-                                    <div className="text-sm mb-6 font-semibold text-white">
-                                        <div className="text-gray_v text-lg">
-                                            {course?.Title}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="text-sm text-gray_v font-semibold">
-                                        {course?.Category}
-                                    </div>
-                                </div>
-                                <div>
-                                    {course?.Price && (
-                                        <div className="text-sm text-gray_v font-semibold">
-                                            {course?.Price} {" DA"}
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="flex items-center justify-between w-full font-semibold">
-                                    <div className="text-sm pt-1 text-gray_v">
-                                        Created at:{" "}
-                                        {dayjs(course?.createdAt).format(
-                                            "DD MMMM YYYY"
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  useEffect(() => {
+    console.log("Purcase", Purcase);
+  }, [Purcase]);
 
-                        <div className="flex justify-start gap-6 font-semibold text-sm text-gray_v pt-6">
-                            <div className="flex gap-4 w-full">
-                                <div className="flex gap-1">
-                                    {[...Array(5)].map((_, index) =>
-                                        index <
-                                        Math.floor(course?.Rate || 0) ? (
-                                            <FaStar
-                                                key={index}
-                                                className="text-yellow-400"
-                                            />
-                                        ) : index <
-                                          Math.ceil(course?.Rate || 0) ? (
-                                            <FaStarHalf
-                                                key={index}
-                                                className="text-yellow-400"
-                                            />
-                                        ) : (
-                                            <FaStar
-                                                key={index}
-                                                className="text-gray-400"
-                                            />
-                                        )
-                                    )}
-                                </div>
-                            </div>
+  return (
+    <div className="px-8 py-10 bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-2xl">
+      {/* Course Header */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex gap-6 items-center">
+          {course?.Image ? (
+            <img
+              className="w-[130px] h-[130px] object-cover rounded-xl shadow-md"
+              src={`http://localhost:3000/${course?.Image}`}
+              alt="Course"
+            />
+          ) : (
+            <div className="w-[130px] h-[130px] flex items-center justify-center bg-gray-200 rounded-xl shadow-md">
+              <CiImageOn className="text-6xl text-gray-500" />
+            </div>
+          )}
 
-                            <div className="shrink-0">
-                                {course?.Students_count ? (
-                                    <div>
-                                        {course?.Students_count} Enrolment
-                                    </div>
-                                ) : (
-                                    <div>0 Enrolment</div>
-                                )}
-                            </div>
-                            <div className="shrink-0">
-                                {course?.Course_Videos ? (
-                                    <div>
-                                        {course?.Course_Videos.lengh} Videos
-                                    </div>
-                                ) : (
-                                    <div>No Videos in this course</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div className="flex flex-col">
+            <div className="text-2xl font-bold text-blue-900">
+              {course?.Title}
             </div>
-            <div className=" text-2xl font-seminbold text-center py-4 text-gray-400">
-                Please wiat till ower Team validate your payment{" "}
+            <div className="text-md font-medium text-gray-500">
+              {course?.Category}
             </div>
-            <div>
-                <div className="flex flex-col text-sm md:text-lg gap-4 text-black_text">
-                    <div className="max-w-[400px] mx-auto">
-                        <div className="font-semibold text-sm pb-1">
-                            Your CCP Number:
-                        </div>
-                        <div className="border border-gray_white px-4 py-2 rounded-lg text-sm w-full">
-                            {Purcase?.CCP_number || "N/A"}
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-center gap-1">
-                        <div className="relative">
-                            <img
-                                src={
-                                    "http://localhost:3000" +
-                                    Purcase?.screenShot
-                                }
-                                alt="Screenshot"
-                                className="w-[150px] h-[150px] object-cover rounded-full"
-                            />
-                        </div>
-                    </div>
-                </div>
+            <div className="text-lg text-blue-600 font-semibold mt-2">
+              {course?.Price && `${course?.Price} DA`}
             </div>
+          </div>
         </div>
-    );
+
+        {/* Rating and Enrollments */}
+        <div className="flex gap-8 items-center">
+          <div className="flex gap-1 items-center">
+            {[...Array(5)].map((_, index) =>
+              index < Math.floor(course?.Rate || 0) ? (
+                <FaStar key={index} className="text-yellow-400 text-lg" />
+              ) : index < Math.ceil(course?.Rate || 0) ? (
+                <FaStarHalf key={index} className="text-yellow-400 text-lg" />
+              ) : (
+                <FaStar key={index} className="text-gray-300 text-lg" />
+              )
+            )}
+          </div>
+
+          <div className="text-md font-medium text-gray-600">
+            {course?.Students_count
+              ? `${course?.Students_count} Enrolments`
+              : "0 Enrolments"}
+          </div>
+
+          <div className="text-md font-medium text-gray-600">
+            {course?.Course_Videos?.length || 0} Videos
+          </div>
+        </div>
+      </div>
+
+      {/* Course Details */}
+      <div className="text-center text-gray-700 text-xl py-8 mt-6 bg-white rounded-2xl shadow-lg">
+        Please wait while our team validates your payment.
+      </div>
+
+      {/* Payment Details */}
+      <div className="flex flex-col items-center gap-6 text-sm mt-8">
+        <div className="w-full max-w-lg bg-white rounded-xl shadow-lg p-6">
+          <div className="font-semibold text-gray-700">Your CCP Number:</div>
+          <div className="border border-gray-300 px-4 py-3 rounded-lg mt-2 bg-gray-50">
+            {Purcase?.CCP_number || "N/A"}
+          </div>
+        </div>
+
+        <div className="relative">
+          {Purcase?.screenShot ? (
+            <img
+              src={`http://localhost:3000${Purcase.screenShot}`}
+              alt="Screenshot"
+              className="w-[300px] h-[180px] object-cover rounded-xl border-4 border-blue-200 shadow-lg"
+            />
+          ) : (
+            <div className="w-[180px] h-[180px] flex items-center justify-center bg-gray-200 rounded-full border-4 border-blue-200 shadow-lg">
+              No screenshot
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Not_pending_view;

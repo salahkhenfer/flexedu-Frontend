@@ -7,9 +7,9 @@ import Routers from "./Router.jsx";
 import { AppProvider } from "./AppContext";
 
 createRoot(document.getElementById("root")).render(
-    <StrictMode>
-        <AppProvider>
-            <RouterProvider router={Routers} />
-        </AppProvider>
-    </StrictMode>
+  <StrictMode>
+    <AppProvider>
+      <RouterProvider router={Routers} />
+    </AppProvider>
+  </StrictMode>
 );

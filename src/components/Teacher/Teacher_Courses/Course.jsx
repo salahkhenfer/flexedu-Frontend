@@ -1,320 +1,231 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAppContext } from "../../../AppContext";
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { IoIosWarning } from "react-icons/io";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
+import {
+  FaArrowDown,
+  FaArrowUp,
+  FaStar,
+  FaStarHalf,
+  FaPlay,
+} from "react-icons/fa";
+import {
+  MdEdit,
+  MdCategory,
+  MdAttachMoney,
+  MdDateRange,
+  MdPeople,
+} from "react-icons/md";
+import { CiImageOn } from "react-icons/ci";
 import Swal from "sweetalert2";
-import { IoAdd } from "react-icons/io5";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { useLocation } from "react-router-dom";
+import { IoIosWarning } from "react-icons/io";
+import { IoAdd } from "react-icons/io5";
 dayjs.extend(customParseFormat);
 
-import { CiImageOn } from "react-icons/ci";
-import { FaStar } from "react-icons/fa";
-import { FaStarHalf } from "react-icons/fa";
-
 function Course() {
-    const Naviagte = useNavigate();
-    const { user } = useAppContext();
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [Course, setCourse] = useState();
-    const location = useLocation();
-    const CourseId = location.pathname.split("/")[3];
-    const [showDescription, setShowDescription] = useState(false);
-    function toggleDescription() {
-        setShowDescription(!showDescription);
-    }
+  const navigate = useNavigate();
+  const { user } = useAppContext();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [course, setCourse] = useState(null);
+  const location = useLocation();
+  const courseId = location.pathname.split("/")[3];
+  const [showDescription, setShowDescription] = useState(false);
 
-    useEffect(() => {
-        setLoading(true);
-        const FetchCourse = async ({ setCourse, setLoading, setError }) => {
-            setLoading(true);
-            try {
-                const response = await axios.get(
-                    `http://localhost:3000/Teachers/${user?.id}/Courses/${CourseId}`,
-                    {
-                        withCredentials: true,
-                        validateStatus: () => true,
-                    }
-                );
-
-                if (response.status == 200) {
-                    const course = response.data.Course;
-                    setCourse(course);
-                } else if (response.status == 401) {
-                    Swal.fire("Error", "you should login again", "error");
-                    Naviagte("/Login");
-                } else {
-                    setError(response.data);
-                }
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        FetchCourse({ setCourse, setLoading, setError });
-    }, []);
-
-    if (loading) {
-        return (
-            <div className=" w-screen h-[80vh] flex flex-col items-center justify-center">
-                <span className="loader"></span>
-            </div>
+  useEffect(() => {
+    const fetchCourse = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/Teachers/${user?.id}/Courses/${courseId}`,
+          { withCredentials: true, validateStatus: () => true }
         );
-    } else if (error)
-        return (
-            <div className=" w-screen h-[calc(100vh-60px)] flex items-center justify-center">
-                <div className="text-red-600 font-semibold">
-                    {error.message}
-                </div>
+
+        if (response.status === 200) {
+          setCourse(response.data.Course);
+        } else if (response.status === 401) {
+          Swal.fire("Error", "You should login again", "error");
+          navigate("/Login");
+        } else {
+          setError(response.data);
+        }
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCourse();
+  }, [user, courseId, navigate]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <div className="text-red-600 font-semibold text-xl bg-white p-8 rounded-lg shadow-lg">
+          {error.message}
+        </div>
+      </div>
+    );
+  }
+
+  if (!course) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <IoIosWarning className="text-6xl text-yellow-500 mb-4" />
+        <h1 className="text-2xl font-semibold text-gray-700">
+          Course Not Found
+        </h1>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-gray-100 min-h-screen p-8">
+      <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="md:flex">
+          <div className="md:flex-shrink-0">
+            {course.Image ? (
+              <img
+                className="h-48 w-full object-cover md:w-48"
+                src={`http://localhost:3000/${course.Image}`}
+                alt="Course cover"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-48 w-48 bg-gray-200">
+                <CiImageOn className="text-4xl text-gray-400" />
+              </div>
+            )}
+          </div>
+          <div className="p-8 w-full">
+            <div className="flex justify-between items-start">
+              <div>
+                <h2 className="block mt-1 text-2xl leading-tight font-semibold text-black">
+                  {course.Title}
+                </h2>
+                <p className="mt-2 text-gray-500 flex items-center">
+                  <MdCategory className="mr-2" />
+                  {course.Category}
+                </p>
+              </div>
+              <Link
+                to={`/Teacher/Courses/${course.id}/Edit`}
+                className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+              >
+                <MdEdit className="mr-2" />
+                Edit Course
+              </Link>
             </div>
-        );
-    else
-        return (
-            <div>
+            <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-600">
+              <p className="flex items-center">
+                <MdAttachMoney className="mr-1" />
+                {course.Price ? `${course.Price} DA` : "Free"}
+              </p>
+              <p className="flex items-center">
+                <MdDateRange className="mr-1" />
+                Created: {dayjs(course.createdAt).format("DD MMMM YYYY")}
+              </p>
+              <p className="flex items-center">
+                <MdPeople className="mr-1" />
+                {course.Students_count || 0} Enrollments
+              </p>
+              <p className="flex items-center">
+                <FaPlay className="mr-1" />
+                {course.Course_Videos?.length || 0} Videos
+              </p>
+            </div>
+            <div className="mt-4 flex items-center">
+              {[...Array(5)].map((_, index) =>
+                index < Math.floor(course.Rate || 0) ? (
+                  <FaStar key={index} className="text-yellow-400" />
+                ) : index < Math.ceil(course.Rate || 0) ? (
+                  <FaStarHalf key={index} className="text-yellow-400" />
+                ) : (
+                  <FaStar key={index} className="text-gray-300" />
+                )
+              )}
+              <span className="ml-2 text-gray-600">
+                {course.Rate?.toFixed(1) || "No ratings"}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="px-8 py-4 border-t border-gray-200">
+          <button
+            onClick={() => setShowDescription(!showDescription)}
+            className="flex items-center text-blue-500 hover:text-blue-600 transition duration-300"
+          >
+            {showDescription ? "Hide" : "Show"} Description
+            {showDescription ? (
+              <FaArrowUp className="ml-2" />
+            ) : (
+              <FaArrowDown className="ml-2" />
+            )}
+          </button>
+          {showDescription && (
+            <p className="mt-4 text-gray-600">
+              {course.Description || "No description available."}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-8 max-w-6xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-2xl font-semibold text-gray-800">
+            Course Videos
+          </h3>
+          <Link
+            to={`/Teacher/Courses/${course.id}/Vedios/Add`}
+            className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300"
+          >
+            <IoAdd className="mr-2" />
+            Upload Video
+          </Link>
+        </div>
+        {course.Course_Videos && course.Course_Videos.length > 0 ? (
+          course.Course_Videos.map((video, index) => (
+            <div
+              key={video.id}
+              className="bg-white rounded-lg shadow-md mb-4 p-4 flex justify-between items-center hover:shadow-lg transition duration-300"
+            >
+              <div className="flex items-center">
+                <span className="text-2xl font-bold text-gray-300 mr-4">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <div>
-                    {!Course ? (
-                        <div className=" flex flex-col gap-6 items-center justify-center">
-                            <div className="pt-24 flex justify-center items-center gap-2 text-gray_v text-base font-semibold">
-                                <IoIosWarning />
-                                <h1>Course Not Found</h1>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className=" flex flex-col items-center justify-center gap-6 p-4">
-                            <div className=" flex justify-between w-full ">
-                                <div className=" w-[90%] ">
-                                    <div className=" flex flex-col gap-2 ">
-                                        <div className=" flex gap-2 ">
-                                            {Course?.Image ? (
-                                                <img
-                                                    className="w-[220px] h-[220px] object-cover"
-                                                    src={`http://localhost:3000/${Course?.Image}`}
-                                                    alt="Course image"
-                                                />
-                                            ) : (
-                                                <div className="flex items-center justify-center w-[220px] h-[220px] bg-gray-100 ">
-                                                    <CiImageOn className=" text-xl" />
-                                                </div>
-                                            )}
-                                            <div>
-                                                <div className="flex items-center justify-between w-full">
-                                                    <div className="text-sm  mb-6 font-semibold text-white">
-                                                        <div className=" text-gray_v text-lg">
-                                                            {Course?.Title}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="text-sm text-gray_v font-semibold">
-                                                        {Course?.Category}
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    {Course?.Price ? (
-                                                        <div className="text-sm text-gray_v font-semibold">
-                                                            {Course?.Price}
-                                                            {" DA"}
-                                                        </div>
-                                                    ) : null}
-                                                </div>
-
-                                                <div className="flex items-center justify-between w-full font-semibold">
-                                                    <div className="text-sm pt-1 text-gray_v">
-                                                        Created at :{" "}
-                                                        {/* {new Date(
-                                                    Course?.createdAt
-                                                ).toLocaleDateString()} */}
-                                                        {dayjs(
-                                                            Course?.createdAt
-                                                        ).format(
-                                                            "DD MMMM YYYY"
-                                                        )}
-                                                    </div>
-                                                </div>
-                                                <div className=" flex justify-start gap-6 font-semibold text-sm text-gray_v pt-6">
-                                                    <div className="flex gap-4 w-full">
-                                                        <div className="flex gap-1">
-                                                            {[...Array(5)].map(
-                                                                (_, index) =>
-                                                                    index <
-                                                                    Math.floor(
-                                                                        Course?.Rate ||
-                                                                            0
-                                                                    ) ? (
-                                                                        <FaStar
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                            className="text-yellow-400"
-                                                                        />
-                                                                    ) : index <
-                                                                      Math.ceil(
-                                                                          Course?.Rate ||
-                                                                              0
-                                                                      ) ? (
-                                                                        <FaStarHalf
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                            className="text-yellow-400"
-                                                                        />
-                                                                    ) : (
-                                                                        <FaStar
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                            className="text-gray-400"
-                                                                        />
-                                                                    )
-                                                            )}
-                                                        </div>
-                                                    </div>
-
-                                                    <div className=" shrink-0">
-                                                        {Course?.Students_count ? (
-                                                            <div>
-                                                                {" "}
-                                                                {
-                                                                    Course?.Students_count
-                                                                }{" "}
-                                                                Enrolment
-                                                            </div>
-                                                        ) : (
-                                                            <div>
-                                                                0 Enrolment
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className=" shrink-0">
-                                                        {Course?.Course_Videos ? (
-                                                            <div>
-                                                                {" "}
-                                                                {
-                                                                    Course
-                                                                        ?.Course_Videos
-                                                                        .length
-                                                                }{" "}
-                                                                Vedios
-                                                            </div>
-                                                        ) : (
-                                                            <div>
-                                                                No Vedios in
-                                                                this Course
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className=" text-gray-600 font-semibold text-sm">
-                                        {showDescription ? (
-                                            <div className="w-[80%] pl-8 py-4">
-                                                <div
-                                                    className="select-none flex gap-2 items-center justify-start underlined pb-4 cursor-pointer"
-                                                    onClick={toggleDescription}
-                                                >
-                                                    Show Description{" "}
-                                                    <FaArrowUp />
-                                                </div>
-                                                <div className="pb-4">
-                                                    {Course?.Description && (
-                                                        <p className="text-gray text-base">
-                                                            {
-                                                                Course?.Description
-                                                            }
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div className="w-[80%] pl-8 py-4">
-                                                <div
-                                                    className="select-none flex gap-2 items-center justify-start underlined pb-4 cursor-pointer"
-                                                    onClick={toggleDescription}
-                                                >
-                                                    Show Description{" "}
-                                                    <FaArrowDown />
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className=" w-[10%]  ">
-                                    <Link
-                                        to={`/Teacher/Courses/${Course?.id}/Edit`}
-                                        className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
-                                    >
-                                        {/* <IoAdd className="  font-bold text-xl" /> */}
-                                        Edite Course
-                                    </Link>
-                                </div>
-                            </div>
-                            <Link
-                                to={`/Teacher/Courses/${Course?.id}/Vedios/Add`}
-                                className=" flex items-center justify-center font-bold p-2 mt-6 bg-green-600 text-white cursor-pointer  rounded-lg "
-                            >
-                                <IoAdd className="  font-bold text-xl" />
-                                Upload Vedio
-                            </Link>
-                            <div>
-                                <div className=" flex flex-col gap-4">
-                                    {Course?.Course_Videos &&
-                                    Course?.Course_Videos.length > 0
-                                        ? Course?.Course_Videos.map(
-                                              (vedio, index) => (
-                                                  <div
-                                                      className=" flex justify-between  min-w-[70vw] bg-gray-100 py-2 px-4 mb-4 rounded-lg"
-                                                      key={vedio.id}
-                                                  >
-                                                      <div className=" flex gap-4">
-                                                          <div className=" font-semibold ">
-                                                              {index + 1}.
-                                                          </div>
-
-                                                          <div className=" flex gap-2">
-                                                              <div className="flex flex-col gap-1">
-                                                                  <div className="text-md  font-semibold">
-                                                                      {
-                                                                          vedio?.Title
-                                                                      }
-                                                                  </div>
-
-                                                                  <div className="text-sm text-gray_v font-semibold">
-                                                                      {
-                                                                          vedio?.Duration
-                                                                      }
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-
-                                                      <div className=" flex items-center justify-center">
-                                                          <Link
-                                                              to={`/Teacher/Courses/${Course?.id}/Vedios/${vedio.id}`}
-                                                              className="bg-gray-500  px-3 py-2 rounded-md cursor-pointer
-                                                     text-white font-semibold text-base"
-                                                          >
-                                                              View
-                                                          </Link>
-                                                      </div>
-                                                  </div>
-                                              )
-                                          )
-                                        : null}
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                  <h4 className="text-lg font-semibold text-gray-800">
+                    {video.Title}
+                  </h4>
+                  <p className="text-sm text-gray-500">{video.Duration}</p>
                 </div>
+              </div>
+              <Link
+                to={`/Teacher/Courses/${course.id}/Vedios/${video.id}`}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+              >
+                View
+              </Link>
             </div>
-        );
+          ))
+        ) : (
+          <p className="text-center text-gray-500 py-8">
+            No videos available for this course.
+          </p>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Course;

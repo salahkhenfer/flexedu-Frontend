@@ -108,8 +108,9 @@ function App() {
 
       <div>
         <NavBar />
-
-        <Outlet />
+        <div className="pb-5">
+          <Outlet />
+        </div>
       </div>
     );
 }
