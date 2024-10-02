@@ -10,41 +10,41 @@ function Laptop_Nav_Items() {
       </div>
       <div className="flex gap-6 lg:gap-12">
         <div className=" md:hover:text-perpol_v transition-all duration-150  cursor-pointer">
-          <a
-            href={"/"}
+          <Link
+            to={"/"}
             className={
               " md:hover:text-perpol_v transition-all duration-150 select-none"
             }
           >
             Home
-          </a>
+          </Link>
         </div>
         <div className=" md:hover:text-perpol_v transition-all duration-150  cursor-pointer">
-          <a
-            href={"/Achievements"}
+          <Link
+            to={"/Achievements"}
             className={
               " md:hover:text-perpol_v transition-all duration-150 select-none"
             }
           >
             Our Achievements
-          </a>
+          </Link>
         </div>
         <div className=" md:hover:text-perpol_v transition-all duration-150  cursor-pointer">
-          <a
-            href={"/Courses"}
+          <Link
+            to={"/Courses"}
             className=" md:hover:text-perpol_v transition-all duration-150 select-none"
           >
             Our Courses
-          </a>
+          </Link>
         </div>
 
         <div className=" md:hover:text-perpol_v transition-all duration-150  cursor-pointer">
-          <a
-            href={"/Contact"}
+          <Link
+            to={"/Contact"}
             className=" md:hover:text-perpol_v transition-all duration-150 select-none"
           >
             Contact us
-          </a>
+          </Link>
         </div>
       </div>
       <div className="flex gap-4 justify-center items-center h-full">
