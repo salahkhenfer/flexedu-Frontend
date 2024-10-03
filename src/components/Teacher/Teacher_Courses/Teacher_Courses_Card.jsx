@@ -1,160 +1,137 @@
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useAppContext } from "../../../AppContext";
 import { CiImageOn } from "react-icons/ci";
-import { FaStar } from "react-icons/fa";
-import { FaStarHalf } from "react-icons/fa";
+import {
+  FaStar,
+  FaStarHalf,
+  FaUserGraduate,
+  FaVideo,
+  FaCalendarAlt,
+  FaTrashAlt,
+  FaEye,
+} from "react-icons/fa";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-dayjs.extend(customParseFormat);
+
 function Teacher_Courses_Card({ course, setCourses }) {
-    const Naviagte = useNavigate();
-    const { user } = useAppContext();
-    const [delete_loading, setDeleteLoading] = useState(false);
-    const DeleteCourse = async () => {
-        setDeleteLoading(true);
-        try {
-            const response = await axios.delete(
-                `http://localhost:3000/Teachers/${user?.id}/Courses/${course?.id}`,
-                {
-                    withCredentials: true,
-                    validateStatus: () => true,
-                }
-            );
-            if (response.status == 200) {
-                Swal.fire("Success", "Course Deleted Successfully", "success");
-                setDeleteLoading(false);
-                setCourses((prev) => prev.filter((c) => c.id !== course?.id));
-            } else {
-                Swal.fire("Error", response.data.error, "error");
-                setDeleteLoading(false);
-            }
-        } catch (error) {
-            Swal.fire("Error", error.message, "error");
-            setDeleteLoading(false);
+  const { user } = useAppContext();
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const DeleteCourse = async () => {
+    setDeleteLoading(true);
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        const response = await axios.delete(
+          `http://localhost:3000/Teachers/${user?.id}/Courses/${course?.id}`,
+          { withCredentials: true, validateStatus: () => true }
+        );
+        if (response.status === 200) {
+          Swal.fire("Deleted!", "Course has been deleted.", "success");
+          setCourses((prev) => prev.filter((c) => c.id !== course?.id));
+        } else {
+          Swal.fire("Error", response.data.error, "error");
         }
-    };
-    return (
-        <div
-            key={course?.id}
-            className="flex items-center justify-between  border  rounded-md p-4 my-4"
-        >
-            <div className=" flex flex-col gap-2 ">
-                <div className=" flex gap-2">
-                    {course?.Image ? (
-                        <img
-                            className="w-[120px] h-[120px] object-cover"
-                            src={`http://localhost:3000/${course?.Image}`}
-                            alt="course image"
-                        />
-                    ) : (
-                        <div className="flex items-center justify-center w-[120px] h-[120px] bg-gray-100 ">
-                            <CiImageOn className=" text-xl" />
-                        </div>
-                    )}
-                    <div>
-                        <div className="flex items-center justify-between w-full">
-                            <div className="text-sm  mb-6 font-semibold text-white">
-                                <div className=" text-gray_v text-lg">
-                                    {course?.Title}
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-sm text-gray_v font-semibold">
-                                {course?.Category}
-                            </div>
-                        </div>
-                        <div>
-                            {course?.Price ? (
-                                <div className="text-sm text-gray_v font-semibold">
-                                    {course?.Price} {" DA"}
-                                </div>
-                            ) : null}
-                        </div>
-                        <div className="flex items-center justify-between w-full font-semibold">
-                            <div className="text-sm pt-1 text-gray_v">
-                                Created at :{" "}
-                                {/* {new Date(
-                                                    course?.createdAt
-                                                ).toLocaleDateString()} */}
-                                {dayjs(course?.createdAt).format(
-                                    "DD MMMM YYYY"
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      }
+    } catch (error) {
+      Swal.fire("Error", error.message, "error");
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
 
-                <div className=" flex justify-start gap-6 font-semibold text-sm text-gray_v pt-6">
-                    <div className="flex gap-4 w-full">
-                        <div className="flex gap-1">
-                            {[...Array(5)].map((_, index) =>
-                                index < Math.floor(course?.Rate || 0) ? (
-                                    <FaStar
-                                        key={index}
-                                        className="text-yellow-400"
-                                    />
-                                ) : index < Math.ceil(course?.Rate || 0) ? (
-                                    <FaStarHalf
-                                        key={index}
-                                        className="text-yellow-400"
-                                    />
-                                ) : (
-                                    <FaStar
-                                        key={index}
-                                        className="text-gray-400"
-                                    />
-                                )
-                            )}
-                        </div>
-                    </div>
-
-                    <div className=" shrink-0">
-                        {course?.Students_count ? (
-                            <div> {course?.Students_count} Enrolment</div>
-                        ) : (
-                            <div>0 Enrolment</div>
-                        )}
-                    </div>
-                    <div className=" shrink-0">
-                        {course?.Course_Videos ? (
-                            <div> {course?.Course_Videos.length} Vedios</div>
-                        ) : (
-                            <div>No Vedios in this course</div>
-                        )}
-                    </div>
-                </div>
-            </div>
-            <div className=" flex flex-col gap-4">
-                <Link
-                    to={`/Teacher/Courses/${course?.id}`}
-                    className="bg-perpol_v text-center px-3 py-2 rounded-md cursor-pointer
-                                                 text-white font-semibold text-base"
-                >
-                    View
-                </Link>
-                <div>
-                    {delete_loading ? (
-                        <div className="flex justify-center ">
-                            <span className="small-loader"></span>
-                        </div>
-                    ) : (
-                        <div
-                            onClick={() => DeleteCourse()}
-                            className="bg-red-500 px-3 py-2 text-center rounded-md cursor-pointer
-                                                         text-white font-semibold text-base"
-                        >
-                            Delete
-                        </div>
-                    )}
-                </div>
-            </div>
+  return (
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1">
+      <div className="relative">
+        {course?.Image ? (
+          <img
+            className="w-full h-48 object-cover"
+            src={`http://localhost:3000/${course?.Image}`}
+            alt={course?.Title}
+          />
+        ) : (
+          <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+            <CiImageOn className="text-4xl text-gray-400" />
+          </div>
+        )}
+        <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 m-2 rounded-full text-sm font-semibold">
+          {course?.Category}
         </div>
-    );
+      </div>
+      <div className="p-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          {course?.Title}
+        </h2>
+        <div className="flex items-center mb-4">
+          <div className="flex mr-2">
+            {[...Array(5)].map((_, index) =>
+              index < Math.floor(course?.Rate || 0) ? (
+                <FaStar key={index} className="text-yellow-400" />
+              ) : index < Math.ceil(course?.Rate || 0) ? (
+                <FaStarHalf key={index} className="text-yellow-400" />
+              ) : (
+                <FaStar key={index} className="text-gray-300" />
+              )
+            )}
+          </div>
+          <span className="text-gray-600">
+            ({course?.Rate?.toFixed(1) || 0})
+          </span>
+        </div>
+        <div className="flex justify-between text-sm text-gray-600 mb-4">
+          <div className="flex items-center">
+            <FaUserGraduate className="mr-2" />
+            {course?.Students_count || 0} Enrolled
+          </div>
+          <div className="flex items-center">
+            <FaVideo className="mr-2" />
+            {course?.Course_Videos?.length || 0} Videos
+          </div>
+          <div className="flex items-center">
+            <FaCalendarAlt className="mr-2" />
+            {dayjs(course?.createdAt).format("MMM D, YYYY")}
+          </div>
+        </div>
+        {course?.Price && (
+          <div className="text-2xl font-bold text-green-600 mb-4">
+            {course?.Price} DA
+          </div>
+        )}
+        <div className="flex justify-between">
+          <Link
+            to={`/Teacher/Courses/${course?.id}`}
+            className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-blue-700"
+          >
+            <FaEye className="mr-2" /> View Course
+          </Link>
+          <button
+            onClick={DeleteCourse}
+            disabled={deleteLoading}
+            className="bg-red-500 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-red-600 disabled:opacity-50"
+          >
+            {deleteLoading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+            ) : (
+              <>
+                <FaTrashAlt className="mr-2" /> Delete
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Teacher_Courses_Card;

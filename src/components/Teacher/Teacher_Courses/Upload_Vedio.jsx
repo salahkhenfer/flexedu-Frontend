@@ -1,243 +1,330 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAppContext } from "../../../AppContext";
-import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { Upload, FileVideo, X, PlayCircle } from "lucide-react";
 
 function Upload_Video() {
-    const { user } = useAppContext();
+  const { user } = useAppContext();
+  const [videoFile, setVideoFile] = useState(null);
+  const [dragging, setDragging] = useState(false);
+  const fileInputRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [Title, setTitle] = useState("");
+  const [videoDuration, setVideoDuration] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const location = useLocation();
+  const CourseId = location.pathname.split("/")[3];
 
-    const [videoFile, setVideoFile] = useState(null); // Store the selected file
-    const [dragging, setDragging] = useState(false); // Track drag status
-    const fileInputRef = useRef(null); // Ref to access file input
-    const [progress, setProgress] = useState(0); // Track progress
-    const [Title, setTitle] = useState("");
-    const [videoDuration, setVideoDuration] = useState(null); // Track video duration
-    const [isUploading, setIsUploading] = useState(false); // Track if the upload is in progress
-    const location = useLocation();
-    const CourseId = location.pathname.split("/")[3];
+  const MAX_FILE_SIZE = 2 * 1024 * 1024 * 1024; // 2GB limit
 
-    const MAX_FILE_SIZE = 2 * 1024 * 1024 * 1024; // 2GB limit
+  const formatDuration = (seconds) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    return `${h > 0 ? h + ":" : ""}${m > 9 ? m : "0" + m}:${
+      s > 9 ? s : "0" + s
+    }`;
+  };
 
-    // Function to format seconds to HH:MM:SS
-    const formatDuration = (seconds) => {
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = Math.floor(seconds % 60);
-        return `${h > 0 ? h + ":" : ""}${m > 9 ? m : "0" + m}:${
-            s > 9 ? s : "0" + s
-        }`;
-    };
+  const handleFileSelect = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith("video/")) {
+      if (file.size > MAX_FILE_SIZE) {
+        Swal.fire({
+          icon: "error",
+          title: "File Too Large",
+          text: "Maximum size allowed is 2GB.",
+          confirmButtonColor: "#3085d6",
+        });
+        return;
+      }
+      setVideoFile(file);
+      const videoURL = URL.createObjectURL(file);
+      const video = document.createElement("video");
+      video.src = videoURL;
+      video.onloadedmetadata = () => {
+        const duration = formatDuration(video.duration);
+        setVideoDuration(duration);
+        URL.revokeObjectURL(videoURL);
+      };
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid File",
+        text: "Please upload a valid video file.",
+        confirmButtonColor: "#3085d6",
+      });
+    }
+  };
 
-    // Handle file selection
-    const handleFileSelect = (event) => {
-        const file = event.target.files[0];
-        if (file && file.type.startsWith("video/")) {
-            if (file.size > MAX_FILE_SIZE) {
-                alert("The file is too large! Maximum size allowed is 2GB.");
-                return;
-            }
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setDragging(false);
+    const file = event.dataTransfer.files[0];
+    if (file && file.type.startsWith("video/")) {
+      if (file.size > MAX_FILE_SIZE) {
+        Swal.fire({
+          icon: "error",
+          title: "File Too Large",
+          text: "Maximum size allowed is 2GB.",
+          confirmButtonColor: "#3085d6",
+        });
+        return;
+      }
+      setVideoFile(file);
+      const videoURL = URL.createObjectURL(file);
+      const video = document.createElement("video");
+      video.src = videoURL;
+      video.onloadedmetadata = () => {
+        const duration = formatDuration(video.duration);
+        setVideoDuration(duration);
+        URL.revokeObjectURL(videoURL);
+      };
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid File",
+        text: "Please upload a valid video file.",
+        confirmButtonColor: "#3085d6",
+      });
+    }
+  };
 
-            setVideoFile(file);
+  const handleUpload = () => {
+    if (videoFile) {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append("CourseVedio", videoFile);
+      formData.append("Title", Title);
+      formData.append("Duration", videoDuration);
 
-            // Create a temporary URL and load it into a hidden video element to extract duration
-            const videoURL = URL.createObjectURL(file);
-            const video = document.createElement("video");
-            video.src = videoURL;
-            video.onloadedmetadata = () => {
-                const duration = formatDuration(video.duration);
-                setVideoDuration(duration); // Set the formatted duration
-                URL.revokeObjectURL(videoURL); // Clean up URL after loading metadata
-            };
-        } else {
-            alert("Please upload a valid video file.");
-        }
-    };
+      axios
+        .post(
+          `http://localhost:3000/upload/Courses/${CourseId}/Vedio`,
+          formData,
+          {
+            withCredentials: true,
+            validateStatus: () => true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              setProgress(percentCompleted);
+            },
+          }
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Upload Successful",
+              text: response.data.message,
+              confirmButtonColor: "#3085d6",
+            }).then(() => {
+              window.location.reload();
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Upload Failed",
+              text: "Server returned an error.",
+              confirmButtonColor: "#3085d6",
+            }).then(() => {
+              window.location.reload();
+            });
+          }
+          setProgress(0);
+          setVideoFile(null);
+          setIsUploading(false);
+        })
+        .catch((error) => {
+          console.error("Upload Error:", error.response || error.message);
+          if (error.response && error.response.status === 413) {
+            Swal.fire({
+              icon: "error",
+              title: "File Too Large",
+              text: "Please upload a file smaller than 2GB.",
+              confirmButtonColor: "#3085d6",
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Upload Failed",
+              text: "Please try again.",
+              confirmButtonColor: "#3085d6",
+            });
+          }
+          setIsUploading(false);
+          window.location.reload();
+        });
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "No Video Selected",
+        text: "Please select a video to upload.",
+        confirmButtonColor: "#3085d6",
+      });
+    }
+  };
 
-    // Handle drag-and-drop functionality
-    const handleDrop = (event) => {
-        event.preventDefault();
-        setDragging(false);
-        const file = event.dataTransfer.files[0];
-        if (file && file.type.startsWith("video/")) {
-            if (file.size > MAX_FILE_SIZE) {
-                alert("The file is too large! Maximum size allowed is 2GB.");
-                return;
-            }
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <Link
+        to={`/Teacher/Courses/${CourseId}`}
+        className="text-blue-600 hover:text-blue-800 mb-6 flex items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 mr-2"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+        Go back to Course
+      </Link>
 
-            setVideoFile(file);
-            // Extract video duration
-            const videoURL = URL.createObjectURL(file);
-            const video = document.createElement("video");
-            video.src = videoURL;
-            video.onloadedmetadata = () => {
-                const duration = formatDuration(video.duration);
-                setVideoDuration(duration); // Set the formatted duration
-                URL.revokeObjectURL(videoURL); // Clean up URL after loading metadata
-            };
-        } else {
-            alert("Please upload a valid video file.");
-        }
-    };
+      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-2xl">
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+          Upload Course Video
+        </h2>
 
-    // Upload video
-    const handleUpload = () => {
-        if (videoFile) {
-            setIsUploading(true); // Disable buttons during upload
-            const formData = new FormData();
-            formData.append("CourseVedio", videoFile);
-            formData.append("Title", Title);
-            formData.append("Duration", videoDuration); // Send formatted duration
-
-            axios
-                .post(
-                    `http://localhost:3000/upload/Courses/${CourseId}/Vedio`,
-                    formData,
-                    {
-                        withCredentials: true,
-                        validateStatus: () => true,
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                        onUploadProgress: (progressEvent) => {
-                            const percentCompleted = Math.round(
-                                (progressEvent.loaded * 100) /
-                                    progressEvent.total
-                            );
-                            setProgress(percentCompleted);
-                        },
-                    }
-                )
-                .then((response) => {
-                    if (response.status === 200) {
-                        alert(`Upload Success: ${response.data.message}`);
-                        window.location.reload(); // Refresh page after successful upload
-                    } else {
-                        alert("Upload failed. Server returned an error.");
-                        window.location.reload(); // Refresh page after failed upload
-                    }
-                    setProgress(0); // Reset progress after successful upload
-                    setVideoFile(null); // Clear file after success
-                    setIsUploading(false); // Re-enable buttons
-                })
-                .catch((error) => {
-                    console.error(
-                        "Upload Error:",
-                        error.response || error.message
-                    );
-                    if (error.response && error.response.status === 413) {
-                        alert(
-                            "File too large. Please upload a file smaller than 2GB."
-                        );
-                    } else {
-                        alert("Upload failed. Please try again.");
-                    }
-                    setIsUploading(false); // Re-enable buttons even on failure
-                    window.location.reload(); // Refresh page after failed upload
-                });
-        } else {
-            alert("Please select a video to upload.");
-        }
-    };
-
-    return (
-        <div className="flex flex-col items-center justify-center mt-6 max-w-[90vw] m-auto">
-            <Link
-                to={`/Teacher/Courses/${CourseId}`}
-                className=" text-green-600 pb-6 underline"
-            >
-                Go back
-            </Link>
-            {/* Drag-and-drop area */}
-            <div
-                className={`w-full h-48 border-2 border-dashed rounded-lg flex items-center justify-center mb-4 ${
-                    dragging ? "border-blue-500 bg-blue-100" : "border-gray-400"
-                }`}
-                onDragOver={(event) => event.preventDefault()}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current.click()} // Trigger file input on click
-            >
-                {videoFile ? (
-                    <div className="text-center">
-                        <p className="font-bold text-lg">{videoFile.name}</p>
-                        <p className="text-sm text-gray-600">
-                            {Math.round(videoFile.size / 1024 / 1024)} MB
-                        </p>
-                    </div>
-                ) : (
-                    <p className="text-gray-500">
-                        Drag & Drop a video file here, or click to select one
-                    </p>
-                )}
+        <div
+          className={`border-4 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-300 ${
+            dragging
+              ? "border-blue-500 bg-blue-50"
+              : "border-gray-300 hover:border-blue-400"
+          }`}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragging(true);
+          }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={handleDrop}
+          onClick={() => fileInputRef.current.click()}
+        >
+          {videoFile ? (
+            <div className="flex flex-col items-center">
+              <FileVideo size={48} className="text-blue-500 mb-2" />
+              <p className="font-semibold text-lg text-gray-700">
+                {videoFile.name}
+              </p>
+              <p className="text-sm text-gray-500">
+                {Math.round(videoFile.size / 1024 / 1024)} MB
+              </p>
+              {videoDuration && (
+                <p className="text-sm text-gray-500 mt-1">
+                  Duration: {videoDuration}
+                </p>
+              )}
             </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <Upload size={48} className="text-gray-400 mb-2" />
+              <p className="text-lg text-gray-600">
+                Drag & Drop your video here
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                or click to select a file
+              </p>
+            </div>
+          )}
+        </div>
 
-            {/* Hidden file input */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept="video/*"
+          onChange={handleFileSelect}
+        />
+
+        {videoFile && (
+          <div className="mt-6 space-y-4">
             <input
-                type="file"
-                ref={fileInputRef}
-                className="hidden"
-                accept="video/*"
-                onChange={handleFileSelect}
+              type="text"
+              placeholder="Enter Video Title"
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              value={Title}
+              onChange={(e) => {
+                const input = e.target.value;
+                if (input.length <= 50) {
+                  setTitle(input);
+                }
+              }}
+              disabled={isUploading}
             />
 
-            {/* Video info & control buttons */}
-            {videoFile && (
-                <div className="flex flex-col items-center w-full">
-                    <input
-                        type="text"
-                        placeholder="Enter Video Title"
-                        className="w-[60%] p-2 border border-gray-400 rounded-md mb-2"
-                        value={Title}
-                        onChange={(e) => {
-                            const input = e.target.value;
-                            if (input.length <= 50) {
-                                setTitle(input); // Only set the title if the length is valid
-                            }
-                        }}
-                        disabled={isUploading} // Disable input while uploading
-                    />
+            <div className="flex justify-between">
+              <button
+                className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300 disabled:opacity-50"
+                onClick={() => setVideoFile(null)}
+                disabled={isUploading}
+              >
+                <X size={20} className="mr-2" />
+                Remove File
+              </button>
 
-                    <button
-                        className="bg-red-500 text-white px-4 py-2 rounded-md mb-2"
-                        onClick={() => setVideoFile(null)}
-                        disabled={isUploading} // Disable "Remove" button during upload
-                    >
-                        Remove File
-                    </button>
+              <button
+                className={`flex items-center justify-center ${
+                  isUploading
+                    ? "bg-gray-400"
+                    : "bg-green-500 hover:bg-green-600"
+                } text-white px-4 py-2 rounded-md transition duration-300`}
+                onClick={() => {
+                  setProgress(0);
+                  if (!Title) {
+                    Swal.fire({
+                      icon: "warning",
+                      title: "Title Required",
+                      text: "Please enter a title for the video.",
+                      confirmButtonColor: "#3085d6",
+                    });
+                  } else if (Title.length < 5 || Title.length > 50) {
+                    Swal.fire({
+                      icon: "warning",
+                      title: "Invalid Title Length",
+                      text: "Title must be between 5 and 50 characters.",
+                      confirmButtonColor: "#3085d6",
+                    });
+                  } else if (videoFile && Title) {
+                    handleUpload();
+                  }
+                }}
+                disabled={isUploading}
+              >
+                <PlayCircle size={20} className="mr-2" />
+                {isUploading ? "Uploading..." : "Upload Video"}
+              </button>
+            </div>
 
-                    <button
-                        className={`${
-                            isUploading ? "bg-gray-400" : "bg-green-500"
-                        } text-white px-4 py-2 rounded-md`}
-                        onClick={() => {
-                            setProgress(0); // Reset progress
-                            if (!Title)
-                                alert("Please enter a title for the video");
-                            else if (Title.length < 5 || Title.length > 50)
-                                alert(
-                                    "Title must be between 5 and 50 characters"
-                                );
-                            else if (!videoFile)
-                                alert("Please select a video file");
-                            else if (videoFile && Title) handleUpload();
-                        }}
-                        disabled={isUploading} // Disable "Upload" button during upload
-                    >
-                        {isUploading ? "Uploading..." : "Upload Video"}
-                    </button>
-
-                    {/* Progress bar */}
-                    <div className="w-[60%] m-auto bg-gray-200 rounded-full h-4 mt-4">
-                        <div
-                            className="bg-blue-500 h-4 rounded-full"
-                            style={{ width: `${progress}%` }} // Update progress width
-                        ></div>
-                    </div>
-                    <p className="mt-2 text-gray-700">{progress}%</p>
+            {isUploading && (
+              <div className="mt-4">
+                <div className="w-full bg-gray-200 rounded-full h-4">
+                  <div
+                    className="bg-blue-500 h-4 rounded-full transition-all duration-300 ease-out"
+                    style={{ width: `${progress}%` }}
+                  ></div>
                 </div>
+                <p className="text-center mt-2 text-gray-600">
+                  {progress}% Uploaded
+                </p>
+              </div>
             )}
-        </div>
-    );
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Upload_Video;

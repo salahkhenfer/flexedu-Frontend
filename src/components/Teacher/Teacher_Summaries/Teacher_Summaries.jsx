@@ -85,7 +85,7 @@ function Teacher_Summaries() {
                 <IoAdd className="  font-bold text-xl" />
                 Add Summary
               </Link>
-              <div className=" w-[90%]  mx-auto">
+              <div className="w-[90%]  my-4 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {Summaries.map((Summary) => (
                   <Card
                     key={Summary.id}

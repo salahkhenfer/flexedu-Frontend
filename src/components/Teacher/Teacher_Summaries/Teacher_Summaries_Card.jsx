@@ -1,40 +1,48 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useAppContext } from "../../../AppContext";
 import { CiImageOn } from "react-icons/ci";
 import {
   FaStar,
   FaStarHalf,
+  FaUserGraduate,
   FaBookOpen,
-  FaUsers,
   FaCalendarAlt,
+  FaTrashAlt,
+  FaEye,
 } from "react-icons/fa";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-dayjs.extend(customParseFormat);
 
 function Teacher_Summaries_Card({ Summary, setSummaries }) {
-  const navigate = useNavigate();
   const { user } = useAppContext();
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const deleteSummary = async () => {
     setDeleteLoading(true);
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/Teachers/${user?.id}/Summaries/${Summary?.id}`,
-        {
-          withCredentials: true,
-          validateStatus: () => true,
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        const response = await axios.delete(
+          `http://localhost:3000/Teachers/${user?.id}/Summaries/${Summary?.id}`,
+          { withCredentials: true, validateStatus: () => true }
+        );
+        if (response.status === 200) {
+          Swal.fire("Deleted!", "Summary has been deleted.", "success");
+          setSummaries((prev) => prev.filter((s) => s.id !== Summary?.id));
+        } else {
+          Swal.fire("Error", response.data.error, "error");
         }
-      );
-      if (response.status === 200) {
-        Swal.fire("Success", "Summary Deleted Successfully", "success");
-        setSummaries((prev) => prev.filter((c) => c.id !== Summary?.id));
-      } else {
-        Swal.fire("Error", response.data.error, "error");
       }
     } catch (error) {
       Swal.fire("Error", error.message, "error");
@@ -44,51 +52,28 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
   };
 
   return (
-    <div className="group  my-4 relative bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-
-      <div className="relative p-6">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1">
+      <div className="relative">
+        {Summary?.Image ? (
+          <img
+            className="w-full h-48 object-cover"
+            src={`http://localhost:3000/${Summary?.Image}`}
+            alt={Summary?.Title}
+          />
+        ) : (
+          <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+            <CiImageOn className="text-4xl text-gray-400" />
+          </div>
+        )}
+        <div className="absolute top-0 right-0 bg-purple-600 text-white px-3 py-1 m-2 rounded-full text-sm font-semibold">
+          {Summary?.Category}
+        </div>
+      </div>
+      <div className="p-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          {Summary?.Title}
+        </h2>
         <div className="flex items-center mb-4">
-          {Summary?.Image ? (
-            <img
-              className="w-24 h-24 object-cover rounded-lg mr-4"
-              src={`http://localhost:3000/${Summary?.Image}`}
-              alt="Summary"
-            />
-          ) : (
-            <div className="flex items-center justify-center w-24 h-24 bg-gray-100 rounded-lg mr-4">
-              <CiImageOn className="text-4xl text-gray-400" />
-            </div>
-          )}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-1">
-              {Summary?.Title}
-            </h2>
-            <p className="text-sm text-gray-600 mb-2">{Summary?.Category}</p>
-            {Summary?.Price && (
-              <p className="text-lg font-semibold text-green-600">
-                {Summary?.Price} DA
-              </p>
-            )}
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-          <div className="flex items-center">
-            <FaCalendarAlt className="mr-2" />
-            {dayjs(Summary?.createdAt).format("DD MMM YYYY")}
-          </div>
-          <div className="flex items-center">
-            <FaUsers className="mr-2" />
-            {Summary?.Students_count || 0} Enrolments
-          </div>
-          <div className="flex items-center">
-            <FaBookOpen className="mr-2" />
-            {Summary?.Pages_Count || 0} Pages
-          </div>
-        </div>
-
-        <div className="flex items-center mb-6">
           <div className="flex mr-2">
             {[...Array(5)].map((_, index) =>
               index < Math.floor(Summary?.Rate || 0) ? (
@@ -100,31 +85,49 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
               )
             )}
           </div>
-          <span className="text-gray-600 text-sm">
-            {Summary?.Rate?.toFixed(1) || 0}
+          <span className="text-gray-600">
+            ({Summary?.Rate?.toFixed(1) || 0})
           </span>
         </div>
-
+        <div className="flex justify-between text-sm text-gray-600 mb-4">
+          <div className="flex items-center">
+            <FaUserGraduate className="mr-2" />
+            {Summary?.Students_count || 0} Enrolled
+          </div>
+          <div className="flex items-center">
+            <FaBookOpen className="mr-2" />
+            {Summary?.Pages_Count || 0} Pages
+          </div>
+          <div className="flex items-center">
+            <FaCalendarAlt className="mr-2" />
+            {dayjs(Summary?.createdAt).format("MMM D, YYYY")}
+          </div>
+        </div>
+        {
+          <div className="text-2xl font-bold text-green-600 mb-4">
+            {Summary?.Price == 0 ? "Free" : `${Summary?.Price} DA `}
+          </div>
+        }
         <div className="flex justify-between">
           <Link
             to={`/Teacher/Summaries/${Summary?.id}`}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300"
+            className="bg-purple-600 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-purple-700"
           >
-            View Details
+            <FaEye className="mr-2" /> View Details
           </Link>
-
-          {deleteLoading ? (
-            <div className="flex justify-center items-center">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-500"></div>
-            </div>
-          ) : (
-            <button
-              onClick={deleteSummary}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors duration-300"
-            >
-              Delete
-            </button>
-          )}
+          <button
+            onClick={deleteSummary}
+            disabled={deleteLoading}
+            className="bg-red-500 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-red-600 disabled:opacity-50"
+          >
+            {deleteLoading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+            ) : (
+              <>
+                <FaTrashAlt className="mr-2" /> Delete
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>
