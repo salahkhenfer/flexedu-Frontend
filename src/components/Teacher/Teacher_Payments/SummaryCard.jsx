@@ -7,65 +7,78 @@ import {
   FaUsers,
   FaBookOpen,
   FaCalendarAlt,
+  FaArrowRight,
 } from "react-icons/fa";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-dayjs.extend(customParseFormat);
 
-function Student_Summaries_Card({ Summary }) {
+const Student_Summaries_Card = ({ Summary }) => {
+  const renderStars = (rating) => {
+    return [...Array(5)].map((_, index) => {
+      if (index < Math.floor(rating)) {
+        return <FaStar key={index} className="text-yellow-400" />;
+      } else if (index < Math.ceil(rating)) {
+        return <FaStarHalf key={index} className="text-yellow-400" />;
+      }
+      return <FaStar key={index} className="text-gray-300" />;
+    });
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1">
-      <div className="flex">
-        <div className="w-1/3 bg-gradient-to-br from-purple-500 to-indigo-600 p-6 flex items-center justify-center">
+    <div className="group relative bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-105">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+      <div className="relative flex flex-col md:flex-row">
+        <div className="w-full md:w-2/5 h-60 md:h-auto overflow-hidden">
           {Summary?.Summary?.Image ? (
             <img
-              className="w-full h-48 object-cover rounded-lg"
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
               src={`http://localhost:3000/${Summary?.Summary?.Image}`}
               alt="Summary"
             />
           ) : (
-            <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
-              <CiImageOn className="text-5xl text-gray-400" />
+            <div className="w-full h-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
+              <CiImageOn className="text-6xl text-white/80" />
             </div>
           )}
         </div>
-        <div className="w-2/3 p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            {Summary?.Summary?.Title}
-          </h2>
-          <p className="text-sm text-gray-600 mb-4">
-            {Summary?.Summary?.Category}
-          </p>
 
-          <div className="flex items-center mb-4">
-            <div className="flex mr-2">
-              {[...Array(5)].map((_, index) =>
-                index < Math.floor(Summary?.Summary?.Rate || 0) ? (
-                  <FaStar key={index} className="text-yellow-400" />
-                ) : index < Math.ceil(Summary?.Summary?.Rate || 0) ? (
-                  <FaStarHalf key={index} className="text-yellow-400" />
-                ) : (
-                  <FaStar key={index} className="text-gray-300" />
-                )
-              )}
+        <div className="w-full md:w-3/5 p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">
+              {Summary?.Summary?.Title}
+            </h2>
+            <p className="text-sm text-gray-600 mb-4 italic">
+              {Summary?.Summary?.Category}
+            </p>
+
+            <div className="flex items-center mb-4">
+              <div className="flex mr-2">
+                {renderStars(Summary?.Summary?.Rate || 0)}
+              </div>
+              <span className="text-sm text-gray-600">
+                ({Summary?.Summary?.Rate?.toFixed(1) || 0})
+              </span>
             </div>
-            <span className="text-sm text-gray-600">
-              ({Summary?.Summary?.Rate?.toFixed(1) || 0})
-            </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="flex items-center text-sm text-gray-600">
               <FaUsers className="mr-2 text-indigo-500" />
-              {Summary?.Summary?.Students_count || 0} Enrolments
+              <span className="group-hover:font-semibold transition-all duration-300">
+                {Summary?.Summary?.Students_count || 0} Enrolments
+              </span>
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <FaBookOpen className="mr-2 text-indigo-500" />
-              {Summary?.Summary?.Pages_Count || 0} Pages
+              <span className="group-hover:font-semibold transition-all duration-300">
+                {Summary?.Summary?.Pages_Count || 0} Pages
+              </span>
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <FaCalendarAlt className="mr-2 text-indigo-500" />
-              {dayjs(Summary?.Summary?.createdAt).format("DD MMM YYYY")}
+              <span className="group-hover:font-semibold transition-all duration-300">
+                {dayjs(Summary?.Summary?.createdAt).format("DD MMM YYYY")}
+              </span>
             </div>
             {Summary?.Summary?.Price && (
               <div className="flex items-center text-sm font-semibold text-green-600">
@@ -73,17 +86,10 @@ function Student_Summaries_Card({ Summary }) {
               </div>
             )}
           </div>
-
-          <Link
-            to={`/Student/Purchased/Summaries/${Summary?.Summary?.id}`}
-            className="inline-block bg-indigo-600 text-white font-semibold px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300"
-          >
-            View Summary
-          </Link>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Student_Summaries_Card;
