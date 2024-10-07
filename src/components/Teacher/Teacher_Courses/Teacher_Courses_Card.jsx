@@ -103,10 +103,12 @@ function Teacher_Courses_Card({ course, setCourses }) {
             {dayjs(course?.createdAt).format("MMM D, YYYY")}
           </div>
         </div>
-        {course?.Price && (
-          <div className="text-2xl font-bold text-green-600 mb-4">
-            {course?.Price} DA
-          </div>
+        {course.Price === 0 ? (
+          <p className="text-lg font-semibold text-green-600">Free </p>
+        ) : (
+          <p className="text-lg font-semibold text-green-600">
+            {course.Price} DA
+          </p>
         )}
         <div className="flex justify-between">
           <Link

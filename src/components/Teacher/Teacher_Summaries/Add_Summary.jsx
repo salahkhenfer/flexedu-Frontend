@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../../AppContext";
+import { FaMoneyBillWave } from "react-icons/fa";
 
 const AddSummary = () => {
   const [summaryFile, setSummaryFile] = useState(null);
@@ -195,7 +196,7 @@ const AddSummary = () => {
             }
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, values, setFieldValue }) => (
             <Form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -240,22 +241,33 @@ const AddSummary = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label
-                    htmlFor="Price"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
+                  <label className="flex items-center text-gray-700 font-semibold mb-2">
+                    <FaMoneyBillWave className="mr-2 text-blue-500" />
                     Price
                   </label>
-                  <Field
-                    type="number"
-                    name="Price"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="Enter price"
-                  />
+                  <div className="flex items-center space-x-4">
+                    <Field
+                      type="number"
+                      name="Price"
+                      placeholder="Set your price"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setFieldValue("Price", 0)}
+                      className={`px-4 py-2 rounded-lg font-semibold transition ${
+                        values.Price === 0
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-200 text-gray-700 hover:bg-green-500 hover:text-white"
+                      }`}
+                    >
+                      Free
+                    </button>
+                  </div>
                   <ErrorMessage
                     name="Price"
                     component="div"
-                    className="mt-1 text-sm text-red-600"
+                    className="text-red-500 text-sm mt-1"
                   />
                 </div>
                 <div>

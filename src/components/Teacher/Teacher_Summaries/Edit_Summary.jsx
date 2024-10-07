@@ -10,7 +10,7 @@ import Axios from "axios";
 import axios from "axios";
 import { IoIosWarning } from "react-icons/io";
 import { IoAdd } from "react-icons/io5";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp, FaMoneyBillWave } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useLocation } from "react-router-dom";
@@ -172,7 +172,7 @@ function Edit_Summary() {
                 }
               }}
             >
-              {({ isSubmitting, setFieldValue }) => (
+              {({ isSubmitting, setFieldValue, values }) => (
                 <Form className="  flex flex-col text-sm md:text-lg  gap-4 text-black_text">
                   <div className=" w-full">
                     <input
@@ -284,18 +284,33 @@ function Edit_Summary() {
                   </div>
 
                   <div>
-                    <div className=" font-semibold text-sm pb-1">Price </div>
-                    <Field
-                      placeholder="example@gmail.com"
-                      type="Price"
-                      name="Price"
-                      disabled={isSubmitting}
-                      className="border border-gray_white px-4 py-2 rounded-lg  text-sm  w-full"
-                    />
+                    <label className="flex items-center text-gray-700 font-semibold mb-2">
+                      <FaMoneyBillWave className="mr-2 text-blue-500" />
+                      Price
+                    </label>
+                    <div className="flex items-center space-x-4">
+                      <Field
+                        type="number"
+                        name="Price"
+                        placeholder="Set your price"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setFieldValue("Price", 0)}
+                        className={`px-4 py-2 rounded-lg font-semibold transition ${
+                          values.Price === 0
+                            ? "bg-green-500 text-white"
+                            : "bg-gray-200 text-gray-700 hover:bg-green-500 hover:text-white"
+                        }`}
+                      >
+                        Free
+                      </button>
+                    </div>
                     <ErrorMessage
                       name="Price"
                       component="div"
-                      style={errorInputMessage}
+                      className="text-red-500 text-sm mt-1"
                     />
                   </div>
                   <div>
@@ -316,7 +331,6 @@ function Edit_Summary() {
                       style={errorInputMessage}
                     />
                   </div>
-
                   {isSubmitting ? (
                     <span className="small-loader my-5   m-auto"></span>
                   ) : (

@@ -7,6 +7,7 @@ import { MdAttachMoney, MdBookmark } from "react-icons/md";
 import { FaGraduationCap, FaFileAlt } from "react-icons/fa";
 import Courses_Card from "./CourseCard";
 import SummaryCard from "./SummaryCard";
+import StudentCoursesCard from "./CourseCard";
 
 const Purchased = () => {
   const { user } = useAppContext();
@@ -16,7 +17,8 @@ const Purchased = () => {
   const [ccpNumber, setCcpNumber] = useState("");
   const [ccpNumberChanged, setCcpNumberChanged] = useState(false);
   const [changeCcpLoading, setChangeCcpLoading] = useState(false);
-
+  const [courses, setCourses] = useState([]);
+  const [summaries, setSummaires] = useState([]);
   useEffect(() => {
     const fetchPurchased = async () => {
       setLoading(true);
@@ -62,7 +64,38 @@ const Purchased = () => {
       setChangeCcpLoading(false);
     }
   };
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:3000/Teachers/${user?.id}/CoursesWithStudentCount`,
+        {
+          withCredentials: true,
+          validateStatus: () => true,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setCourses(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+      });
 
+    axios
+      .get(
+        `http://localhost:3000/Teachers/${user?.id}/SummariesWithStudentCount`,
+        {
+          withCredentials: true,
+          validateStatus: () => true,
+        }
+      )
+      .then((response) => {
+        setSummaires(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+      });
+  }, [user?.id]);
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -162,7 +195,7 @@ const Purchased = () => {
           <h2 className="text-2xl font-bold text-indigo-700 mb-6">
             Purchased Courses
           </h2>
-          {pageData.course_Purcase_Requests?.length === 0 ? (
+          {courses?.length === 0 ? (
             <div className="bg-white rounded-lg shadow-lg p-6 flex items-center justify-center text-gray-500">
               <IoIosWarning className="mr-2 text-2xl" />
               <span>No courses purchased yet</span>
@@ -170,7 +203,7 @@ const Purchased = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {pageData.course_Purcase_Requests?.map((course) => (
-                <Courses_Card key={course.id} course={course} />
+                <StudentCoursesCard key={course.id} course={course} />
               ))}
             </div>
           )}
@@ -180,7 +213,7 @@ const Purchased = () => {
           <h2 className="text-2xl font-bold text-indigo-700 mb-6">
             Purchased Summaries
           </h2>
-          {pageData.summary_Purcase_Requests?.length === 0 ? (
+          {summaries?.length === 0 ? (
             <div className="bg-white rounded-lg shadow-lg p-6 flex items-center justify-center text-gray-500">
               <IoIosWarning className="mr-2 text-2xl" />
               <span>No summaries purchased yet</span>
@@ -188,7 +221,7 @@ const Purchased = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {pageData.summary_Purcase_Requests?.map((summary) => (
-                <SummaryCard key={summary.id} Summary={summary} />
+                <SummaryCard key={summary.id} summary={summary.Summary} />
               ))}
             </div>
           )}

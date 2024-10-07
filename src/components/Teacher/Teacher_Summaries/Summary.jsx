@@ -25,6 +25,7 @@ function Summary() {
   const [Summary, setSummary] = useState();
   const location = useLocation();
   const SummaryId = location.pathname.split("/")[3];
+
   const [showDescription, setShowDescription] = useState(false);
   function toggleDescription() {
     setShowDescription(!showDescription);

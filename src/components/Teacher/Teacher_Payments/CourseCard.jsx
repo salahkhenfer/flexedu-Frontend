@@ -1,64 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiImageOn } from "react-icons/ci";
-import { FaStar, FaStarHalf, FaUsers, FaVideo } from "react-icons/fa";
-import dayjs from "dayjs";
+import { FaStar, FaStarHalf, FaUsers, FaVideo, FaClock } from "react-icons/fa";
+import axios from "axios";
+import { useAppContext } from "../../../AppContext";
 
 const StudentCoursesCard = ({ course }) => {
+  console.log(course.Course);
+
   const renderStars = (rating) => {
-    return [...Array(5)].map((_, index) => {
-      if (index < Math.floor(rating)) {
-        return <FaStar key={index} className="text-yellow-400" />;
-      } else if (index < Math.ceil(rating)) {
-        return <FaStarHalf key={index} className="text-yellow-400" />;
-      }
-      return <FaStar key={index} className="text-gray-300" />;
-    });
+    return (
+      <div className="flex">
+        {[...Array(5)].map((_, index) => {
+          if (index < Math.floor(rating)) {
+            return <FaStar key={index} className="text-yellow-400" />;
+          } else if (index < Math.ceil(rating)) {
+            return <FaStarHalf key={index} className="text-yellow-400" />;
+          }
+          return <FaStar key={index} className="text-gray-300" />;
+        })}
+      </div>
+    );
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-      <div className="flex">
-        <div className="w-1/3">
-          {course?.Course?.Image ? (
-            <img
-              className="w-full h-full object-cover"
-              src={`http://localhost:3000/${course?.Course?.Image}`}
-              alt={course?.Course?.Title}
-            />
-          ) : (
-            <div className="flex items-center justify-center w-full h-full bg-gray-100">
-              <CiImageOn className="text-4xl text-gray-400" />
-            </div>
-          )}
+    <div
+      key={course.Course.id}
+      className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105"
+    >
+      <div className="relative">
+        {course?.Course?.Image ? (
+          <img
+            src={`http://localhost:3000/${course?.Course?.Image}`}
+            alt={course?.Course?.Title}
+            className="w-full h-48 object-cover"
+          />
+        ) : (
+          <div className="flex items-center justify-center h-48 bg-gray-200">
+            <CiImageOn className="text-6xl text-gray-400" />
+          </div>
+        )}
+        <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
+          <FaUsers className="inline-block mr-1" />
+          {course.Course?.Students_count} Students
         </div>
-        <div className="w-2/3 p-4">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            {course?.Course?.Title}
-          </h2>
-          <p className="text-sm text-gray-600 mb-2">
-            {course?.Course?.Category}
-          </p>
-          {course?.Course?.Price && (
-            <p className="text-lg font-bold text-green-600 mb-2">
-              {course?.Course?.Price} DA
-            </p>
-          )}
-          <p className="text-xs text-gray-500 mb-4">
-            Purchased on: {dayjs(course?.createdAt).format("DD MMMM YYYY")}
-          </p>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="flex">{renderStars(course?.Course?.Rate || 0)}</div>
-            <div className="flex items-center text-sm text-gray-600">
-              <FaUsers className="mr-1" />
-              {course?.Course?.Students_count || 0} Enrolled
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <FaVideo className="mr-1" />
-              {course?.Course_Videos?.length || 0} Videos
-            </div>
+      </div>
+      <div className="p-4">
+        <h2 className="text-lg font-semibold mb-2 text-gray-800">
+          {course?.Course?.Title}
+        </h2>
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          {course?.Course?.Category}
+        </span>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center">
+            {renderStars(course?.Course?.Rate || 0)}
+            <span className="ml-2 text-sm text-gray-500">
+              ({course?.Course?.Rate?.toFixed(1) || "N/A"})
+            </span>
           </div>
         </div>
+      </div>
+      <div className="p-4 bg-gray-50 flex justify-between items-center">
+        {course?.Course.Price === 0 ? (
+          <p className="text-lg font-semibold text-green-600">Free </p>
+        ) : (
+          <p className="text-lg font-semibold text-green-600">
+            {course?.Course.Price} DA
+          </p>
+        )}
       </div>
     </div>
   );
