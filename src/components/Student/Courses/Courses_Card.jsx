@@ -14,80 +14,85 @@ import { Link } from "react-router-dom";
 dayjs.extend(customParseFormat);
 
 function Student_Courses_Card({ course }) {
+  // Function to render stars based on rating
+  const renderStars = () => {
+    return [...Array(5)].map((_, index) => {
+      if (index < Math.floor(course?.Rate || 0)) {
+        return <FaStar key={index} className="text-yellow-500" />;
+      } else if (index < Math.ceil(course?.Rate || 0)) {
+        return <FaStarHalf key={index} className="text-yellow-500" />;
+      } else {
+        return <FaStar key={index} className="text-gray-300" />;
+      }
+    });
+  };
+
   return (
-    <div className="bg-white cursor-pointer my-3 rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
-      <div className="flex flex-col md:flex-row">
-        {/* Course Image Section */}
-        <div className="w-full md:w-1/3 bg-gradient-to-br from-blue-500 to-purple-600 p-4 flex items-center justify-center">
-          {course?.Image ? (
-            <img
-              className="w-full h-48 object-cover rounded-lg shadow-lg"
-              src={`http://localhost:3000/${course?.Image}`}
-              alt="Course"
-            />
-          ) : (
-            <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
-              <CiImageOn className="text-5xl text-gray-400" />
-            </div>
-          )}
+    <div className=" w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+      {/* Course Image Section */}
+      <div className="relative">
+        {course?.Image ? (
+          <img
+            src={course.Image}
+            alt={course.Title}
+            className="w-full h-48 object-cover"
+          />
+        ) : (
+          <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+            <CiImageOn className="text-gray-400 text-6xl" />
+          </div>
+        )}
+      </div>
+
+      {/* Course Details Section */}
+      <div className="p-4">
+        <h3 className="text-xl font-semibold mb-1 text-gray-800 truncate">
+          {course?.Title}
+        </h3>
+        <p className="text-sm text-gray-500 mb-2">{course?.Category}</p>
+
+        {/* Rating Section */}
+        <div className="flex items-center mb-2">
+          {renderStars()}
+          <span className="ml-2 text-sm text-gray-600">
+            ({course?.Rate?.toFixed(1) || 0})
+          </span>
         </div>
 
-        {/* Course Details Section */}
-        <div className="w-full md:w-2/3 p-6 bg-white">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            {course?.Title}
-          </h2>
-          <p className="text-sm text-gray-600 mb-4">{course?.Category}</p>
-
-          {/* Rating Section */}
-          <div className="flex items-center mb-4">
-            <div className="flex mr-2">
-              {[...Array(5)].map((_, index) =>
-                index < Math.floor(course?.Rate || 0) ? (
-                  <FaStar key={index} className="text-yellow-400" />
-                ) : index < Math.ceil(course?.Rate || 0) ? (
-                  <FaStarHalf key={index} className="text-yellow-400" />
-                ) : (
-                  <FaStar key={index} className="text-gray-300" />
-                )
-              )}
-            </div>
-            <span className="text-sm text-gray-600">
-              ({course?.Rate?.toFixed(1) || 0})
+        {/* Course Information Section */}
+        <div className="text-sm text-gray-600">
+          <div className="flex items-center mb-1">
+            <FaUsers className="text-gray-400 mr-2" />
+            <span>
+              {course?.Students_count || 0} Enrolment
+              {course?.Students_count !== 1 ? "s" : ""}
             </span>
           </div>
 
-          {/* Course Information Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="flex items-center text-sm text-gray-600">
-              <FaUsers className="mr-2 text-purple-500" />
-              {course?.Students_count || 0} Enrolment
-              {course?.Students_count !== 1 ? "s" : ""}
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <FaVideo className="mr-2 text-purple-500" />
+          <div className="flex items-center mb-1">
+            <FaVideo className="text-gray-400 mr-2" />
+            <span>
               {course?.Course_Videos?.length || 0} Video
               {course?.Course_Videos?.length !== 1 ? "s" : ""}
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <FaCalendarAlt className="mr-2 text-purple-500" />
-              Purchased: {dayjs(course?.createdAt).format("DD MMM YYYY")}
-            </div>
-            {course?.Price && (
-              <div className="flex items-center text-sm font-semibold text-green-600">
-                {course?.Price} DA
-              </div>
-            )}
+            </span>
           </div>
 
-          {/* View Course Button */}
-          <Link
-            to={`/Student/Courses/${course?.id}`}
-            className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:bg-gradient-to-l transition-colors duration-300"
-          >
-            View Course
-          </Link>
+          {course?.Price === 0 ? (
+            <p className="text-lg font-semibold text-green-600">Free</p>
+          ) : (
+            <p className="text-lg font-semibold text-green-600">
+              {course?.Price} DA
+            </p>
+          )}
         </div>
+
+        {/* View Course Button */}
+        <Link
+          to={`/Student/Courses/${course?.id}`}
+          className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:bg-gradient-to-l transition-colors duration-300"
+        >
+          View Course
+        </Link>
       </div>
     </div>
   );
