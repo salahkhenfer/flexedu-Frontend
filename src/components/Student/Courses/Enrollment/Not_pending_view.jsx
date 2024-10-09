@@ -222,7 +222,7 @@ const EnhancedPaymentProcessView = ({ course, Purcase, setPayment_Status }) => {
                           );
                           setSubmitting(false);
                           setPayment_Status(true);
-                          Navigate(`/Student/Courses/${course.id}`);
+                          Navigate(`Student/Courses/${course.id}`);
                         } else if (Image_Response.status === 400) {
                           setSubmitting(false);
                           Swal.fire(

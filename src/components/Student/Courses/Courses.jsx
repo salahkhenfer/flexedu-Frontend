@@ -41,6 +41,8 @@ function Student_Courses() {
           }
         );
         if (response.status === 200) {
+          console.log(response.data.Courses);
+
           setCourses(response.data.Courses);
         } else if (response.status === 401) {
           Swal.fire("Error", "You should login again", "error");

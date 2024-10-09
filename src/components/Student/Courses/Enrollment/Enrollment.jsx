@@ -1,49 +1,61 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { IoIosWarning } from "react-icons/io";
 import Swal from "sweetalert2";
+import { IoAdd } from "react-icons/io5";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { CiImageOn } from "react-icons/ci";
+import { FaStar, FaStarHalf } from "react-icons/fa";
 import { useAppContext } from "../../../../AppContext";
+import config from "../../../../config";
+import { FaRegImage } from "react-icons/fa";
+import Axios from "axios";
 import Not_pending_view from "./Not_pending_view";
 import Pending_View from "./Pending_View";
-
 dayjs.extend(customParseFormat);
-
 function Enrollment() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Fixed typo
   const { user } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [course, setCourse] = useState(null);
-  const [isEnrolled, setIsEnrolled] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState(false);
-  const [purchase, setPurchase] = useState(null);
+  const [course, setCourse] = useState(null); // Ensure course state is initialized
+  const [isEnrolled, setIsEnrolled] = useState(false); // Fixed state naming
+  const [Payment_Status, setPayment_Status] = useState(false); // Fixed state naming
+  const [Purcase, setPurcase] = useState(null);
   const location = useLocation();
-  const courseId = location.pathname.split("/")[3];
+  const CourseId = location.pathname.split("/")[3];
+  // useEffect(() => {
+  //     console.log("course", course);
+  // }, [course]);
 
   useEffect(() => {
     const fetchCourse = async () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:3000/Students/Courses/${courseId}`,
+          `http://localhost:3000/Students/Courses/${CourseId}`,
           {
             withCredentials: true,
             validateStatus: () => true,
           }
         );
+        console.log("response", response);
 
         if (response.status === 200) {
-          const { Course, isEnrolled, paymentStatus, purcase } = response.data;
-          setCourse(Course);
-          setIsEnrolled(isEnrolled);
-          setPaymentStatus(paymentStatus);
-          setPurchase(purcase);
+          const fetchedCourse = response.data.Course;
+          setCourse(fetchedCourse);
+          setIsEnrolled(response.data.isEnrolled);
+          setPayment_Status(response.data.paymentStatus);
+          setPurcase(response.data.purcase);
         } else if (response.status === 401) {
           Swal.fire("Error", "You should log in again", "error");
-          navigate("/Login");
+          navigate("/Login"); // Fixed typo
         } else {
           setError(response.data);
         }
@@ -55,8 +67,7 @@ function Enrollment() {
     };
 
     fetchCourse();
-  }, [courseId, navigate]);
-
+  }, [CourseId, navigate]); // Ensure CourseId is a dependency
   if (loading) {
     return (
       <div className="w-screen h-[80vh] flex flex-col items-center justify-center">
@@ -72,7 +83,6 @@ function Enrollment() {
       </div>
     );
   }
-
   if (!course) {
     return (
       <div className="flex flex-col gap-6 items-center justify-center">
@@ -85,25 +95,19 @@ function Enrollment() {
   }
 
   if (isEnrolled) {
-    navigate(`/Student/Purchased/Courses/${courseId}`);
+    navigate(`Student/Purchased/Courses/${CourseId}`);
     return null;
   }
-
-  if (!paymentStatus || paymentStatus === "rejected") {
+  if (!Payment_Status || Payment_Status == "rejected")
     return (
       <Not_pending_view
         course={course}
-        Purcase={purchase}
-        setPayment_Status={setPaymentStatus}
+        Purcase={Purcase}
+        setPayment_Status={setPayment_Status}
       />
     );
-  }
-
-  if (paymentStatus === "pending") {
-    return <Pending_View course={course} Purcase={purchase} />;
-  }
-
-  return null;
+  if (Payment_Status == "pending")
+    return <Pending_View course={course} Purcase={Purcase} />;
 }
 
 export default Enrollment;

@@ -60,12 +60,6 @@ function Student_Profile() {
                     user?.createdAt && new Date(user.createdAt).toLocaleString()
                   }
                 />
-                <ProfileItem
-                  label="Updated At"
-                  value={
-                    user?.updatedAt && new Date(user.updatedAt).toLocaleString()
-                  }
-                />
               </div>
             </div>
           </div>

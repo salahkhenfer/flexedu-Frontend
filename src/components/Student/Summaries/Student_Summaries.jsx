@@ -105,31 +105,15 @@ function Student_Summaries() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredSummaries.map((Summary) => (
-                <Card Summary={Summary} setSummaries={setSummaries} />
+                <Card
+                  key={Summary.id}
+                  Summary={Summary}
+                  setSummaries={setSummaries}
+                />
               ))}
             </div>
           )}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-12 text-center"
-        >
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Your Learning Stats
-          </h2>
-          <div className="flex justify-center space-x-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <IoBook className="text-4xl text-blue-500 mb-2 mx-auto" />
-              <p className="text-2xl font-bold text-gray-800">
-                {summaries.length}
-              </p>
-              <p className="text-gray-600">Total Summaries</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </div>
   );
