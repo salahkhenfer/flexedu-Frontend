@@ -5,6 +5,9 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useAppContext } from "./AppContext";
 import Logo from "../public/Logo.png";
+import Register from "../public/Register.png";
+import Login from "../public/Login.png";
+
 import "./App.css";
 import NavBar from "./landingPage/NavBar/NavBar";
 // import NavBar from "./landingPage/NavBar/NavBar";
@@ -34,7 +37,8 @@ function App() {
     };
     const fetch_images = () => {
       return new Promise((resolve, reject) => {
-        const images = [Logo];
+        const images = [Logo, Register, Login];
+
         images.forEach((imageSrc) => {
           const img = new Image();
           img.onload = () => {
