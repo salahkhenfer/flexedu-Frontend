@@ -19,6 +19,7 @@ function Student_Summaries() {
   const [error, setError] = useState(null);
   const [summaries, setSummaries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeFilter, setActiveFilter] = useState();
 
   useEffect(() => {
     const fetchSummaries = async () => {
@@ -52,6 +53,11 @@ function Student_Summaries() {
   const filteredSummaries = summaries.filter((summary) =>
     summary.Title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const categories = [
+    "all",
+    ...new Set(summaries.map((summary) => summary.Category)),
+  ];
 
   if (loading) {
     return (
@@ -94,6 +100,22 @@ function Student_Summaries() {
           />
           <IoSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 text-xl" />
         </div>
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveFilter(category)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition duration-300 ease-in-out ${
+                activeFilter === category
+                  ? "bg-purple-600 text-white"
+                  : "bg-white text-purple-600 hover:bg-purple-100"
+              }`}
+            >
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </button>
+          ))}
+        </div>
+
         <div>
           {!filteredSummaries || filteredSummaries?.length == 0 ? (
             <div className=" flex flex-col gap-6 items-center justify-center">

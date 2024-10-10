@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CiImageOn } from "react-icons/ci";
-import { FaStar, FaStarHalf } from "react-icons/fa";
+import { FaStar, FaStarHalf, FaUsers, FaVideo } from "react-icons/fa";
 import { useAppContext } from "../../../../AppContext";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -9,144 +9,108 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 
 function Not_pending_view({ summary, Purcase }) {
-    const { user } = useAppContext();
-    const location = useLocation();
-    const SummaryId = location.pathname.split("/")[3];
-    const fileInputRef = useRef(null);
-    const [imageChanged, setimageChanged] = useState(false);
-    const [image_state, setimage_state] = useState(null);
-    useEffect(() => {
-        console.log("Purcase", Purcase);
-    }, [Purcase]);
+  const { user } = useAppContext();
+  const location = useLocation();
+  const SummaryId = location.pathname.split("/")[3];
+  const fileInputRef = useRef(null);
+  const [imageChanged, setimageChanged] = useState(false);
+  const [image_state, setimage_state] = useState(null);
+  useEffect(() => {
+    console.log("Purcase", Purcase);
+  }, [Purcase]);
 
-    return (
-        <div>
-            <div className=" ">
-                <div
-                    key={summary?.id}
-                    className="flex items-center justify-between border rounded-md p-4 my-4"
-                >
-                    <div className="flex flex-col gap-2">
-                        <div className="flex gap-2">
-                            {summary?.Image ? (
-                                <img
-                                    className="w-[120px] h-[120px] object-cover"
-                                    src={`http://localhost:3000/${summary?.Image}`}
-                                    alt="summary image"
-                                />
-                            ) : (
-                                <div className="flex items-center justify-center w-[120px] h-[120px] bg-gray-100">
-                                    <CiImageOn className="text-xl" />
-                                </div>
-                            )}
-                            <div>
-                                <div className="flex items-center justify-between w-full">
-                                    <div className="text-sm mb-6 font-semibold text-white">
-                                        <div className="text-gray_v text-lg">
-                                            {summary?.Title}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="text-sm text-gray_v font-semibold">
-                                        {summary?.Category}
-                                    </div>
-                                </div>
-                                <div>
-                                    {summary?.Price && (
-                                        <div className="text-sm text-gray_v font-semibold">
-                                            {summary?.Price} {" DA"}
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="flex items-center justify-between w-full font-semibold">
-                                    <div className="text-sm pt-1 text-gray_v">
-                                        Created at:{" "}
-                                        {dayjs(summary?.createdAt).format(
-                                            "DD MMMM YYYY"
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  return (
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <div className="mb-8">
+        <div
+          key={summary?.id}
+          className="flex flex-col md:flex-row items-start gap-6 border-b pb-6"
+        >
+          <div className="w-full md:w-1/3">
+            {summary?.Image ? (
+              <img
+                className="w-full h-48 object-cover rounded-lg shadow-md"
+                src={`http://localhost:3000/${summary?.Image}`}
+                alt="summary image"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-full h-48 bg-gray-100 rounded-lg shadow-md">
+                <CiImageOn className="text-4xl text-gray-400" />
+              </div>
+            )}
+          </div>
+          <div className="w-full md:w-2/3">
+            <h1 className="text-2xl font-bold text-gray-800 mb-2">
+              {summary?.Title}
+            </h1>
+            <p className="text-lg text-gray-600 mb-2">{summary?.Category}</p>
+            {summary?.Price && (
+              <p className="text-xl font-semibold text-green-600 mb-4">
+                {summary?.Price} DA
+              </p>
+            )}
 
-                        <div className="flex justify-start gap-6 font-semibold text-sm text-gray_v pt-6">
-                            <div className="flex gap-4 w-full">
-                                <div className="flex gap-1">
-                                    {[...Array(5)].map((_, index) =>
-                                        index <
-                                        Math.floor(summary?.Rate || 0) ? (
-                                            <FaStar
-                                                key={index}
-                                                className="text-yellow-400"
-                                            />
-                                        ) : index <
-                                          Math.ceil(summary?.Rate || 0) ? (
-                                            <FaStarHalf
-                                                key={index}
-                                                className="text-yellow-400"
-                                            />
-                                        ) : (
-                                            <FaStar
-                                                key={index}
-                                                className="text-gray-400"
-                                            />
-                                        )
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="shrink-0">
-                                {summary?.Students_count ? (
-                                    <div>
-                                        {summary?.Students_count} Enrolment
-                                    </div>
-                                ) : (
-                                    <div>0 Enrolment</div>
-                                )}
-                            </div>
-                            <div className="shrink-0">
-                                {summary?.Summary_Video ? (
-                                    <div>
-                                        {summary?.Summary_Video.lengh} Videos
-                                    </div>
-                                ) : (
-                                    <div>No Videos in this summary</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="flex flex-wrap gap-6 text-sm text-gray-600">
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, index) =>
+                  index < Math.floor(summary?.Rate || 0) ? (
+                    <FaStar key={index} className="text-yellow-400" />
+                  ) : index < Math.ceil(summary?.Rate || 0) ? (
+                    <FaStarHalf key={index} className="text-yellow-400" />
+                  ) : (
+                    <FaStar key={index} className="text-gray-300" />
+                  )
+                )}
+                <span className="ml-1">
+                  ({summary?.Rate?.toFixed(1) || "N/A"})
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <FaUsers className="text-blue-500" />
+                <span>{summary?.Students_count || 0} Enrolment</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <FaVideo className="text-blue-500" />
+                <span>
+                  {summary?.Summary_Video
+                    ? `${summary?.Summary_Video.length} Videos`
+                    : "No Videos"}
+                </span>
+              </div>
             </div>
-            <div className=" text-2xl font-seminbold text-center py-4 text-gray-400">
-                Please wiat till ower Team validate your payment{" "}
-            </div>
-            <div>
-                <div className="flex flex-col text-sm md:text-lg gap-4 text-black_text">
-                    <div className="max-w-[400px] mx-auto">
-                        <div className="font-semibold text-sm pb-1">
-                            Your CCP Number:
-                        </div>
-                        <div className="border border-gray_white px-4 py-2 rounded-lg text-sm w-full">
-                            {Purcase?.CCP_number || "N/A"}
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-center gap-1">
-                        <div className="relative">
-                            <img
-                                src={
-                                    "http://localhost:3000" +
-                                    Purcase?.screenShot
-                                }
-                                alt="Screenshot"
-                                className="w-[150px] h-[150px] object-cover rounded-full"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    );
+      </div>
+      <div className="text-2xl font-semibold text-center py-6 text-yellow-600 bg-yellow-100 rounded-lg mb-8">
+        Please wait while our team validates your payment
+      </div>
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Purchase Information
+        </h2>
+        <div className="flex flex-col md:flex-row gap-8 items-center">
+          <div className="w-full md:w-1/2">
+            <p className="font-semibold text-sm text-gray-600 mb-2">
+              Your CCP Number:
+            </p>
+            <div className="bg-white border border-gray-200 px-4 py-3 rounded-lg text-gray-800">
+              {Purcase?.CCP_number || "N/A"}
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col items-center">
+            <p className="font-semibold text-sm text-gray-600 mb-2">
+              Payment Screenshot:
+            </p>
+            <img
+              src={"http://localhost:3000" + Purcase?.screenShot}
+              alt="Screenshot"
+              className="w-40 h-20 object-cover rounded-xl border-4 border-white shadow-lg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Not_pending_view;

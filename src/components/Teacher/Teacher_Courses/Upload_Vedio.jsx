@@ -16,6 +16,7 @@ function Upload_Video() {
   const [isUploading, setIsUploading] = useState(false);
   const location = useLocation();
   const CourseId = location.pathname.split("/")[3];
+  const navigate = useNavigate();
 
   const MAX_FILE_SIZE = 2 * 1024 * 1024 * 1024; // 2GB limit
 
@@ -126,7 +127,7 @@ function Upload_Video() {
               text: response.data.message,
               confirmButtonColor: "#3085d6",
             }).then(() => {
-              window.location.reload();
+              navigate("/Teacher/Courses");
             });
           } else {
             Swal.fire({
@@ -134,9 +135,7 @@ function Upload_Video() {
               title: "Upload Failed",
               text: "Server returned an error.",
               confirmButtonColor: "#3085d6",
-            }).then(() => {
-              window.location.reload();
-            });
+            }).then(() => {});
           }
           setProgress(0);
           setVideoFile(null);

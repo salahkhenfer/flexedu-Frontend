@@ -72,7 +72,11 @@ function Student_Courses_Card({ course }) {
           <div className="flex items-center mb-1">
             <FaVideo className="text-gray-400 mr-2" />
             <span>
-              {course?.Course_Videos?.length || 0} Video
+              {course?.Course_Videos ? (
+                <div> {course?.Course_Videos.length} Vedios</div>
+              ) : (
+                <div>No Vedios in this course</div>
+              )}
               {course?.Course_Videos?.length !== 1 ? "s" : ""}
             </span>
           </div>

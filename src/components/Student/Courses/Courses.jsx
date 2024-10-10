@@ -28,25 +28,28 @@ function Student_Courses() {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
+  const Naviagte = useNavigate();
 
   useEffect(() => {
-    const fetchCourses = async () => {
+    setLoading(true);
+    const FetchCourses = async ({ setCourses, setLoading, setError }) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:3000/Students/Courses`,
+          `http://localhost:3000/Students/${user.id}/Courses`,
           {
             withCredentials: true,
             validateStatus: () => true,
           }
         );
-        if (response.status === 200) {
-          console.log(response.data.Courses);
+        console.log(response);
 
-          setCourses(response.data.Courses);
-        } else if (response.status === 401) {
-          Swal.fire("Error", "You should login again", "error");
-          navigate("/Login");
+        if (response.status == 200) {
+          const courses = response.data.Courses;
+          setCourses(courses);
+        } else if (response.status == 401) {
+          Swal.fire("Error", "you should login again", "error");
+          Naviagte("/Login");
         } else {
           setError(response.data);
         }
@@ -56,9 +59,8 @@ function Student_Courses() {
         setLoading(false);
       }
     };
-    fetchCourses();
-  }, [navigate]);
-
+    FetchCourses({ setCourses, setLoading, setError });
+  }, []);
   const filteredCourses = courses.filter(
     (course) =>
       course.Title.toLowerCase().includes(searchTerm.toLowerCase()) &&

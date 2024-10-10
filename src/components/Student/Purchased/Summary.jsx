@@ -73,15 +73,15 @@ function SummaryComponent() {
     );
   }
 
-  if (summaryData?.paymentStatus !== "accepted") {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-r from-yellow-100 to-orange-100">
-        <div className="text-orange-600 font-semibold text-xl bg-white p-8 rounded-lg shadow-lg">
-          You are not enrolled in this summary
-        </div>
-      </div>
-    );
-  }
+  // if (summaryData?.paymentStatus !== "accepted") {
+  //   return (
+  //     <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-r from-yellow-100 to-orange-100">
+  //       <div className="text-orange-600 font-semibold text-xl bg-white p-8 rounded-lg shadow-lg">
+  //         You are not enrolled in this summary
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 p-8">

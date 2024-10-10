@@ -4,10 +4,24 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
-// Create an instance of the default layout plugin inside the component
+// Create an instance of the default layout plugin with custom toolbar
 const PDFReader = ({ fileUrl }) => {
-  // Create the default layout plugin instance inside the component
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  // Customize the default layout plugin to hide the download button
+  const defaultLayoutPluginInstance = defaultLayoutPlugin({
+    renderToolbar: (toolbarSlot) => (
+      <div style={{ display: "flex" }}>
+        {toolbarSlot.searchPopover}
+        {toolbarSlot.previousPageButton}
+        {toolbarSlot.currentPageInput}
+        {toolbarSlot.nextPageButton}
+        {toolbarSlot.zoomOutButton}
+        {toolbarSlot.zoomPopover}
+        {toolbarSlot.zoomInButton}
+        {/* Omit the download button */}
+        {/* {toolbarSlot.downloadButton} */}
+      </div>
+    ),
+  });
 
   return (
     <div style={{ height: "750px" }}>
