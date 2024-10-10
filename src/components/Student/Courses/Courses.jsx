@@ -46,6 +46,8 @@ function Student_Courses() {
 
         if (response.status == 200) {
           const courses = response.data.Courses;
+          console.log("eeeee", courses);
+
           setCourses(courses);
         } else if (response.status == 401) {
           Swal.fire("Error", "you should login again", "error");
@@ -61,6 +63,7 @@ function Student_Courses() {
     };
     FetchCourses({ setCourses, setLoading, setError });
   }, []);
+
   const filteredCourses = courses.filter(
     (course) =>
       course.Title.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -139,13 +142,6 @@ function Student_Courses() {
             <p className="text-gray-500 mb-6">
               Expand your horizons or try a different search!
             </p>
-            <Link
-              to="/courses"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-300 ease-in-out"
-            >
-              <IoRocket className="mr-2" />
-              Discover New Courses
-            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

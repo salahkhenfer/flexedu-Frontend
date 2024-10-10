@@ -23,6 +23,7 @@ const EnhancedPaymentProcessView = ({ course, Purcase, setPayment_Status }) => {
   const PAYMENT_CCP_NAME = config.PAYMENT_CCP_NAME;
   const PAYMENT_EMAIL_TITLE = config.PAYMENT_EMAIL_TITLE;
   const PAYMENT_CCP_CLE = config.PAYMENT_CCP_CLE;
+  const PYMENT_RIP = config.PYMENT_RIP;
   const fileInputRef = useRef(null);
   const { user } = useAppContext();
   const Navigate = useNavigate();
@@ -157,6 +158,11 @@ const EnhancedPaymentProcessView = ({ course, Purcase, setPayment_Status }) => {
                 {PAYMENT_EMAIL_TITLE && (
                   <li>
                     <strong>Email Title:</strong> {PAYMENT_EMAIL_TITLE}
+                  </li>
+                )}
+                {PYMENT_RIP && (
+                  <li>
+                    <strong>RIP:</strong> {PYMENT_RIP}
                   </li>
                 )}
               </ul>

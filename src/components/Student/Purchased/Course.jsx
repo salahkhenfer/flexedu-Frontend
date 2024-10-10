@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useAppContext } from "../../../AppContext";
 import CourseReview from "./Review/Course_Review";
 import { FaStar, FaUsers, FaPlay, FaChevronRight } from "react-icons/fa";
-import Rating from "react-rating-stars-component"; // Import the rating component
+import Rating from "react-rating-stars-component";
 
 function CourseComponent() {
   const { user } = useAppContext();
@@ -16,12 +16,16 @@ function CourseComponent() {
   const [courseData, setCourseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const vedioId = new URLSearchParams(location.search).get("video");
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [showSidebar, setShowSidebar] = useState(true);
-  const [userRating, setUserRating] = useState(0); // State for storing user's rating
+  const [userRating, setUserRating] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [reviewLoading, setReviewLoading] = useState(true);
+  const [reviewError, setReviewError] = useState(null);
+  const [activeVideo, setActiveVideo] = useState(null);
 
-  // Fetch course data
   useEffect(() => {
     const fetchCourseData = async () => {
       try {
@@ -43,84 +47,48 @@ function CourseComponent() {
       }
     };
     fetchCourseData();
-  }, [courseId, user.id]);
+  }, [courseId, user.id, activeVideoIndex]);
 
   useEffect(() => {
-    if (vedioId && courseData?.Course?.Course_Videos) {
+    const videoId = new URLSearchParams(location.search).get("video");
+    if (videoId && courseData?.Course?.Course_Videos) {
       const videoIndex = courseData.Course.Course_Videos.findIndex(
-        (video) => video.id === parseInt(vedioId)
+        (video) => video.id === parseInt(videoId)
       );
       if (videoIndex !== -1) {
         setActiveVideoIndex(videoIndex);
       }
     }
-  }, [vedioId, courseData]);
+    const selectedVideo = courseData?.Course?.Course_Videos[activeVideoIndex];
+    setActiveVideo(selectedVideo);
+  }, [location.search, courseData]);
+
+  const handleVideoSelect = (index) => {
+    setActiveVideoIndex(index);
+    const selectedVideo = courseData.Course.Course_Videos[index];
+    setActiveVideo(selectedVideo);
+  };
 
   const handleRatingSubmit = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/Students/${user.id}/Courses/${courseId}/Review`,
-        {
-          rating: userRating,
-
-          review: userRating,
-        },
+        `http://localhost:3000/Students/${user.id}/Purchased/Courses/${courseId}/Rate`,
+        { rate: userRating },
         { withCredentials: true }
       );
       if (response.status === 200) {
-        console.log(response.status);
-
+        setRating(userRating);
         Swal.fire("Success", "Rating submitted successfully", "success");
-        setCourseData((prevData) => ({
-          ...prevData,
-          Course: {
-            ...prevData.Course,
-            Rate: (prevData.Course.Rate + userRating) / 2,
-          },
-        }));
-      } else if (response.status === 401) {
-        Swal.fire("Error", "You should login again", "error");
-        navigate("/Login");
+      } else {
+        Swal.fire("Error", response.data, "error");
       }
     } catch (error) {
-      if (error.status === 404) {
-        Swal.fire("woring", "Review already exists", "error");
-      }
-      console.log(error);
-      //   Swal.fire("Error", "Failed to submit rating", "error");
+      Swal.fire("Error", "Failed to submit rating", "error");
     }
   };
 
-  if (loading) {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
-        <div className="text-red-600 font-semibold text-xl bg-white p-8 rounded-lg shadow-lg">
-          {error.message || error}
-        </div>
-      </div>
-    );
-  }
-
-  if (!courseData?.isEnrolled || courseData?.paymentStatus !== "accepted") {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
-        <div className="text-red-600 font-semibold text-xl bg-white p-8 rounded-lg shadow-lg">
-          You are not enrolled in this course
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex w-full h-screen bg-gray-100">
+    <div className="flex w-full  bg-gray-100">
       <div
         className={`flex-1 transition-all duration-300 ${
           showSidebar ? "mr-80" : "mr-0"
@@ -128,9 +96,7 @@ function CourseComponent() {
       >
         <div className="bg-white shadow-lg rounded-lg m-4">
           {courseData?.Course?.Course_Videos?.length > 0 ? (
-            <VideoComponent
-              videoData={courseData.Course.Course_Videos[activeVideoIndex]}
-            />
+            <VideoComponent videoData={activeVideo} />
           ) : (
             <div className="p-4 text-center text-gray-600">
               No videos available for this course
@@ -192,15 +158,6 @@ function CourseComponent() {
             </div>
           </div>
         </div>
-
-        {!courseData?.isReviewed && (
-          <div className="bg-white shadow-lg rounded-lg m-4 p-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Leave a Review
-            </h2>
-            <CourseReview userId={user.id} courseId={courseId} />
-          </div>
-        )}
       </div>
 
       <div
@@ -229,11 +186,7 @@ function CourseComponent() {
                     ? "bg-blue-100 text-blue-600"
                     : "hover:bg-gray-100"
                 }`}
-                onClick={() =>
-                  navigate(
-                    `/Student/Purchased/Courses/${courseId}?video=${video.id}`
-                  )
-                }
+                onClick={() => handleVideoSelect(index)}
               >
                 <FaPlay className="mr-2" />
                 <span>{video.title || `Video ${index + 1}`}</span>

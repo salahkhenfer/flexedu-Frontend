@@ -1,12 +1,22 @@
-import React from "react";
-import { useEffect } from "react";
-function Vedio_Component({ videoData }) {
+import React, { useEffect, useRef } from "react";
+
+function Video_Component({ videoData }) {
+  const videoRef = useRef(null);
+
   const handleVideoError = () => {
-    // alert("Video source is unavailable. Please try again later.");
+    console.error("Video source is unavailable. Please try again later.");
+    // You can add more error handling here if needed
   };
+
   useEffect(() => {
-    console.log("ved", videoData);
+    console.log("Video data updated:", videoData);
+
+    // Reset the video when videoData changes
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
   }, [videoData]);
+
   if (!videoData) {
     return (
       <div className="w-full h-[80vh] flex items-center justify-center">
@@ -20,9 +30,11 @@ function Vedio_Component({ videoData }) {
   return (
     <div className="w-full md:h-[80vh] bg-black">
       <video
+        ref={videoRef}
         className="w-full h-full object-cover"
         controls
         onError={handleVideoError}
+        key={videoData.id} // Add a key prop to force re-render when video changes
       >
         <source
           src={`http://localhost:3000/${videoData.Video}`}
@@ -34,4 +46,4 @@ function Vedio_Component({ videoData }) {
   );
 }
 
-export default Vedio_Component;
+export default Video_Component;

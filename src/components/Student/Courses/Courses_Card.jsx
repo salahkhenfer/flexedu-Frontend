@@ -42,6 +42,9 @@ function Student_Courses_Card({ course }) {
             <CiImageOn className="text-gray-400 text-6xl" />
           </div>
         )}
+        <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-purple-600 shadow">
+          {course?.Category}
+        </div>
       </div>
 
       {/* Course Details Section */}
@@ -49,7 +52,6 @@ function Student_Courses_Card({ course }) {
         <h3 className="text-xl font-semibold mb-1 text-gray-800 truncate">
           {course?.Title}
         </h3>
-        <p className="text-sm text-gray-500 mb-2">{course?.Category}</p>
 
         {/* Rating Section */}
         <div className="flex items-center mb-2">
@@ -70,14 +72,17 @@ function Student_Courses_Card({ course }) {
           </div>
 
           <div className="flex items-center mb-1">
-            <FaVideo className="text-gray-400 mr-2" />
+            <FaVideo className="text-gray-400 w-fit mr-2" />
             <span>
               {course?.Course_Videos ? (
-                <div> {course?.Course_Videos.length} Vedios</div>
+                <div>
+                  {" "}
+                  {course?.Course_Videos.length} Vedio
+                  {course?.Course_Videos?.length !== 1 ? "s" : ""}{" "}
+                </div>
               ) : (
                 <div>No Vedios in this course</div>
               )}
-              {course?.Course_Videos?.length !== 1 ? "s" : ""}
             </span>
           </div>
 
