@@ -1,6 +1,7 @@
 import React from "react";
 import { Star, Clock, Book } from "lucide-react";
 import { CiImageOn } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const CourseCard = ({ title, category, rating, price, linkImg, sale }) => {
   // Calculate a fake number of students and lessons based on the rating
@@ -52,9 +53,12 @@ const CourseCard = ({ title, category, rating, price, linkImg, sale }) => {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-blue-600">{price} DZ</span>
-          <button className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 transition duration-300">
+          <Link
+            to={"/login"}
+            className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 transition duration-300"
+          >
             Enroll Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>
