@@ -70,7 +70,7 @@ function Add_Course() {
                 if (values.Price === 0 || values.Price === "free") {
                   values.Price = 0;
                 }
-                Swal.fire("Success", "Course created successfully", "success");
+                // Swal.fire("Success", "Course created successfully", "success");
 
                 add_course(values, {
                   setSubmitting,

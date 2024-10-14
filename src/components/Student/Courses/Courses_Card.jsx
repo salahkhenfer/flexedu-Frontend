@@ -33,7 +33,7 @@ function Student_Courses_Card({ course }) {
             <div className="relative">
                 {course?.Image ? (
                     <img
-                        src={course?.Image}
+                        src={`http://localhost:3000/${course?.Image}`}
                         alt={course?.Title}
                         className="w-full h-48 object-cover"
                     />
