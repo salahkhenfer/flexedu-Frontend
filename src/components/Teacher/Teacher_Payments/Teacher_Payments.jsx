@@ -60,7 +60,7 @@ const Purchased = () => {
                 );
                 setCcpNumberChanged(false);
             } else {
-                Swal.fire("Error", response.data.error, "error");
+                Swal.fire("Error", response.data.message, "error");
             }
         } catch (error) {
             Swal.fire("Error", error.message, "error");

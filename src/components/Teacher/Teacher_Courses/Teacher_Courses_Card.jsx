@@ -47,7 +47,7 @@ function Teacher_Courses_Card({ course, setCourses }) {
                         prev.filter((c) => c.id !== course?.id)
                     );
                 } else {
-                    Swal.fire("Error", response.data.error, "error");
+                    Swal.fire("Error", response.data.message, "error");
                 }
             }
         } catch (error) {

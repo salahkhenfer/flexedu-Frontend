@@ -86,13 +86,13 @@ function SummaryComponent() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 p-8">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden mb-8 transform hover:scale-105 transition-transform duration-300">
+        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden mb-8 transform  transition-transform duration-300">
           <div className="p-8">
             <h1 className="text-4xl font-bold text-gray-800 mb-4 border-b-2 border-purple-300 pb-2">
               {summaryData?.Summary?.Title}
             </h1>
             <p className="text-gray-600 mb-6 italic">
-              "{summaryData?.Summary?.Description}"
+              {summaryData?.Summary?.Description}
             </p>
 
             <div className="grid grid-cols-2 gap-4 mb-6">
@@ -133,7 +133,7 @@ function SummaryComponent() {
         </div>
 
         {!summaryData?.isReviewed && (
-          <div className="bg-white shadow-2xl rounded-3xl overflow-hidden p-8 transform hover:scale-105 transition-transform duration-300">
+          <div className="bg-white shadow-2xl rounded-3xl overflow-hidden p-8 transform transition-transform duration-300">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
               Your Review
             </h2>
