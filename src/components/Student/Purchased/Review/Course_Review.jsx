@@ -34,7 +34,7 @@ const CourseReview = ({ userId, courseId }) => {
                 { withCredentials: true }
             );
             console.log(response);
-            
+
             setSuccess("Review submitted successfully!");
             window.location.reload();
         } catch (err) {

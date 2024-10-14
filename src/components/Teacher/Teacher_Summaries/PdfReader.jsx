@@ -47,7 +47,7 @@ const PDFReader = ({ fileUrl }) => {
                 <button
                     onClick={toggleFullScreen}
                     style={{ marginBottom: "10px" }}
-                    className="py-2 my-3 px-1 bg-gray-300 w-fit rounded"
+                    className="py-2 my-3 px-1 bg-gray-300 w-fit rounded font-semibold text-gray-800 hover:bg-gray-400 hover:text-gray-900"
                 >
                     Full Screen
                 </button>

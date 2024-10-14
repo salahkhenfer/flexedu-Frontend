@@ -18,12 +18,6 @@ function CourseComponent() {
     const [error, setError] = useState(null);
     const [activeVideoIndex, setActiveVideoIndex] = useState(0);
     const [showSidebar, setShowSidebar] = useState(true);
-    const [userRating, setUserRating] = useState(0);
-    const [rating, setRating] = useState(0);
-    const [review, setReview] = useState("");
-    const [reviews, setReviews] = useState([]);
-    const [reviewLoading, setReviewLoading] = useState(true);
-    const [reviewError, setReviewError] = useState(null);
     const [activeVideo, setActiveVideo] = useState(null);
 
     useEffect(() => {
@@ -48,7 +42,11 @@ function CourseComponent() {
                 setLoading(false);
             }
         };
-        fetchCourseData();
+        fetchCourseData().then(() => {
+            if (!courseData?.Course?.Course_Videos) {
+                setShowSidebar(false);
+            }
+        });
     }, [courseId, user.id, activeVideoIndex]);
 
     useEffect(() => {
@@ -72,30 +70,8 @@ function CourseComponent() {
         setActiveVideo(selectedVideo);
     };
 
-    const handleRatingSubmit = async () => {
-        try {
-            const response = await axios.post(
-                `http://localhost:3000/Students/${user.id}/Purchased/Courses/${courseId}/Rate`,
-                { rate: userRating },
-                { withCredentials: true }
-            );
-            if (response.status === 200) {
-                setRating(userRating);
-                Swal.fire(
-                    "Success",
-                    "Rating submitted successfully",
-                    "success"
-                );
-            } else {
-                Swal.fire("Error", response.data.message, "error");
-            }
-        } catch (error) {
-            Swal.fire("Error", "Failed to submit rating", "error");
-        }
-    };
-
     return (
-        <div className="flex w-full  bg-gray-100">
+        <div className="flex w-full  ">
             <div
                 className={`flex-1 transition-all duration-300 ${
                     showSidebar ? "mr-80" : "mr-0"
@@ -150,37 +126,10 @@ function CourseComponent() {
                                 {courseData?.Course?.Students_count}
                             </p>
                         </div>
-
-                        {/* Rating section */}
-                        {courseData?.isReviewed ? null : (
-                            <div className="mt-6">
-                                <h2 className="text-xl font-semibold mb-2">
-                                    Rate this Course:
-                                </h2>
-                                <Rating
-                                    count={5}
-                                    size={24}
-                                    activeColor="#ffd700"
-                                    value={userRating}
-                                    onChange={(newRating) =>
-                                        setUserRating(newRating)
-                                    }
-                                />
-                                <textarea
-                                    value={review}
-                                    onChange={(e) => setReview(e.target.value)}
-                                    placeholder="Write a review..."
-                                    className="w-full p-2 mt-2 border border-gray-300 rounded-md"
-                                ></textarea>
-                                <button
-                                    onClick={handleRatingSubmit}
-                                    className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-                                >
-                                    Submit Rating
-                                </button>
-                            </div>
-                        )}
                     </div>
+                </div>
+                <div className=" mt-12 mb-4">
+                    <CourseReview courseId={courseId} />
                 </div>
             </div>
 
@@ -195,7 +144,7 @@ function CourseComponent() {
                 >
                     <FaChevronRight
                         className={`transition-transform duration-300 ${
-                            showSidebar ? "rotate-180" : ""
+                            showSidebar ? "" : "rotate-180"
                         }`}
                     />
                 </button>
