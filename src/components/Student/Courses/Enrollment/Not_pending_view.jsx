@@ -263,7 +263,7 @@ const EnhancedPaymentProcessView = ({ course, Purcase, setPayment_Status }) => {
                                                     setSubmitting(false);
                                                     setPayment_Status(true);
                                                     Navigate(
-                                                        `Student/Courses/${course?.id}`
+                                                        `/Student/Courses/${course?.id}`
                                                     );
                                                 } else if (
                                                     Image_Response.status ===
