@@ -97,7 +97,7 @@ function Summary() {
             </div>
           ) : (
             <div className=" flex flex-col items-center justify-center gap-6 p-4">
-              <div className=" flex justify-between w-full ">
+              <div className=" flex flex-col md:flex-row justify-between w-full ">
                 <div className=" w-[90%] ">
                   <div className=" flex flex-col gap-2 ">
                     <div className=" flex gap-2 ">
@@ -214,7 +214,7 @@ function Summary() {
                     )}
                   </div>
                 </div>
-                <div className=" w-[10%]  ">
+                <div className=" w-fit mx-auto md:w-[10%]  ">
                   <Link
                     to={`/Teacher/Summaries/${Summary?.id}/Edit`}
                     className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
