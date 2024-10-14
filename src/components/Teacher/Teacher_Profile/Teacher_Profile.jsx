@@ -73,7 +73,7 @@ function Teacher_Profile() {
                   label="Facebook"
                   value={user?.facebook_Link || "unavailable "}
                 />
-                <ProfileItem label="Rate" value={user?.Rate || "0"} />
+                {/* <ProfileItem label="Rate" value={user?.Rate || "0"} /> */}
               </div>
             </div>
           </div>
