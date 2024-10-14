@@ -17,7 +17,7 @@ import { useAppContext } from "../../../../AppContext";
 import Swal from "sweetalert2";
 import Axios from "axios";
 
-const EnhancedPaymentProcessView = ({ course, Purcase, setPayment_Status }) => {
+const Payment_not_pendingview = ({ course, Purcase, setPayment_Status }) => {
     const PAYMENT_EMAIL = config.PAYMENT_EMAIL;
     const PAYMENT_CCP = config.PAYMENT_CCP;
     const PAYMENT_CCP_NAME = config.PAYMENT_CCP_NAME;
@@ -388,4 +388,4 @@ const EnhancedPaymentProcessView = ({ course, Purcase, setPayment_Status }) => {
     );
 };
 
-export default EnhancedPaymentProcessView;
+export default Payment_not_pendingview;
