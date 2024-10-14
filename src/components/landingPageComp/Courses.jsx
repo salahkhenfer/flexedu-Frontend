@@ -7,7 +7,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
-
 const Courses = () => {
     const [courses, setCourses] = useState([]);
 
@@ -62,11 +61,7 @@ const Courses = () => {
                                       category={course?.Category}
                                       rating={course?.Rate}
                                       price={course?.Price}
-                                      linkImg={
-                                          course?.Image
-                                              ? course?.Image
-                                              : "default-image.jpg"
-                                      } // Default image if null
+                                      linkImg={course?.Image} // Default image if null
                                       studentsCount={course?.Students_count} // Pass the actual students count
                                       lessonsCount={
                                           course?.Course_Videos.length

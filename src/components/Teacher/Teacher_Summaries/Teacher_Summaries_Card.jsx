@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 function Teacher_Summaries_Card({ Summary, setSummaries }) {
     const { user } = useAppContext();
     const [deleteLoading, setDeleteLoading] = useState(false);
-
+    const [imgError, setImgError] = useState(false);
     const deleteSummary = async () => {
         setDeleteLoading(true);
         try {
@@ -61,11 +61,16 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
         <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1">
             <div className="relative">
                 {Summary?.Image ? (
-                    <img
-                        className="w-full h-48 object-cover"
-                        src={`http://localhost:3000/${Summary?.Image}`}
-                        alt={Summary?.Title}
-                    />
+                    !imgError ? (
+                        <img
+                            className="w-full h-48 object-cover"
+                            src={`http://localhost:3000/${linkImg}`}
+                            alt="Course"
+                            onError={() => setImgError(true)}
+                        />
+                    ) : (
+                        <CiImageOn className="w-full h-48 text-gray-500" />
+                    )
                 ) : (
                     <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
                         <CiImageOn className="text-4xl text-gray-400" />

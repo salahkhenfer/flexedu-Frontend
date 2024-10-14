@@ -27,7 +27,7 @@ const CourseCard = ({
                 {linkImg ? (
                     <img
                         className="w-full h-48 object-cover"
-                        src={linkImg}
+                        src={`http://localhost:3000/${linkImg}`}
                         alt="Course"
                     />
                 ) : (
