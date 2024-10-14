@@ -45,6 +45,17 @@ function Mobile_Nav_Items({
                             </Link>
                             <Link
                                 onClick={Toogle_Menu_Bar}
+                                to={"/Teacher/Courses"}
+                                className={`${
+                                    Active_nav == "Courses"
+                                        ? "text-perpol_v"
+                                        : "text-black_text"
+                                } select-none   `}
+                            >
+                                Courses
+                            </Link>
+                            <Link
+                                onClick={Toogle_Menu_Bar}
                                 to={"/Teacher/Summaries"}
                                 className={`${
                                     Active_nav == "Summaries"
