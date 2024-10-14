@@ -1,35 +1,67 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
-// Create an instance of the default layout plugin with custom toolbar
+// Create an instance of the default layout plugin with custom toolbar and hidden attachments
 const PDFReader = ({ fileUrl }) => {
-  // Customize the default layout plugin to hide the download button
-  const defaultLayoutPluginInstance = defaultLayoutPlugin({
-    renderToolbar: (toolbarSlot) => (
-      <div style={{ display: "flex" }}>
-        {toolbarSlot.searchPopover}
-        {toolbarSlot.previousPageButton}
-        {toolbarSlot.currentPageInput}
-        {toolbarSlot.nextPageButton}
-        {toolbarSlot.zoomOutButton}
-        {toolbarSlot.zoomPopover}
-        {toolbarSlot.zoomInButton}
-        {/* Omit the download button */}
-        {/* {toolbarSlot.downloadButton} */}
-      </div>
-    ),
-  });
+    const viewerRef = useRef(null); // Ref for the PDF viewer container
 
-  return (
-    <div style={{ height: "750px" }}>
-      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-        <Viewer fileUrl={fileUrl} plugins={[defaultLayoutPluginInstance]} />
-      </Worker>
-    </div>
-  );
+    // Customize the default layout plugin to hide the attachment tab
+    const defaultLayoutPluginInstance = defaultLayoutPlugin({
+        sidebarTabs: (defaultTabs) =>
+            defaultTabs.filter((tab) => tab.key !== "attachment"), // Remove the attachment tab
+        renderToolbar: (toolbarSlot) => (
+            <div style={{ display: "flex" }}>
+                {toolbarSlot.searchPopover}
+                {toolbarSlot.previousPageButton}
+                {toolbarSlot.currentPageInput}
+                {toolbarSlot.nextPageButton}
+                {toolbarSlot.zoomOutButton}
+                {toolbarSlot.zoomPopover}
+                {toolbarSlot.zoomInButton}
+                {toolbarSlot.downloadButton}
+            </div>
+        ),
+    });
+
+    // Function to toggle full screen
+    const toggleFullScreen = () => {
+        if (viewerRef.current) {
+            if (!document.fullscreenElement) {
+                viewerRef.current.requestFullscreen().catch((err) => {
+                    console.error(
+                        `Error attempting to enable full-screen mode: ${err.message}`
+                    );
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    };
+
+    return (
+        <div>
+            <div className="w-full flex justify-center">
+                <button
+                    onClick={toggleFullScreen}
+                    style={{ marginBottom: "10px" }}
+                    className="py-2 my-3 px-1 bg-gray-300 w-fit rounded"
+                >
+                    Full Screen
+                </button>
+            </div>
+            <div ref={viewerRef} style={{ height: "750px" }}>
+                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                    <Viewer
+                        fileUrl={fileUrl}
+                        plugins={[defaultLayoutPluginInstance]}
+                    />
+                </Worker>
+            </div>
+        </div>
+    );
 };
 
 export default PDFReader;

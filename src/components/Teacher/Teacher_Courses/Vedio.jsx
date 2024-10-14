@@ -137,7 +137,7 @@ function Vedio_Component() {
     }
 
     return (
-        <div className="w-screen h-screen pt-5">
+        <div className="w-screen  pt-5">
             {/* Only show video player if the video is available */}
             {videoAvailable ? (
                 <div className="relative w-[80%] h-[80%] mx-auto   bg-gray-900 overflow-hidden rounded-lg shadow-lg">
