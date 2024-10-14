@@ -93,11 +93,12 @@ function Course() {
     return (
         <div className="bg-gray-100 min-h-screen p-8">
             <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-                <div className="md:flex">
+                <div className="flex flex-col md:flex-row items-center md:items-start ">
                     <div className="md:flex-shrink-0">
                         {course?.Image ? (
                             <img
-                                className="h-48 w-full object-cover md:w-48"
+                                className="h-48 w-full 
+                                 object-cover md:w-48"
                                 src={`http://localhost:3000/${course?.Image}`}
                                 alt="Course cover"
                             />
