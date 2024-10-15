@@ -19,7 +19,7 @@ const Courses = () => {
                 );
                 setCourses(response.data.Courses); // Assuming your API response has `Courses` key
             } catch (error) {
-                // console.error("Error fetching courses:", error);
+                // _____________
             }
         };
 
