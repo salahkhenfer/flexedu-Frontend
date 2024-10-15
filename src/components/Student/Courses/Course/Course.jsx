@@ -22,8 +22,7 @@ function Course() {
     const [isEnrolled, setIsEnrolled] = useState(false); // Fixed state naming
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
-    
-
+    const [review, set_review] = useState([]);
     useEffect(() => {
         const fetchCourse = async () => {
             setLoading(true);
@@ -35,10 +34,12 @@ function Course() {
                         validateStatus: () => true,
                     }
                 );
+                console.log("response in get course : ", response);
 
                 if (response.status === 200) {
                     const fetchedCourse = response.data.Course;
                     setCourse(fetchedCourse);
+                    set_review(response.data.all_reviews);
                     setIsEnrolled(response.data.isEnrolled);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should log in again", "error");
@@ -91,7 +92,7 @@ function Course() {
         course &&
         (!course?.paymentStatus || course?.paymentStatus === "rejected")
     ) {
-        return <Not_Enrolled_view course={course} />;
+        return <Not_Enrolled_view course={course} review={review} />;
     }
     if (!isEnrolled && course && course?.paymentStatus === "pending") {
         navigate(`/Student/Courses/${CourseId}/Enrollment`);

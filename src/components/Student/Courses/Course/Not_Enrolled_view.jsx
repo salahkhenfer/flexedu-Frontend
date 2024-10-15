@@ -13,7 +13,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-function Not_Enrolled_view({ course }) {
+import Course_Review_Card from "./Reviews/Course_Review_Card";
+function Not_Enrolled_view({ course, review }) {
     if (!course) {
         return (
             <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -171,6 +172,74 @@ function Not_Enrolled_view({ course }) {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-10 md:justify-center  ">
+                {/* Course Videos Section */}
+                <div className=" ">
+                    {course?.Course_Videos &&
+                    course?.Course_Videos.length > 0 ? (
+                        <div className="mt-8 ">
+                            <h2 className="text-2xl font-semibold text-gray-600 text-center mb-4">
+                                Course Videos
+                            </h2>
+                            <div className=" w-full flex flex-col gap-3">
+                                {course?.Course_Videos.map((video) => (
+                                    <div
+                                        key={video?.id}
+                                        className="transform hover:scale-105 transition duration-300 ease-in-out w-full"
+                                    >
+                                        <div className="bg-white rounded-lg shadow-md p-4">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex gap-3 items-center">
+                                                    <FaPlayCircle className="text-3xl text-indigo-500" />
+                                                    <h3 className="text-lg font-semibold text-gray-800 ml-2">
+                                                        {video?.Title}
+                                                    </h3>
+                                                </div>
+                                                <span className="text-sm px-3 text-gray-500">
+                                                    {video?.Duration}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <p className=" text-center mt-4">
+                            No videos available for this course.
+                        </p>
+                    )}
+                </div>
+                {review && review.length > 0 && (
+                    <div>
+                        <div className="mt-8 max-w-4xl mx-auto">
+                            <h2 className="text-2xl font-semibold text-gray-600 text-center mb-4">
+                                Course Reviews
+                            </h2>
+                            {
+                                <div className=" flex flex-col gap-3 w-full">
+                                    {review.length > 0
+                                        ? review.map((review) => (
+                                              <Course_Review_Card
+                                                  key={review.id}
+                                                  review={review}
+                                              />
+                                          ))
+                                        : null}
+                                </div>
+
+                                // <div className="flex items-center justify-center h-48 w-full ">
+                                //     <IoIosWarning className="text-4xl text-gray-400" />
+                                //     <p className="text-gray-500 ml-2">
+                                //         No reviews available for this course.
+                                //     </p>
+                                // </div>
+                            }
+                        </div>
+                    </div>
+                )}
+                {/* Course Reviews Section */}
             </div>
         </div>
     );
