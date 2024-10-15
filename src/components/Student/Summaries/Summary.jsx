@@ -42,14 +42,12 @@ function Summary() {
                     validateStatus: () => true,
                 }
             );
-            console.log("response from payment : ", response);
             if (response.status === 200) {
                 navigate(`/Student/Purchased/Summaries/${Summary?.id}`);
             } else {
                 Swal.fire("Error", response.data.message, "error");
             }
         } catch (err) {
-            console.log("error from payment : ", err);
 
             Swal.fire("Error", err.message, "error");
         } finally {
@@ -64,7 +62,6 @@ function Summary() {
                     `http://localhost:3000/Students/Summaries/${SummaryId}`,
                     { withCredentials: true, validateStatus: () => true }
                 );
-                console.log("response from summary : ", response);
 
                 if (response.status === 200) {
                     setSummary(response.data.Summary);

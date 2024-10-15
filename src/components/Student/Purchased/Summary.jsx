@@ -25,7 +25,6 @@ function SummaryComponent() {
                     { withCredentials: true }
                 );
 
-                console.log("response", response);
 
                 if (response.status === 200) {
                     setSummaryData(response.data);

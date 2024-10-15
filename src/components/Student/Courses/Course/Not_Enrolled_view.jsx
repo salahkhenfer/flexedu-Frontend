@@ -44,14 +44,12 @@ function Not_Enrolled_view({ course, review }) {
                     validateStatus: () => true,
                 }
             );
-            console.log("response from payment : ", response);
             if (response.status === 200) {
                 navigate(`/Student/Purchased/Courses/${course?.id}`);
             } else {
                 Swal.fire("Error", response.data.message, "error");
             }
         } catch (err) {
-            console.log("error from payment : ", err);
 
             Swal.fire("Error", err.message, "error");
         } finally {

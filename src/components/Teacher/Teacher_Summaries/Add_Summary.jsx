@@ -56,14 +56,12 @@ const AddSummary = () => {
             };
             fileReader.readAsArrayBuffer(file);
         } catch (error) {
-            console.error("Failed to extract PDF page count", error);
             showAlert("Error", "Could not extract page count from the PDF.");
         }
     };
 
     const showAlert = (title, message) => {
         // Implement your alert logic here (e.g., using a modal or toast notification)
-        console.log(`${title}: ${message}`);
     };
 
     return (
@@ -195,10 +193,7 @@ const AddSummary = () => {
                                             }
                                         })
                                         .catch((error) => {
-                                            console.error(
-                                                "Upload Error:",
-                                                error
-                                            );
+                                           
                                             Swal.fire(
                                                 "Error",
                                                 "Upload failed. Please try again.",

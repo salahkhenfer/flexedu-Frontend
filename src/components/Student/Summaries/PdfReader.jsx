@@ -47,7 +47,6 @@ const PDFReader = ({ fileLink }) => {
 
     function onDocumentLoadError(error) {
         setError("Failed to load PDF document.");
-        console.error("Error loading document:", error);
     }
 
     return (

@@ -6,7 +6,6 @@ import axios from "axios";
 import { useAppContext } from "../../../AppContext";
 
 const Student_Summaries_Card = ({ summary }) => {
-  console.log("fdfdf", summary);
 
   const renderStars = (rating) => {
     return (

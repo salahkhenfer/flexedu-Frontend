@@ -33,7 +33,6 @@ const SummaryReview = ({ userId, summaryId }) => {
                 },
                 { withCredentials: true }
             );
-            console.log(response);
             setSuccess("Review submitted successfully!");
             // window.location.reload();
         } catch (err) {

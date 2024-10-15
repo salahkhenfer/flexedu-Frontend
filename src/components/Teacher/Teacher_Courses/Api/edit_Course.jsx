@@ -1,49 +1,45 @@
 import Swal from "sweetalert2";
 import Axios from "axios";
 async function handleRegister(values, { setSubmitting }) {
-  console.log(values);
+    try {
+        let response = await Axios.put(
+            `http://localhost:3000/Teachers/${values.TeacherId}/Courses/${values.CourseId}`,
+            values,
 
-  try {
-    let response = await Axios.put(
-      `http://localhost:3000/Teachers/${values.TeacherId}/Courses/${values.CourseId}`,
-      values,
+            {
+                withCredentials: true,
+                validateStatus: () => true,
+            }
+        );
+        if (response.status == 200) {
+            window.location.href = `/Teacher/Courses`;
+        } else if (response.status == 400) {
+            setSubmitting(false);
 
-      {
-        withCredentials: true,
-        validateStatus: () => true,
-      }
-    );
-    if (response.status == 200) {
-      window.location.href = `/Teacher/Courses`;
-    } else if (response.status == 400) {
-      setSubmitting(false);
-      console.log(response.data);
-
-      Swal.fire("Error", `${response.data.message} `, "error");
-    } else if (response.status == 409) {
-      setSubmitting(false);
-      Swal.fire("Error!", `${response.data.message} `, "error");
-      console.log(response.data);
-    } else if (response.status == 500) {
-      setSubmitting(false);
-      Swal.fire("Error!", `Internal Server Error   `, "error");
-    } else {
-      setSubmitting(false);
-      Swal.fire(
-        "Error!",
-        `Something Went Wrong ,please trye again latter, ${response.data.message} `,
-        "error"
-      );
+            Swal.fire("Error", `${response.data.message} `, "error");
+        } else if (response.status == 409) {
+            setSubmitting(false);
+            Swal.fire("Error!", `${response.data.message} `, "error");
+        } else if (response.status == 500) {
+            setSubmitting(false);
+            Swal.fire("Error!", `Internal Server Error   `, "error");
+        } else {
+            setSubmitting(false);
+            Swal.fire(
+                "Error!",
+                `Something Went Wrong ,please trye again latter, ${response.data.message} `,
+                "error"
+            );
+        }
+    } catch (error) {
+        setSubmitting(false);
+        Swal.fire(
+            "Error!",
+            `Something Went Wrong ,please trye again latter`,
+            "error"
+        );
     }
-  } catch (error) {
-    setSubmitting(false);
-    Swal.fire(
-      "Error!",
-      `Something Went Wrong ,please trye again latter`,
-      "error"
-    );
-  }
 
-  // setSubmitting(false);
+    // setSubmitting(false);
 }
 export default handleRegister;

@@ -15,9 +15,7 @@ function Not_pending_view({ summary, Purcase }) {
   const fileInputRef = useRef(null);
   const [imageChanged, setimageChanged] = useState(false);
   const [image_state, setimage_state] = useState(null);
-  useEffect(() => {
-    console.log("Purcase", Purcase);
-  }, [Purcase]);
+ 
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">

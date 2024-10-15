@@ -31,7 +31,6 @@ function Purchased() {
                     setPurchased(data);
                     setCourses(data.course_Purcase_Requests);
                     setSummaries(data.summary_Purcase_Requests);
-                    console.log(data);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
                 } else {

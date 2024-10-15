@@ -78,11 +78,10 @@ const Purchased = () => {
                 }
             )
             .then((response) => {
-                console.log(response.data);
                 setCourses(response.data);
             })
             .catch((error) => {
-                console.error("Error fetching courses:", error);
+                // _____
             });
 
         axios
@@ -97,7 +96,7 @@ const Purchased = () => {
                 setSummaires(response.data);
             })
             .catch((error) => {
-                console.error("Error fetching courses:", error);
+                // _____
             });
     }, [user?.id]);
     if (loading) {

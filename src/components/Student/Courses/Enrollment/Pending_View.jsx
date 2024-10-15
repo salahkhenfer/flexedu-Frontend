@@ -15,9 +15,7 @@ function Not_pending_view({ course, Purcase }) {
   const [imageChanged, setimageChanged] = useState(false);
   const [image_state, setimage_state] = useState(null);
 
-  useEffect(() => {
-    console.log("Purcase", Purcase);
-  }, [Purcase]);
+
 
   return (
     <div className="px-8 py-10 bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-2xl">

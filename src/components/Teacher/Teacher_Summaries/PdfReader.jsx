@@ -31,9 +31,7 @@ const PDFReader = ({ fileUrl }) => {
         if (viewerRef.current) {
             if (!document.fullscreenElement) {
                 viewerRef.current.requestFullscreen().catch((err) => {
-                    console.error(
-                        `Error attempting to enable full-screen mode: ${err.message}`
-                    );
+                    // eslint-disable-next-line no-console
                 });
             } else {
                 document.exitFullscreen();

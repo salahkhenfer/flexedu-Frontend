@@ -4,12 +4,10 @@ function Video_Component({ videoData }) {
     const videoRef = useRef(null);
 
     const handleVideoError = () => {
-        console.error("Video source is unavailable. Please try again later.");
         // You can add more error handling here if needed
     };
 
     useEffect(() => {
-        console.log("Video data updated:", videoData);
 
         // Reset the video when videoData changes
         if (videoRef.current) {

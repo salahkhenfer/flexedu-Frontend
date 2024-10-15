@@ -7,6 +7,7 @@ import { useAppContext } from "../../../AppContext";
 import CourseReview from "./Review/Course_Review";
 import { FaStar, FaUsers, FaPlay, FaChevronRight } from "react-icons/fa";
 import Rating from "react-rating-stars-component";
+import CourseReviewCard from "./Review/Course_Review_Card";
 
 function CourseComponent() {
     const { user } = useAppContext();
@@ -27,7 +28,6 @@ function CourseComponent() {
                     `http://localhost:3000/Students/${user.id}/Purchased/Courses/${courseId}`,
                     { withCredentials: true }
                 );
-                console.log(response);
 
                 if (response.status === 200) {
                     setCourseData(response.data);
@@ -181,6 +181,11 @@ function CourseComponent() {
                         )}
                     </ul>
                 </div>
+            </div>
+            <div>
+                {courseData?.Course?.Course_Reviews?.map((review) => (
+                    <CourseReviewCard key={review.id} review={review} />
+                ))}
             </div>
         </div>
     );

@@ -144,10 +144,7 @@ function Upload_Video() {
                     setIsUploading(false);
                 })
                 .catch((error) => {
-                    console.error(
-                        "Upload Error:",
-                        error.response || error.message
-                    );
+                    
                     if (error.response && error.response.status === 413) {
                         Swal.fire({
                             icon: "error",

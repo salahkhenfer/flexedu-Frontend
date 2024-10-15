@@ -14,13 +14,11 @@ async function handleRegister(values, { setSubmitting }) {
       window.location.href = "/Teacher/Courses";
     } else if (response.status == 400) {
       setSubmitting(false);
-      console.log(response.data);
 
       Swal.fire("Error", `${response.data.message} `, "error");
     } else if (response.status == 409) {
       setSubmitting(false);
 
-      console.log(response.data);
 
       Swal.fire("Error!", `${response.data.message} `, "error");
     } else if (response.status == 500) {

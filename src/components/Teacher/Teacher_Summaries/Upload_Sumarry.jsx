@@ -50,7 +50,6 @@ function Upload_Summary() {
       };
       fileReader.readAsArrayBuffer(file);
     } catch (error) {
-      console.error("Failed to extract PDF page count", error);
       Swal.fire("Error", "Could not extract page count from the PDF.", "error");
     }
   };
@@ -90,7 +89,6 @@ function Upload_Summary() {
           setIsUploading(false); // Re-enable buttons
         })
         .catch((error) => {
-          console.error("Upload Error:", error);
           Swal.fire("Error", "Upload failed. Please try again.", "error");
           setIsUploading(false); // Re-enable buttons even on failure
         });

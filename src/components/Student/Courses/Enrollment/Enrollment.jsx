@@ -30,9 +30,6 @@ function Enrollment() {
   const [Purcase, setPurcase] = useState(null);
   const location = useLocation();
   const CourseId = location.pathname.split("/")[3];
-  // useEffect(() => {
-  //     console.log("course", course);
-  // }, [course]);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -45,7 +42,6 @@ function Enrollment() {
             validateStatus: () => true,
           }
         );
-        console.log("response", response);
 
         if (response.status === 200) {
           const fetchedCourse = response.data.Course;

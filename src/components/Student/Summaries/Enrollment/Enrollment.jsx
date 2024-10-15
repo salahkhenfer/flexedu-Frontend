@@ -30,9 +30,7 @@ function Enrollment() {
   const [Purcase, setPurcase] = useState(null);
   const location = useLocation();
   const SummaryId = location.pathname.split("/")[3];
-  // useEffect(() => {
-  //     console.log("summary", summary);
-  // }, [summary]);
+  
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -45,7 +43,6 @@ function Enrollment() {
             validateStatus: () => true,
           }
         );
-        console.log("response", response);
 
         if (response.status === 200) {
           const fetchedSummary = response.data.Summary;

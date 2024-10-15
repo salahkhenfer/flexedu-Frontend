@@ -42,11 +42,9 @@ function Student_Courses() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
                 if (response.status == 200) {
                     const courses = response.data.Courses;
-                    console.log("eeeee", courses);
 
                     setCourses(courses);
                 } else if (response.status == 401) {

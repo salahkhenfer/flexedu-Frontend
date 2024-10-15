@@ -168,7 +168,6 @@ function Edit_Summary() {
                                                             true,
                                                     }
                                                 );
-                                            console.log(Image_Response);
 
                                             if (Image_Response.status == 401) {
                                                 window.location.href = "/Login";
