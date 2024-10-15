@@ -62,9 +62,11 @@ function Purchased() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center py-6">
             <div className="w-[90%] mx-auto">
-                <h2 className="text-2xl font-bold mb-4">Courses</h2>
+                <h1 className="text-5xl py-6 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-8 text-center">
+                    Courses
+                </h1>{" "}
                 {Courses.length === 0 ? (
                     <div className="flex items-center justify-center text-gray-500">
                         <IoIosWarning />
@@ -83,7 +85,9 @@ function Purchased() {
             </div>
 
             <div className="w-[90%] mx-auto mt-8">
-                <h2 className="text-2xl font-bold mb-4">Summaries</h2>
+                <h1 className="text-5xl py-6 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-8 text-center">
+                    Summaries
+                </h1>{" "}
                 {Summaries.length === 0 ? (
                     <div className="flex items-center justify-center text-gray-500">
                         <IoIosWarning />
