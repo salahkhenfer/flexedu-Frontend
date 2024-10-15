@@ -145,16 +145,11 @@ const Purchased = () => {
                                         "CCP number is required",
                                         "error"
                                     );
-                                } else if (ccpNumber.length < 5) {
+                                } else if (!/^\d+\/\d{2}$/.test(ccpNumber)) {
                                     Swal.fire(
                                         "Error",
-                                        "CCP number must be at least 5 digits",
-                                        "error"
-                                    );
-                                } else if (isNaN(ccpNumber)) {
-                                    Swal.fire(
-                                        "Error",
-                                        "CCP number must be a number",
+
+                                        "CCP number must be in 'xxxxx/xx' format",
                                         "error"
                                     );
                                 } else changeCcp();
