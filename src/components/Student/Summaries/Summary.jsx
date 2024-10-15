@@ -30,6 +30,7 @@ function Summary() {
     const [enroll_loading, setenroll_loading] = useState(false);
     const navigate = useNavigate();
     const [review, setreview] = useState([]);
+    const [response, setResponse] = useState();
     async function free_enrollment() {
         setenroll_loading(true);
         let formData = new FormData();
@@ -48,7 +49,6 @@ function Summary() {
                 Swal.fire("Error", response.data.message, "error");
             }
         } catch (err) {
-
             Swal.fire("Error", err.message, "error");
         } finally {
             setenroll_loading(false);
@@ -66,6 +66,7 @@ function Summary() {
                 if (response.status === 200) {
                     setSummary(response.data.Summary);
                     setreview(response.data.all_reviews);
+                    setResponse(response.data);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
                     Navigate("/Login");
@@ -108,6 +109,9 @@ function Summary() {
                 </div>
             </div>
         );
+    }
+    if (response?.purcase && response?.purcase.status === "accepted") {
+        navigate(`/Student/Purchased/Summaries/${SummaryId}`);
     }
 
     return (
