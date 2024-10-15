@@ -34,7 +34,7 @@ const CourseReview = ({ userId, courseId }) => {
                 { withCredentials: true }
             );
             setSuccess("Review submitted successfully!");
-            // window.location.reload();
+            window.location.reload();
         } catch (err) {
             setError("Failed to submit the review.");
         } finally {
