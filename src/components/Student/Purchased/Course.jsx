@@ -72,118 +72,129 @@ function CourseComponent() {
     };
 
     return (
-        <div className="flex w-full  ">
-            <div
-                className={`flex-1 transition-all duration-300 ${
-                    showSidebar ? "mr-80" : "mr-0"
-                }`}
-            >
-                <div className="bg-white shadow-lg rounded-lg m-4">
-                    {courseData?.Course?.Course_Videos?.length > 0 ? (
-                        <VideoComponent videoData={activeVideo} />
-                    ) : (
-                        <div className="p-4 text-center text-gray-600">
-                            No videos available for this course
-                        </div>
-                    )}
+        <div>
+            <div className="flex w-full  ">
+                <div
+                    className={`flex-1 transition-all duration-300 ${
+                        showSidebar ? "mr-80" : "mr-0"
+                    }`}
+                >
+                    <div className="bg-white shadow-lg rounded-lg m-4">
+                        {courseData?.Course?.Course_Videos?.length > 0 ? (
+                            <VideoComponent videoData={activeVideo} />
+                        ) : (
+                            <div className="p-4 text-center text-gray-600">
+                                No videos available for this course
+                            </div>
+                        )}
 
-                    <div className="p-6">
-                        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-                            {courseData?.Course?.Title}
-                        </h1>
-                        <p className="text-gray-600 mb-4">
-                            {courseData?.Course?.Description}
-                        </p>
-                        <div className="flex flex-wrap items-center justify-between text-sm text-gray-600">
-                            <p className="mb-2">
-                                <span className="font-semibold">Category:</span>{" "}
-                                {courseData?.Course?.Category}
+                        <div className="p-6">
+                            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+                                {courseData?.Course?.Title}
+                            </h1>
+                            <p className="text-gray-600 mb-4">
+                                {courseData?.Course?.Description}
                             </p>
-                            <p className="mb-2">
-                                <span className="font-semibold">Price:</span>{" "}
-                                {courseData?.Course?.Price} DA
-                            </p>
-                            <p className="mb-2 flex items-center">
-                                <span className="font-semibold mr-1">
-                                    Rating:
-                                </span>{" "}
-                                {[...Array(5)].map((_, i) => (
-                                    <FaStar
-                                        key={i}
-                                        className={
-                                            i <
-                                            Math.round(
-                                                courseData?.Course?.Rate.toFixed(
-                                                    1
-                                                ) || 0
-                                            )
-                                                ? "text-yellow-400"
-                                                : "text-gray-300"
-                                        }
-                                    />
-                                ))}
-                            </p>
-                            <p className="mb-2 flex items-center">
-                                <FaUsers className="mr-1" />
-                                <span className="font-semibold">
-                                    Students:
-                                </span>{" "}
-                                {courseData?.Course?.Students_count}
-                            </p>
+                            <div className="flex flex-wrap items-center justify-between text-sm text-gray-600">
+                                <p className="mb-2">
+                                    <span className="font-semibold">
+                                        Category:
+                                    </span>{" "}
+                                    {courseData?.Course?.Category}
+                                </p>
+                                <p className="mb-2">
+                                    <span className="font-semibold">
+                                        Price:
+                                    </span>{" "}
+                                    {courseData?.Course?.Price} DA
+                                </p>
+                                <p className="mb-2 flex items-center">
+                                    <span className="font-semibold mr-1">
+                                        Rating:
+                                    </span>{" "}
+                                    {[...Array(5)].map((_, i) => (
+                                        <FaStar
+                                            key={i}
+                                            className={
+                                                i <
+                                                Math.round(
+                                                    courseData?.Course?.Rate.toFixed(
+                                                        1
+                                                    ) || 0
+                                                )
+                                                    ? "text-yellow-400"
+                                                    : "text-gray-300"
+                                            }
+                                        />
+                                    ))}
+                                </p>
+                                <p className="mb-2 flex items-center">
+                                    <FaUsers className="mr-1" />
+                                    <span className="font-semibold">
+                                        Students:
+                                    </span>{" "}
+                                    {courseData?.Course?.Students_count}
+                                </p>
+                            </div>
                         </div>
                     </div>
+                    {!courseData?.isReviewed && (
+                        <CourseReview
+                            courseId={courseId}
+                            setIsReviewed={setIsReviewed}
+                        />
+                    )}
                 </div>
-                {!courseData?.isReviewed && (
-                    <CourseReview
-                        courseId={courseId}
-                        setIsReviewed={setIsReviewed}
-                    />
-                )}
-            </div>
 
-            <div
-                className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transition-all duration-300 transform ${
-                    showSidebar ? "translate-x-0" : "translate-x-full"
-                }`}
-            >
-                <button
-                    onClick={() => setShowSidebar(!showSidebar)}
-                    className="absolute -left-10 top-1/2 bg-white p-2 rounded-l-md shadow-md"
+                <div
+                    className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transition-all duration-300 transform ${
+                        showSidebar ? "translate-x-0" : "translate-x-full"
+                    }`}
                 >
-                    <FaChevronRight
-                        className={`transition-transform duration-300 ${
-                            showSidebar ? "" : "rotate-180"
-                        }`}
-                    />
-                </button>
-                <div className="p-4 pt-6 h-full overflow-y-auto">
-                    <h2 className="text-xl font-semibold mb-4">
-                        Course Videos
-                    </h2>
-                    <ul>
-                        {courseData?.Course?.Course_Videos?.map(
-                            (video, index) => (
-                                <li
-                                    key={video.id}
-                                    className={`p-3 mb-2 rounded-md cursor-pointer transition-colors duration-200 flex items-center ${
-                                        activeVideoIndex === index
-                                            ? "bg-blue-100 text-blue-600"
-                                            : "hover:bg-gray-100"
-                                    }`}
-                                    onClick={() => handleVideoSelect(index)}
-                                >
-                                    <FaPlay className="mr-2" />
-                                    <span>
-                                        {video.title || `Video ${index + 1}`}
-                                    </span>
-                                </li>
-                            )
-                        )}
-                    </ul>
+                    <button
+                        onClick={() => setShowSidebar(!showSidebar)}
+                        className="absolute -left-10 top-1/2 bg-white p-2 rounded-l-md shadow-md"
+                    >
+                        <FaChevronRight
+                            className={`transition-transform duration-300 ${
+                                showSidebar ? "" : "rotate-180"
+                            }`}
+                        />
+                    </button>
+                    <div className="p-4 pt-6 h-full overflow-y-auto">
+                        <h2 className="text-xl font-semibold mb-4">
+                            Course Videos
+                        </h2>
+                        <ul>
+                            {courseData?.Course?.Course_Videos?.map(
+                                (video, index) => (
+                                    <li
+                                        key={video.id}
+                                        className={`p-3 mb-2 rounded-md cursor-pointer transition-colors duration-200 flex items-center ${
+                                            activeVideoIndex === index
+                                                ? "bg-blue-100 text-blue-600"
+                                                : "hover:bg-gray-100"
+                                        }`}
+                                        onClick={() => handleVideoSelect(index)}
+                                    >
+                                        <FaPlay className="mr-2" />
+                                        <span>
+                                            {video.title ||
+                                                `Video ${index + 1}`}
+                                        </span>
+                                    </li>
+                                )
+                            )}
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div>
-                {courseData?.Course?.Course_Reviews?.map((review) => (
+            <div className=" max-w-[80vw] pl-6 py-10">
+                <h2 className="text-2xl font-bold text-gray-600 pl-6 mb-4">
+                    Reviews
+                </h2>
+
+                {courseData?.all_reviews?.map((review) => (
                     <CourseReviewCard key={review.id} review={review} />
                 ))}
             </div>
