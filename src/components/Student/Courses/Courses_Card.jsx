@@ -57,7 +57,7 @@ function Student_Courses_Card({ course }) {
                 <div className="flex items-center mb-2">
                     {renderStars()}
                     <span className="ml-2 text-sm text-gray-600">
-                        ({course?.Rate?.toFixed(1) || 0})
+                        ({course?.Rate?.toFixed(1) || null})
                     </span>
                 </div>
 

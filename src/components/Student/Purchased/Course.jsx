@@ -112,7 +112,11 @@ function CourseComponent() {
                                         key={i}
                                         className={
                                             i <
-                                            Math.round(courseData?.Course?.Rate)
+                                            Math.round(
+                                                courseData?.Course?.Rate.toFixed(
+                                                    1
+                                                ) || 0
+                                            )
                                                 ? "text-yellow-400"
                                                 : "text-gray-300"
                                         }

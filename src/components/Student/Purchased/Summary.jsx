@@ -108,7 +108,9 @@ function SummaryComponent() {
                             </div>
                             <div className="bg-yellow-100 p-4 rounded-lg col-span-2">
                                 <p className="font-semibold text-yellow-800">
-                                    Rating: {summaryData?.Summary?.Rate} stars
+                                    Rating:{" "}
+                                    {summaryData?.Summary?.Rate.toFixed(1) || 0}{" "}
+                                    stars
                                 </p>
                             </div>
                         </div>

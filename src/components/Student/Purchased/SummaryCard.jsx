@@ -48,7 +48,7 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
             )}
           </div>
           <span className="text-gray-600">
-            ({Summary?.Summary?.Rate?.toFixed(1) || 0})
+            ({Summary?.Summary?.Rate?.toFixed(1) || null})
           </span>
         </div>
 

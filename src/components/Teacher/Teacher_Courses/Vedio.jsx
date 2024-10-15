@@ -226,7 +226,7 @@ function Vedio_Component() {
                         </p>
                         <p>
                             <strong className="text-gray-700">Rating:</strong>{" "}
-                            {videoData.Course?.Rate} stars
+                            {videoData.Course?.Rate.toFixed(1) || 0} stars
                         </p>
                         <p>
                             <strong className="text-gray-700">

@@ -45,7 +45,7 @@ function Student_Summaries_Card({ Summary }) {
                         )
                     )}
                     <span className="ml-2 text-gray-600 text-sm">
-                        {Summary?.Rate || 0} stars
+                        {Summary?.Rate.toFixed(1) || 0} stars
                     </span>
                 </div>
 

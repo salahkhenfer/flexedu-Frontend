@@ -98,7 +98,7 @@ function Teacher_Courses_Card({ course, setCourses }) {
                         )}
                     </div>
                     <span className="text-gray-600">
-                        ({course?.Rate?.toFixed(1) || 0})
+                        ({course?.Rate?.toFixed(1) || null})
                     </span>
                 </div>
                 <div className="flex justify-between text-sm text-gray-600 mb-4">

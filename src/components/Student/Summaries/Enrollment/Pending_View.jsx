@@ -62,7 +62,7 @@ function Not_pending_view({ summary, Purcase }) {
                   )
                 )}
                 <span className="ml-1">
-                  ({summary?.Rate?.toFixed(1) || "N/A"})
+                  ({summary?.Rate?.toFixed(1) || null})
                 </span>
               </div>
               <div className="flex items-center gap-1">

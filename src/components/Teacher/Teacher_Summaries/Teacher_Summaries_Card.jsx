@@ -103,7 +103,7 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
                         )}
                     </div>
                     <span className="text-gray-600">
-                        ({Summary?.Rate?.toFixed(1) || 0})
+                        ({Summary?.Rate?.toFixed(1) || null})
                     </span>
                 </div>
                 <div className="flex justify-between text-sm text-gray-600 mb-4">

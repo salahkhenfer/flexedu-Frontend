@@ -168,7 +168,7 @@ function Course() {
                                 )
                             )}
                             <span className="ml-2 text-gray-600">
-                                {course?.Rate?.toFixed(1) || "No ratings"}
+                                {course?.Rate?.toFixed(1) || null}
                             </span>
                         </div>
                     </div>

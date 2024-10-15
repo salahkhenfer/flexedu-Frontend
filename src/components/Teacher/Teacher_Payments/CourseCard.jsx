@@ -63,7 +63,7 @@ const StudentCoursesCard = ({ course }) => {
                     <div className="flex items-center">
                         {renderStars(course?.Course?.Rate || 0)}
                         <span className="ml-2 text-sm text-gray-500">
-                            ({course?.Course?.Rate?.toFixed(1) || "N/A"})
+                            ({course?.Course?.Rate?.toFixed(1) || null})
                         </span>
                     </div>
                 </div>

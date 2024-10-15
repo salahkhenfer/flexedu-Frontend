@@ -56,7 +56,7 @@ const Student_Summaries_Card = ({ summary }) => {
           <div className="flex items-center">
             {renderStars(summary?.Rate || 0)}
             <span className="ml-2 text-sm text-gray-500">
-              ({summary?.Rate?.toFixed(1) || "N/A"})
+              ({summary?.Rate?.toFixed(1) || null})
             </span>
           </div>
         </div>

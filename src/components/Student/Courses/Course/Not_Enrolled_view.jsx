@@ -206,7 +206,7 @@ function Not_Enrolled_view({ course, review }) {
                             </div>
                         </div>
                     ) : (
-                        <p className=" text-center mt-4">
+                        <p className=" text-center font-semibold text-gray-600 mt-4">
                             No videos available for this course.
                         </p>
                     )}

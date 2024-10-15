@@ -154,7 +154,7 @@ function Summary() {
                             )
                         )}
                         <span className="ml-2 text-gray-600 text-sm">
-                            {Summary.Rate || 0} stars
+                            {Summary.Rate.toFixed(1) || 0} stars
                         </span>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
