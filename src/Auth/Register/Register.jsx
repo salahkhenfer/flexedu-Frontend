@@ -15,11 +15,11 @@ function Register() {
     }
     return (
         <div className="flex">
-            <div className=" w-1/2  hidden md:block   h-[calc(100vh)]">
+            <div className=" w-1/2   hidden md:block   h-[calc(100vh)]">
                 <img
                     src={Register_image}
                     alt="Login"
-                    className=" w-full h-full object-cover "
+                    className=" w-full h-full object-contain "
                 />
             </div>
             <div className="md:w-1/2 w-full h-screen  py-12 bg-white flex flex-col items-center justify-center ">
