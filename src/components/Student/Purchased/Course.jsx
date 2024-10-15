@@ -28,7 +28,8 @@ function CourseComponent() {
                     `http://localhost:3000/Students/${user.id}/Purchased/Courses/${courseId}`,
                     { withCredentials: true }
                 );
-
+                console.log(response);
+                
                 if (response.status === 200) {
                     setCourseData(response.data);
                     setIsReviewed(response.data.isReviewed);

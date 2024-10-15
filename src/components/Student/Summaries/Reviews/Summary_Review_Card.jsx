@@ -6,8 +6,8 @@ const SummaryReviewCard = ({ review }) => {
         <span key={idx}>★</span>
     ));
     const reviewedBy =
-        review?.FirstName && review?.LastName
-            ? `${review.FirstName} ${review.LastName}`
+        review?.Student?.FirstName || review?.Student?.LastName
+            ? `${review.Student?.FirstName} ${review.Student?.LastName}`
             : "Anonymous"; // Fallback if FirstName or LastName is not provided
 
     return (
@@ -26,9 +26,7 @@ const SummaryReviewCard = ({ review }) => {
             <p className="text-gray-700 mt-3">{review?.Comment || null}</p>
 
             <div className=" mt-4">
-                <div className="text-sm text-gray-500">
-                    Reviewed by {reviewedBy}
-                </div>
+                <div className="text-sm text-gray-500">{reviewedBy}</div>
                 <div className="text-sm text-gray-400">
                     {review?.createdAt
                         ? new Date(review.createdAt).toLocaleDateString()
