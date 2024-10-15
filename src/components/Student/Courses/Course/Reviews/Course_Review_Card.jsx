@@ -15,9 +15,11 @@ const CourseReviewCard = ({ review }) => {
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <span className="text-yellow-400 text-lg">
-                        {stars.length > 0 ? stars : "No rating yet"}
+                        {stars.length > 0 ? stars : null}
                     </span>
-                    <span className="text-gray-500 ml-2">{rating}/5</span>
+                    <span className="text-gray-500 ml-2">
+                        {rating?.toFixed(1)}
+                    </span>
                 </div>
             </div>
 
