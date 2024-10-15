@@ -36,7 +36,7 @@ const SummaryReview = ({ userId, summaryId }) => {
             console.log(response);
 
             setSuccess("Review submitted successfully!");
-            window.location.reload();
+            // window.location.reload();
         } catch (err) {
             setError("Failed to submit the review.");
         } finally {

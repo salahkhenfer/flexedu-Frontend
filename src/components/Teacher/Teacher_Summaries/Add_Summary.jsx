@@ -166,11 +166,11 @@ const AddSummary = () => {
                                         )
                                         .then((response) => {
                                             if (response.status == 200) {
-                                                Swal.fire(
-                                                    "Success",
-                                                    `Upload Success: ${response.data.message}`,
-                                                    "success"
-                                                );
+                                                // Swal.fire(
+                                                //     "Success",
+                                                //     `Upload Success: ${response.data.message}`,
+                                                //     "success"
+                                                // );
                                                 setProgress(0); // Reset progress after successful upload
                                                 setSummaryFile(null); // Clear file after success
                                                 setIsUploading(false); // Re-enable buttons
