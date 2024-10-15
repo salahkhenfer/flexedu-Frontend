@@ -140,11 +140,11 @@ function Student_Courses() {
                     <div className="text-center py-12 bg-white rounded-lg shadow-lg">
                         <IoIosWarning className="text-yellow-500 text-5xl inline-block mb-4" />
                         <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-                            No Courses Found in This Realm
+                            No Courses Found
                         </h2>
-                        <p className="text-gray-500 mb-6">
+                        {/* <p className="text-gray-500 mb-6">
                             Expand your horizons or try a different search!
-                        </p>
+                        </p> */}
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
