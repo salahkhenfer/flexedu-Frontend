@@ -22,9 +22,7 @@ function Course() {
     const [isEnrolled, setIsEnrolled] = useState(false); // Fixed state naming
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
-    useEffect(() => {
-        console.log("Course", course);
-    }, [course]);
+    
 
     useEffect(() => {
         const fetchCourse = async () => {

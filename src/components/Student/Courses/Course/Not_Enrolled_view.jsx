@@ -9,7 +9,10 @@ import {
     FaPlayCircle,
 } from "react-icons/fa";
 import dayjs from "dayjs";
-
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 function Not_Enrolled_view({ course }) {
     if (!course) {
         return (
@@ -25,7 +28,35 @@ function Not_Enrolled_view({ course }) {
             </div>
         );
     }
+    const navigate = useNavigate();
+    const [enroll_loading, setenroll_loading] = useState(false);
+    async function free_enrollment() {
+        setenroll_loading(true);
 
+        let formData = new FormData();
+        try {
+            const response = await axios.post(
+                `http://localhost:3000/upload/Payment/Courses/${course?.id}`,
+                formData,
+                {
+                    withCredentials: true,
+                    validateStatus: () => true,
+                }
+            );
+            console.log("response from payment : ", response);
+            if (response.status === 200) {
+                navigate(`/Student/Purchased/Courses/${course?.id}`);
+            } else {
+                Swal.fire("Error", response.data.message, "error");
+            }
+        } catch (err) {
+            console.log("error from payment : ", err);
+
+            Swal.fire("Error", err.message, "error");
+        } finally {
+            setenroll_loading(false);
+        }
+    }
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-5xl">
@@ -116,12 +147,27 @@ function Not_Enrolled_view({ course }) {
                                     "MMMM D, YYYY"
                                 )}
                             </time>
-                            <Link
-                                to={`/Student/Courses/${course?.id}/Enrollment`}
-                                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Enroll Now
-                            </Link>
+                            {!course?.Price || course?.Price == 0 ? (
+                                enroll_loading ? (
+                                    <div className=" small-loader"></div>
+                                ) : (
+                                    <div
+                                        className="inline-flex items-center px-4 py-2 border
+                                    cursor-pointer
+                                    border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
+                                        onClick={free_enrollment}
+                                    >
+                                        Enroll for free
+                                    </div>
+                                )
+                            ) : (
+                                <Link
+                                    to={`/Student/Courses/${course?.id}/Payment`}
+                                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Buy Now
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
