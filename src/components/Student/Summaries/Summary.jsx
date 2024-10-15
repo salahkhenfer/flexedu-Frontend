@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { IoIosWarning } from "react-icons/io";
 dayjs.extend(customParseFormat);
-
+import Summary_Review_Card from "./Reviews/Summary_Review_Card";
 function Summary() {
     const Navigate = useNavigate();
     const { user } = useAppContext();
@@ -29,9 +29,9 @@ function Summary() {
     const [showDescription, setShowDescription] = useState(false);
     const [enroll_loading, setenroll_loading] = useState(false);
     const navigate = useNavigate();
+    const [review, setreview] = useState([]);
     async function free_enrollment() {
         setenroll_loading(true);
-
         let formData = new FormData();
         try {
             const response = await axios.post(
@@ -64,8 +64,11 @@ function Summary() {
                     `http://localhost:3000/Students/Summaries/${SummaryId}`,
                     { withCredentials: true, validateStatus: () => true }
                 );
+                console.log("response from summary : ", response);
+
                 if (response.status === 200) {
                     setSummary(response.data.Summary);
+                    setreview(response.data.all_reviews);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
                     Navigate("/Login");
@@ -210,7 +213,7 @@ function Summary() {
                         )
                     ) : (
                         <Link
-                            to={`/Student/Summaries/${Summary?.id}/Payment`}
+                            to={`/Student/Summaries/${Summary?.id}/Enrollment`}
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             Buy Now
@@ -224,6 +227,34 @@ function Summary() {
                     </Link> */}
                 </div>
             </div>
+            {review && review.length > 0 && (
+                <div>
+                    <div className="mt-8 max-w-4xl mx-auto">
+                        <h2 className="text-2xl font-semibold text-gray-600 text-center mb-4">
+                            Summary Reviews
+                        </h2>
+                        {
+                            <div className=" flex flex-col gap-3 w-full">
+                                {review.length > 0
+                                    ? review.map((review) => (
+                                          <Summary_Review_Card
+                                              key={review.id}
+                                              review={review}
+                                          />
+                                      ))
+                                    : null}
+                            </div>
+
+                            // <div className="flex items-center justify-center h-48 w-full ">
+                            //     <IoIosWarning className="text-4xl text-gray-400" />
+                            //     <p className="text-gray-500 ml-2">
+                            //         No reviews available for this Summary.
+                            //     </p>
+                            // </div>
+                        }
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

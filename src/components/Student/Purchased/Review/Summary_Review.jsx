@@ -34,7 +34,6 @@ const SummaryReview = ({ userId, summaryId }) => {
                 { withCredentials: true }
             );
             console.log(response);
-
             setSuccess("Review submitted successfully!");
             // window.location.reload();
         } catch (err) {
@@ -47,7 +46,7 @@ const SummaryReview = ({ userId, summaryId }) => {
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
             <h2 className="text-2xl font-semibold text-center mb-4">
-                Rate this Summary 
+                Rate this Summary
             </h2>
 
             <div className="flex justify-center mb-4">

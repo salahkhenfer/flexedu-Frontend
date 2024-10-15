@@ -19,7 +19,7 @@ function CourseComponent() {
     const [activeVideoIndex, setActiveVideoIndex] = useState(0);
     const [showSidebar, setShowSidebar] = useState(true);
     const [activeVideo, setActiveVideo] = useState(null);
-
+    const [isReviewed, setIsReviewed] = useState(false);
     useEffect(() => {
         const fetchCourseData = async () => {
             try {
@@ -31,6 +31,7 @@ function CourseComponent() {
 
                 if (response.status === 200) {
                     setCourseData(response.data);
+                    setIsReviewed(response.data.isReviewed);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
                 } else {
@@ -128,9 +129,12 @@ function CourseComponent() {
                         </div>
                     </div>
                 </div>
-                <div className=" mt-12 mb-4">
-                    <CourseReview courseId={courseId} />
-                </div>
+                {!courseData?.isReviewed && (
+                    <CourseReview
+                        courseId={courseId}
+                        setIsReviewed={setIsReviewed}
+                    />
+                )}
             </div>
 
             <div
@@ -148,7 +152,7 @@ function CourseComponent() {
                         }`}
                     />
                 </button>
-                <div className="p-4 h-full overflow-y-auto">
+                <div className="p-4 pt-6 h-full overflow-y-auto">
                     <h2 className="text-xl font-semibold mb-4">
                         Course Videos
                     </h2>
