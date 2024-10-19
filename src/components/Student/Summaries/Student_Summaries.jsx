@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { motion } from "framer-motion";
-import { i } from "framer-motion/client";
 import Card from "./Student_Summaries_Card";
 dayjs.extend(customParseFormat);
 
