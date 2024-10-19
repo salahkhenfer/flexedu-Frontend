@@ -24,6 +24,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { IoIosWarning } from "react-icons/io";
 import { IoAdd } from "react-icons/io5";
 dayjs.extend(customParseFormat);
+import CourseReviewCard from "./Review/Course_Review_Card";
 
 function Course() {
     const navigate = useNavigate();
@@ -239,6 +240,15 @@ function Course() {
                         No videos available for this course.
                     </p>
                 )}
+            </div>
+            <div className=" max-w-[80vw] pl-6 py-10">
+                <h2 className="text-2xl font-bold text-gray-600 pl-6 mb-4">
+                    Reviews
+                </h2>
+
+                {course?.Reviews?.map((review) => (
+                    <CourseReviewCard key={review.id} review={review} />
+                ))}
             </div>
         </div>
     );

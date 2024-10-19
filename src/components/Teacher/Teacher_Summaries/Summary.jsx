@@ -21,8 +21,9 @@ import { MdEdit } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
-import Upload_Sumarry from "./Upload_Sumarry";
 import PDFReader from "./PdfReader";
+import SummaryReviewCard from "./Review/Summary_Review_Card";
+
 function Summary() {
     const Navigate = useNavigate();
     const { user } = useAppContext();
@@ -238,6 +239,18 @@ function Summary() {
                                         No file uploaded
                                     </div>
                                 )}
+                            </div>
+                            <div className=" w-full pl-6 py-10">
+                                <h2 className="text-2xl font-bold text-gray-600 pl-6 mb-4">
+                                    Reviews
+                                </h2>
+
+                                {Summary?.Review_Summaries?.map((review) => (
+                                    <SummaryReviewCard
+                                        key={review.id}
+                                        review={review}
+                                    />
+                                ))}
                             </div>
                         </div>
                     )}
