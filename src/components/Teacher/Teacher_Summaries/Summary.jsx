@@ -258,7 +258,7 @@ function Summary() {
                                         className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
                                     >
                                         {/* <IoAdd className="  font-bold text-xl" /> */}
-                                        Edite Summary
+                                        Edit
                                     </Link>
                                 </div>
                             </div>

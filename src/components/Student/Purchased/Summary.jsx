@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 import { useAppContext } from "../../../AppContext";
 import Summary_Review_Card from "./Review/Summary_Review_Card";
 import PDFReader from "../../Teacher/Teacher_Summaries/PdfReader";
-
+// import PDFReader from "./PdfReader";
+import SummaryReview from "./Review/Summary_Review";
 function SummaryComponent() {
     const { user } = useAppContext();
     const location = useLocation();
