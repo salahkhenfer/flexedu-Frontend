@@ -11,7 +11,7 @@ import Card from "./Teacher_Courses_Card";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 function Teacher_Courses() {
-    const Naviagte = useNavigate();
+    const Navigate = useNavigate();
     const { user } = useAppContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -33,7 +33,7 @@ function Teacher_Courses() {
                     setCourses(courses);
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
-                    Naviagte("/Login");
+                    Navigate("/Login");
                 } else {
                     setError(response.data);
                 }

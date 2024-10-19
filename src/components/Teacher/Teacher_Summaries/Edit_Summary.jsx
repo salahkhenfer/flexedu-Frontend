@@ -23,7 +23,7 @@ import Delete_SummaryPic from "./Api/Delete_SummaryPic";
 dayjs.extend(customParseFormat);
 function Edit_Summary() {
     const { user } = useAppContext();
-    const Naviagte = useNavigate();
+    const Navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [Summary, setSummary] = useState();
@@ -59,7 +59,7 @@ function Edit_Summary() {
                     setVedios[Summary?.Summary_Videos];
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
-                    Naviagte("/Login");
+                    Navigate("/Login");
                 } else {
                     setError(response.data);
                 }

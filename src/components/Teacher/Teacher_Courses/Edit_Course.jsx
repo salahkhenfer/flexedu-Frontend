@@ -23,7 +23,7 @@ import Delete_CoursePic from "./Api/Delete_CoursePic";
 dayjs.extend(customParseFormat);
 function Edit_Course() {
     const { user } = useAppContext();
-    const Naviagte = useNavigate();
+    const Navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [Course, setCourse] = useState();
@@ -59,7 +59,7 @@ function Edit_Course() {
                     setVedios[Course?.Course_Videos];
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
-                    Naviagte("/Login");
+                    Navigate("/Login");
                 } else {
                     setError(response.data);
                 }

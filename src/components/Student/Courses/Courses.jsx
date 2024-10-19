@@ -28,7 +28,7 @@ function Student_Courses() {
     const [courses, setCourses] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [activeFilter, setActiveFilter] = useState("all");
-    const Naviagte = useNavigate();
+    const Navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -49,7 +49,7 @@ function Student_Courses() {
                     setCourses(courses);
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
-                    Naviagte("/Login");
+                    Navigate("/Login");
                 } else {
                     setError(response.data);
                 }

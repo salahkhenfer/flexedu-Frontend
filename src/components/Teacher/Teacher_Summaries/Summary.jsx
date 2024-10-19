@@ -24,7 +24,7 @@ import { FaStarHalf } from "react-icons/fa";
 import Upload_Sumarry from "./Upload_Sumarry";
 import PDFReader from "./PdfReader";
 function Summary() {
-    const Naviagte = useNavigate();
+    const Navigate = useNavigate();
     const { user } = useAppContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -54,7 +54,7 @@ function Summary() {
                     setSummary(Summary);
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
-                    Naviagte("/Login");
+                    Navigate("/Login");
                 } else {
                     setError(response.data);
                 }
