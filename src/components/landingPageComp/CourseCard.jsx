@@ -7,7 +7,7 @@ const CourseCard = ({
     category,
     rating,
     price,
-    linkImg,
+    courseImg,
     studentsCount,
     lessonsCount,
     sale,
@@ -24,10 +24,10 @@ const CourseCard = ({
         duration-300 max-w-sm mx-auto"
         >
             <div className="relative">
-                {linkImg ? (
+                {courseImg ? (
                     <img
                         className="w-full h-48 object-cover"
-                        src={`http://localhost:3000/${linkImg}`}
+                        src={`http://localhost:3000/${courseImg}`}
                         alt="Course"
                     />
                 ) : (

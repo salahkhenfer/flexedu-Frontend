@@ -87,7 +87,7 @@ function Edit_Summary() {
         );
     else
         return (
-            <div className=" w-full    bg-white flex flex-col items-center pt-12 ">
+            <div className=" w-full    bg-white flex flex-col items-center py-12 ">
                 <Link
                     to={`/Teacher/Summaries/${SummaryId}`}
                     className=" text-green-600 pb-6 underline"

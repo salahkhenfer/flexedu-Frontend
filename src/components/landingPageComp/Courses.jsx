@@ -61,7 +61,7 @@ const Courses = () => {
                                       category={course?.Category}
                                       rating={course?.Rate}
                                       price={course?.Price}
-                                      linkImg={course?.Image} // Default image if null
+                                      courseImg={course?.Image} // Default image if null
                                       studentsCount={course?.Students_count} // Pass the actual students count
                                       lessonsCount={
                                           course?.Course_Videos.length

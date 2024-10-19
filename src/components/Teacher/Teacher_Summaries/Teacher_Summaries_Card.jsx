@@ -64,7 +64,7 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
                     !imgError ? (
                         <img
                             className="w-full h-48 object-cover"
-                            src={`http://localhost:3000/${linkImg}`}
+                            src={`http://localhost:3000/${Summary?.Image}`}
                             alt="Course"
                             onError={() => setImgError(true)}
                         />

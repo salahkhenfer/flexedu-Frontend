@@ -12,7 +12,7 @@ async function handleRegister(values, { setSubmitting }) {
             }
         );
         if (response.status == 200) {
-            window.location.href = `/Teacher/Courses`;
+            window.location.href = `/Teacher/Courses/${values.CourseId}`;
         } else if (response.status == 400) {
             setSubmitting(false);
 
