@@ -43,6 +43,7 @@ function Course() {
                     `http://localhost:3000/Teachers/${user?.id}/Courses/${courseId}`,
                     { withCredentials: true, validateStatus: () => true }
                 );
+                console.log(response.data);
 
                 if (response.status === 200) {
                     setCourse(response.data.Course);
@@ -73,7 +74,7 @@ function Course() {
         return (
             <div className="flex items-center justify-center h-screen bg-gray-100">
                 <div className="text-red-600 font-semibold text-xl bg-white p-8 rounded-lg shadow-lg">
-                    {error.message}
+                    {error}
                 </div>
             </div>
         );
@@ -235,7 +236,7 @@ function Course() {
                     ))
                 ) : (
                     <p className="text-center text-gray-500 py-8">
-                        No videos available for this course?.
+                        No videos available for this course.
                     </p>
                 )}
             </div>
