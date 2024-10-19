@@ -11,6 +11,12 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useLocation } from "react-router-dom";
 dayjs.extend(customParseFormat);
+import { MdAttachMoney } from "react-icons/md";
+import { MdDateRange } from "react-icons/md";
+import { MdPeople } from "react-icons/md";
+import { FaFileAlt } from "react-icons/fa";
+import { MdCategory } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
 import { CiImageOn } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
@@ -98,135 +104,101 @@ function Summary() {
                         </div>
                     ) : (
                         <div className=" flex flex-col items-center justify-center gap-6 p-4">
-                            <div className=" flex flex-col md:flex-row justify-between w-full ">
-                                <div className=" w-[90%] ">
-                                    <div className=" flex flex-col gap-2 ">
-                                        <div className=" flex gap-2 ">
-                                            {Summary?.Image ? (
-                                                <img
-                                                    className="w-[220px] h-[220px] object-cover"
-                                                    src={`http://localhost:3000/${Summary?.Image}`}
-                                                    alt="Summary image"
+                            <div className="flex flex-col md:flex-row items-center md:items-start w-full shadow-lg mt-2 rounded-lg ">
+                                <div className="md:flex-shrink-0">
+                                    {Summary?.Image ? (
+                                        <img
+                                            className="h-48 w-full object-cover md:w-48"
+                                            src={`http://localhost:3000/${Summary?.Image}`}
+                                            alt="Summary image"
+                                        />
+                                    ) : (
+                                        <div className="flex items-center justify-center h-48 w-48 bg-gray-200">
+                                            <CiImageOn className="text-4xl text-gray-400" />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="p-8 w-full">
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <h2 className="block mt-1 text-2xl leading-tight font-semibold text-black">
+                                                {Summary?.Title}
+                                            </h2>
+                                            <p className="mt-2 text-gray-500 flex items-center">
+                                                <MdCategory className="mr-2" />
+                                                {Summary?.Category}
+                                            </p>
+                                        </div>
+
+                                        <Link
+                                            to={`/Teacher/Summaries/${Summary?.id}/Edit`}
+                                            className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+                                        >
+                                            <MdEdit className="mr-2" />
+                                            Edit Summary
+                                        </Link>
+                                    </div>
+
+                                    <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-600">
+                                        <p className="flex items-center">
+                                            <MdAttachMoney className="mr-1" />
+                                            {Summary?.Price
+                                                ? `${Summary?.Price} DA`
+                                                : "Free"}
+                                        </p>
+                                        <p className="flex items-center">
+                                            <MdDateRange className="mr-1" />
+                                            Created:{" "}
+                                            {dayjs(Summary?.createdAt).format(
+                                                "DD MMMM YYYY"
+                                            )}
+                                        </p>
+                                        <p className="flex items-center">
+                                            <MdPeople className="mr-1" />
+                                            {Summary?.Students_count || 0}{" "}
+                                            Enrollments
+                                        </p>
+                                        <p className="flex items-center">
+                                            <FaFileAlt className="mr-1" />
+                                            {Summary?.Pages_Count || 0} Pages
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-4 flex items-center">
+                                        {[...Array(5)].map((_, index) =>
+                                            index <
+                                            Math.floor(Summary?.Rate || 0) ? (
+                                                <FaStar
+                                                    key={index}
+                                                    className="text-yellow-400"
+                                                />
+                                            ) : index <
+                                              Math.ceil(Summary?.Rate || 0) ? (
+                                                <FaStarHalf
+                                                    key={index}
+                                                    className="text-yellow-400"
                                                 />
                                             ) : (
-                                                <div className="flex items-center justify-center w-[220px] h-[220px] bg-gray-100 ">
-                                                    <CiImageOn className=" text-xl" />
-                                                </div>
-                                            )}
-                                            <div>
-                                                <div className="flex items-center justify-between w-full">
-                                                    <div className="text-sm  mb-6 font-semibold text-white">
-                                                        <div className=" text-gray_v text-lg">
-                                                            {Summary?.Title}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="text-sm text-gray_v font-semibold">
-                                                        {Summary?.Category}
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    {Summary?.Price ? (
-                                                        <div className="text-sm text-gray_v font-semibold">
-                                                            {Summary?.Price}
-                                                            {" DA"}
-                                                        </div>
-                                                    ) : null}
-                                                </div>
-
-                                                <div className="flex items-center justify-between w-full font-semibold">
-                                                    <div className="text-sm pt-1 text-gray_v">
-                                                        Created at :{" "}
-                                                        {/* {new Date(
-                                                    Summary?.createdAt
-                                                ).toLocaleDateString()} */}
-                                                        {dayjs(
-                                                            Summary?.createdAt
-                                                        ).format(
-                                                            "DD MMMM YYYY"
-                                                        )}
-                                                    </div>
-                                                </div>
-                                                <div className=" flex justify-start gap-6 font-semibold text-sm text-gray_v pt-6">
-                                                    <div className="flex gap-4 w-full">
-                                                        <div className="flex gap-1">
-                                                            {[...Array(5)].map(
-                                                                (_, index) =>
-                                                                    index <
-                                                                    Math.floor(
-                                                                        Summary?.Rate ||
-                                                                            0
-                                                                    ) ? (
-                                                                        <FaStar
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                            className="text-yellow-400"
-                                                                        />
-                                                                    ) : index <
-                                                                      Math.ceil(
-                                                                          Summary?.Rate ||
-                                                                              0
-                                                                      ) ? (
-                                                                        <FaStarHalf
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                            className="text-yellow-400"
-                                                                        />
-                                                                    ) : (
-                                                                        <FaStar
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                            className="text-gray-400"
-                                                                        />
-                                                                    )
-                                                            )}
-                                                        </div>
-                                                    </div>
-
-                                                    <div className=" shrink-0">
-                                                        {Summary?.Students_count ? (
-                                                            <div>
-                                                                {" "}
-                                                                {
-                                                                    Summary?.Students_count
-                                                                }{" "}
-                                                                Enrolment
-                                                            </div>
-                                                        ) : (
-                                                            <div>
-                                                                0 Enrolment
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className=" shrink-0">
-                                                        {Summary?.Pages_Count ? (
-                                                            <div>
-                                                                {" "}
-                                                                {
-                                                                    Summary?.Pages_Count
-                                                                }{" "}
-                                                                Pages
-                                                            </div>
-                                                        ) : (
-                                                            <div>0 Pages</div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <FaStar
+                                                    key={index}
+                                                    className="text-gray-300"
+                                                />
+                                            )
+                                        )}
+                                        <span className="ml-2 text-gray-600">
+                                            {Summary?.Rate?.toFixed(1) || null}
+                                        </span>
                                     </div>
-                                    <div className=" text-gray-600 font-semibold text-sm">
+
+                                    <div className="mt-4 text-gray-600 font-semibold text-sm">
                                         {showDescription ? (
                                             <div className="w-[80%] pl-8 py-4">
                                                 <div
-                                                    className="select-none flex gap-2 items-center justify-start underlined pb-4 cursor-pointer"
+                                                    className="select-none flex gap-2 items-center justify-start underline pb-4 cursor-pointer"
                                                     onClick={toggleDescription}
                                                 >
-                                                    Show Description{" "}
+                                                    Hide Description{" "}
                                                     <FaArrowUp />
                                                 </div>
                                                 <div className="pb-4">
@@ -242,7 +214,7 @@ function Summary() {
                                         ) : (
                                             <div className="w-[80%] pl-8 py-4">
                                                 <div
-                                                    className="select-none flex gap-2 items-center justify-start underlined pb-4 cursor-pointer"
+                                                    className="select-none flex gap-2 items-center justify-start underline pb-4 cursor-pointer"
                                                     onClick={toggleDescription}
                                                 >
                                                     Show Description{" "}
@@ -251,15 +223,6 @@ function Summary() {
                                             </div>
                                         )}
                                     </div>
-                                </div>
-                                <div className=" w-fit mx-auto md:w-[10%]  ">
-                                    <Link
-                                        to={`/Teacher/Summaries/${Summary?.id}/Edit`}
-                                        className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
-                                    >
-                                        {/* <IoAdd className="  font-bold text-xl" /> */}
-                                        Edit
-                                    </Link>
                                 </div>
                             </div>
 
