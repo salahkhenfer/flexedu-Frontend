@@ -2,8 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 
 const App = lazy(() => import("./App"));
-import Default from "./Default";
-
+const Default = lazy(() => import("./Default"));
 const Login = lazy(() => import("./Auth/Login/Login"));
 const Register = lazy(() => import("./Auth/Register/Register"));
 
