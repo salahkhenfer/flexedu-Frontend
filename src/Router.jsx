@@ -93,9 +93,10 @@ const LandingPage = lazy(() => import("./landingPage/LandingPage"));
 const ContactPage = lazy(() =>
     import("./components/landingPageComp/ContactPage")
 );
-const { Achievement, Courses } = lazy(() =>
-    import("./components/landingPageComp")
+const Achievement = lazy(() =>
+    import("./components/landingPageComp/Achievement")
 );
+const Courses = lazy(() => import("./components/landingPageComp/Courses"));
 const CourseDetails = lazy(() =>
     import("./components/landingPageComp/CourseDetails")
 );
