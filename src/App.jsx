@@ -100,14 +100,7 @@ function App() {
     if (loading) {
         return (
             <div className=" w-screen h-screen flex flex-col items-center justify-center">
-                <img
-                    src={Logo}
-                    alt="Logo"
-                    className=" 
-        w-32   mb-1 
-        
-        "
-                />
+                <img src={Logo} alt="Logo" className=" w-32 mb-1 " />
                 <span className="loader"></span>
             </div>
         );
