@@ -25,6 +25,7 @@ import { IoIosWarning } from "react-icons/io";
 import { IoAdd } from "react-icons/io5";
 dayjs.extend(customParseFormat);
 import CourseReviewCard from "./Review/Course_Review_Card";
+import MeetCard from "./MeetCard";
 
 function Course() {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ function Course() {
     const courseId = location.pathname.split("/")[3];
     const [showDescription, setShowDescription] = useState(false);
     const [AllReviews, setAllReviews] = React.useState(false);
+
     useEffect(() => {
         const fetchCourse = async () => {
             setLoading(true);
@@ -64,7 +66,90 @@ function Course() {
         };
         fetchCourse();
     }, [user, courseId, navigate]);
+    const handleAddMeeting = async () => {
+        const { value: formValues } = await Swal.fire({
+            title: "Schedule a New Meeting",
+            html:
+                `<input type="text" id="link" class="swal2-input" placeholder="Meeting Link">` +
+                `<input type="datetime-local" id="time" class="swal2-input" placeholder="Meeting Time">`,
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: "Add Meeting",
+            preConfirm: () => {
+                const link = document.getElementById("link").value;
+                const time = document.getElementById("time").value;
 
+                // Validate input fields
+                if (!link || !time) {
+                    Swal.showValidationMessage(
+                        "Please enter both the meeting link and time."
+                    );
+                    return false;
+                }
+
+                // Ensure that the selected time is in the future
+                else if (new Date(time) <= new Date()) {
+                    Swal.showValidationMessage(
+                        "Meeting time must be in the future."
+                    );
+                    return false;
+                } else if (!/^(http|https):\/\/[^ "]+$/.test(link)) {
+                    Swal.showValidationMessage(
+                        "Meeting link must be a valid URL."
+                    );
+                    return false;
+                }
+                return { link, time };
+            },
+        });
+
+        // If the user submitted valid inputs, formValues will contain them
+        if (formValues) {
+            try {
+                const { link, time } = formValues;
+
+                // Send the meeting data to the backend using axios
+                const response = await axios.post(
+                    `http://localhost:3000/Teachers/${user?.id}/Courses/${course?.id}/Meetings`,
+                    {
+                        Link: link,
+                        time,
+                    },
+                    {
+                        withCredentials: true,
+                        validateStatus: () => true,
+                    }
+                );
+                console.log(response);
+
+                if (response.status === 201) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Meeting Scheduled!",
+                        text: "Your meeting has been successfully added.",
+                    });
+                    setCourse((prevCourse) => {
+                        return {
+                            ...prevCourse,
+                            Course_Meets: [
+                                ...prevCourse.Course_Meets,
+                                response.data,
+                            ],
+                        };
+                    });
+                    // You might want to refresh the meetings list here after successful addition
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Failed to Add Meeting",
+                    text:
+                        error.response?.data?.message ||
+                        "Something went wrong. Please try again.",
+                });
+            }
+        }
+    };
     if (loading) {
         return (
             <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -197,6 +282,35 @@ function Course() {
                 </div>
             </div>
 
+            <div className="mt-8 max-w-6xl mx-auto">
+                <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-2xl font-semibold text-gray-800">
+                        Course Meets
+                    </h3>
+                    <button
+                        onClick={handleAddMeeting}
+                        className="mb-6 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300"
+                    >
+                        Add New Meeting
+                    </button>
+                </div>
+                {course?.Course_Meets && course?.Course_Meets.length > 0 ? (
+                    course?.Course_Meets.map((meet, index) => (
+                        <MeetCard
+                            key={index}
+                            meet={meet}
+                            index={index}
+                            user={user}
+                            course={course}
+                            setCourse={setCourse}
+                        />
+                    ))
+                ) : (
+                    <p className="text-center text-gray-500 py-8">
+                        No Meetings available for this course.
+                    </p>
+                )}
+            </div>
             <div className="mt-8 max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
                     <h3 className="text-2xl font-semibold text-gray-800">

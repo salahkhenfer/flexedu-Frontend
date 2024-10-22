@@ -8,7 +8,7 @@ import CourseReview from "./Review/Course_Review";
 import { FaStar, FaUsers, FaPlay, FaChevronRight } from "react-icons/fa";
 import Rating from "react-rating-stars-component";
 import CourseReviewCard from "./Review/Course_Review_Card";
-
+import MeetCard from "../../Teacher/Teacher_Courses/MeetCard";
 function CourseComponent() {
     const { user } = useAppContext();
     const location = useLocation();
@@ -28,7 +28,8 @@ function CourseComponent() {
                     `http://localhost:3000/Students/${user.id}/Purchased/Courses/${courseId}`,
                     { withCredentials: true }
                 );
-                
+                console.log(response);
+
                 if (response.status === 200) {
                     setCourseData(response.data);
                     setIsReviewed(response.data.isReviewed);
@@ -137,6 +138,30 @@ function CourseComponent() {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                    <div className="mt-8 mb-24 px-6 max-w-6xl mx-auto">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-2xl font-semibold text-gray-800">
+                                Course Meets
+                            </h3>
+                        </div>
+                        {courseData?.Course?.Course_Meets &&
+                        courseData?.Course?.Course_Meets.length > 0 ? (
+                            courseData?.Course?.Course_Meets.map(
+                                (meet, index) => (
+                                    <MeetCard
+                                        key={index}
+                                        meet={meet}
+                                        index={index}
+                                        
+                                    />
+                                )
+                            )
+                        ) : (
+                            <p className="text-center text-gray-500 py-8">
+                                No Meetings available for this course.
+                            </p>
+                        )}
                     </div>
                     {!courseData?.isReviewed && (
                         <CourseReview
