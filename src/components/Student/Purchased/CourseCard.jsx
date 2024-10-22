@@ -87,7 +87,7 @@ function Student_Courses_Card({ course, setCourses }) {
                         to={`/Student/Purchased/Courses/${course?.id}`}
                         className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-blue-700"
                     >
-                        View Course
+                        View 
                     </Link>
                 </div>
             </div>

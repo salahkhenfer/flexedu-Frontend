@@ -104,7 +104,12 @@ const Courses = lazy(() => import("./components/landingPageComp/Courses"));
 const CourseDetails = lazy(() =>
     import("./components/landingPageComp/CourseDetails")
 );
-
+const Student_contact = lazy(() =>
+    import("./components/Student/Contact/Contact")
+);
+const Teacher_contact = lazy(() =>
+    import("./components/Teacher/Contact/Contact")
+);
 const Routers = createBrowserRouter([
     {
         path: "/",
@@ -195,6 +200,11 @@ const Routers = createBrowserRouter([
                         element: <Teacher_Edit_Summary />,
                         errorElement: <ErrorElement />,
                     },
+                    {
+                        path: "/Teacher/Contact",
+                        element: <Teacher_contact />,
+                        errorElement: <ErrorElement />,
+                    },
                 ],
             },
             {
@@ -261,6 +271,11 @@ const Routers = createBrowserRouter([
                     {
                         path: "/Student/Summaries/:id/Enrollment",
                         element: <Student_Summary_Enrollemnt />,
+                        errorElement: <ErrorElement />,
+                    },
+                    {
+                        path: "/Student/Contact",
+                        element: <Student_contact />,
                         errorElement: <ErrorElement />,
                     },
                 ],

@@ -23,6 +23,17 @@ function Mobile_Nav_Items({
                         <div className="text-center flex flex-col gap-8 my-8 ">
                             <Link
                                 onClick={Toogle_Menu_Bar}
+                                to={"/Student/Contact"}
+                                className={`${
+                                    Active_nav == "Contact"
+                                        ? "text-perpol_v"
+                                        : "text-black_text"
+                                } select-none   `}
+                            >
+                                Contact
+                            </Link>
+                            <Link
+                                onClick={Toogle_Menu_Bar}
                                 to={"/Student/Profile"}
                                 className={`${
                                     Active_nav == "Profile"

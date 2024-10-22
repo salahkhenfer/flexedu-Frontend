@@ -80,7 +80,7 @@ function Student_Summaries_Card({ Summary }) {
                     to={`/Student/Summaries/${Summary?.id}`}
                     className="block w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:from-purple-700 hover:to-indigo-700 hover:shadow-lg"
                 >
-                    View Summary
+                    View 
                 </Link>
             </div>
         </div>

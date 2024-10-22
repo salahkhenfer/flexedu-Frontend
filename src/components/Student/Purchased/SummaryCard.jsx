@@ -80,7 +80,7 @@ function Student_Summaries_Card({ Summary, setSummaries }) {
             to={`/Student/Purchased/Summaries/${Summary?.Summary?.id}`}
             className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-blue-700"
           >
-            View Summary
+            View 
           </Link>
         </div>
       </div>
