@@ -48,7 +48,6 @@ function Course() {
                 );
 
                 if (response.status === 200) {
-                    // console.log(response.data);
 
                     setCourse(response.data.Course);
                     setAllReviews(response.data.Reviews);
@@ -120,7 +119,6 @@ function Course() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response);
 
                 if (response.status === 201) {
                     Swal.fire({
