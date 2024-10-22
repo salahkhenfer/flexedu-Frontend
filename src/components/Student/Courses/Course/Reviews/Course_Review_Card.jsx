@@ -6,8 +6,8 @@ const CourseReviewCard = ({ review }) => {
         <span key={idx}>★</span>
     ));
     const reviewedBy =
-        review?.Student?.FirstName || review?.Student?.LastName
-            ? `${review.Student?.FirstName} ${review.Student?.LastName}`
+        review?.Student?.firstName || review?.Student?.lastName
+            ? `${review.Student?.firstName} ${review.Student?.lastName}`
             : "Anonymous"; // Fallback if FirstName or LastName is not provided
 
     return (

@@ -1,15 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 
-const App = lazy(() => import("./App"));
-const Default = lazy(() => import("./Default"));
+// const App = lazy(() => import("./App"));
+// const Default = lazy(() => import("./Default"));
 const Login = lazy(() => import("./Auth/Login/Login"));
 const Register = lazy(() => import("./Auth/Register/Register"));
-
-const Teacher = lazy(() => import("./components/Teacher/Teacher"));
-const Teacher_Default = lazy(() =>
-    import("./components/Teacher/Teacher_Default")
-);
+import App from "./App";
+import Default from "./Default";
+import Teacher from "./components/Teacher/Teacher";
+import Teacher_Default from "./components/Teacher/Teacher_Default";
+// const Teacher = lazy(() => import("./components/Teacher/Teacher"));
+// const Teacher_Default = lazy(() =>
+//     import("./components/Teacher/Teacher_Default")
+// );
 const Teacher_Profile = lazy(() =>
     import("./components/Teacher/Teacher_Profile/Teacher_Profile")
 );
@@ -49,11 +52,12 @@ const Teacher_Summary = lazy(() =>
 const Teacher_Edit_Summary = lazy(() =>
     import("./components/Teacher/Teacher_Summaries/Edit_Summary")
 );
-
-const Student = lazy(() => import("./components/Student/Student"));
-const Student_Default = lazy(() =>
-    import("./components/Student/Student_Default")
-);
+import Student from "./components/Student/Student";
+import Student_Default from "./components/Student/Student_Default";
+// const Student = lazy(() => import("./components/Student/Student"));
+// const Student_Default = lazy(() =>
+//     import("./components/Student/Student_Default")
+// );
 const Student_Profile = lazy(() =>
     import("./components/Student/Student_Profile/Student_Profile")
 );

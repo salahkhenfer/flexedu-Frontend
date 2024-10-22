@@ -35,7 +35,7 @@ function Course() {
     const location = useLocation();
     const courseId = location.pathname.split("/")[3];
     const [showDescription, setShowDescription] = useState(false);
-
+    const [AllReviews, setAllReviews] = React.useState(false);
     useEffect(() => {
         const fetchCourse = async () => {
             setLoading(true);
@@ -44,10 +44,12 @@ function Course() {
                     `http://localhost:3000/Teachers/${user?.id}/Courses/${courseId}`,
                     { withCredentials: true, validateStatus: () => true }
                 );
-                console.log(response.data);
 
                 if (response.status === 200) {
+                    // console.log(response.data);
+
                     setCourse(response.data.Course);
+                    setAllReviews(response.data.Reviews);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
                     navigate("/Login");
@@ -245,9 +247,14 @@ function Course() {
                 <h2 className="text-2xl font-bold text-gray-600 pl-6 mb-4">
                     Reviews
                 </h2>
-
                 {course?.Reviews?.map((review) => (
-                    <CourseReviewCard key={review.id} review={review} />
+                    <CourseReviewCard
+                        key={review.id}
+                        review={review}
+                        courseId={course.id}
+                        userId={user?.id}
+                        setAllReviews={setAllReviews}
+                    />
                 ))}
             </div>
         </div>

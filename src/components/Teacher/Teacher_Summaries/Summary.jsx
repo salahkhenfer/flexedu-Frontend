@@ -32,7 +32,7 @@ function Summary() {
     const [Summary, setSummary] = useState();
     const location = useLocation();
     const SummaryId = location.pathname.split("/")[3];
-
+    const [AllReviews, setAllReviews] = useState();
     const [showDescription, setShowDescription] = useState(false);
     function toggleDescription() {
         setShowDescription(!showDescription);
@@ -53,6 +53,7 @@ function Summary() {
                 if (response.status == 200) {
                     const Summary = response.data.Summary;
                     setSummary(Summary);
+                    setAllReviews(Summary.Review_Summaries);
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
                     Navigate("/Login");
@@ -249,6 +250,9 @@ function Summary() {
                                     <SummaryReviewCard
                                         key={review.id}
                                         review={review}
+                                        setAllReviews={setAllReviews}
+                                        summaryId={Summary.id}
+                                        userId={user?.id}
                                     />
                                 ))}
                             </div>
