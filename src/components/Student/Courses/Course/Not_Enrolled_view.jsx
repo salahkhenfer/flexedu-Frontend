@@ -171,7 +171,7 @@ function Not_Enrolled_view({ course, review }) {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 md:gap-10 md:justify-center  ">
+            <div className="flex flex-col  gap-4 md:gap-10   ">
                 {/* Course Videos Section */}
                 <div className=" ">
                     {course?.Course_Videos &&
