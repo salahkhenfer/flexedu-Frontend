@@ -8,16 +8,17 @@ function Teacher_Profile() {
   const { user } = useAppContext();
 
   const ProfileItem = ({ label, value }) => (
-    <div className="mb-4 bg-white bg-opacity-80 backdrop-blur-sm rounded-lg p-3 shadow-md transform hover:scale-105 transition-transform duration-300">
+    <div className="mb-4 bg-white bg-opacity-80 backdrop-blur-sm rounded-lg p-3 
+    shadow-md transform md:hover:scale-105 transition-transform duration-300">
       <span className="font-semibold text-indigo-700">{label}:</span>
       <span className="ml-2 text-gray-800">{value || "N/A"}</span>
     </div>
   );
 
   return (
-    <div className="min-h-screen  p-8">
+    <div className="min-h-screen  md:p-8 py-6">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-bl mb-8 text-center shadow-text">
+        <h1 className="text-4xl text-gray_v font-extrabold text-bl mb-8 text-center shadow-text">
           Teacher Profile
         </h1>
 

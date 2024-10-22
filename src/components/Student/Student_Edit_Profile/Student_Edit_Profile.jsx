@@ -21,7 +21,7 @@ function Edit_Profile() {
     else setimageChanged(false);
   }, [image_state]);
   return (
-    <div className="w-full  bg-white flex flex-col items-center pt-12">
+    <div className="w-full  bg-white flex flex-col items-center py-12">
       <div className="text-black_text">
         <div className="text-3xl font-semibold">Edit Profile</div>
 
