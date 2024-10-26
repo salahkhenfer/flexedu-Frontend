@@ -39,6 +39,7 @@ function CourseComponent() {
           console.log(response.data.course_progress.Progress);
           setActiveVideoIndex(response.data.course_progress.Progress);
           setVideosWatched(response.data.course_progress.WatchedVideos);
+          console.log(response.data.course_progress.WatchedVideos);
           setIsReviewed(response.data.isReviewed);
         } else if (response.status === 401) {
           Swal.fire("Error", "You should login again", "error");
@@ -73,7 +74,7 @@ function CourseComponent() {
   }, [location.search, courseData]);
 
   const handleVideoSelect = (index) => {
-    handleChangeProgress(index + 1);
+    handleChangeProgress(index);
     setActiveVideoIndex(index);
     const selectedVideo = courseData.Course.Course_Videos[index];
     setActiveVideo(selectedVideo);
@@ -95,6 +96,15 @@ function CourseComponent() {
     } catch (error) {
       console.log(error);
     }
+  };
+  const truncateTitle = (title, wordLimit = 10) => {
+    const words = title.split("");
+    // Only truncate if the title exceeds the word limit
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join("") + "...";
+    }
+    // If it's within the limit, return the title as is
+    return title;
   };
 
   return (
@@ -151,7 +161,7 @@ function CourseComponent() {
               </div>
             </div>
             <CourseProgress
-              totalVideos={courseData?.Course?.Course_Videos?.length || 0}
+              totalVideos={courseData?.Course?.Course_Videos?.length - 1 || 0}
               watchedVideos={videosWatched}
               className="mx-4 mt-4"
             />
@@ -201,16 +211,24 @@ function CourseComponent() {
               {courseData?.Course?.Course_Videos?.map((video, index) => (
                 <li
                   key={video.id}
-                  className={`p-3 mb-2 rounded-md cursor-pointer transition-colors duration-200 flex items-center ${
+                  className={`flex items-center justify-between p-4 mb-2 rounded-md cursor-pointer transition-colors duration-200 ${
                     activeVideoIndex === index ||
-                    videosWatched.includes(index + 1)
+                    videosWatched.includes(index) ||
+                    index === 0
                       ? "bg-blue-100 text-blue-600"
                       : "hover:bg-gray-100"
                   }`}
                   onClick={() => handleVideoSelect(index)}
                 >
-                  <FaPlay className="mr-2" />
-                  <span>{video.title || `Video ${index + 1}`}</span>
+                  <div className="flex items-center">
+                    <FaPlay className="mr-3 text-blue-500" />
+                    <span className="font-semibold mr-2">{`Video ${
+                      index + 1
+                    } : `}</span>
+                    <span className="text-gray-700">
+                      {truncateTitle(video.Title)}
+                    </span>
+                  </div>
                 </li>
               ))}
             </ul>
