@@ -8,7 +8,8 @@ function Student_Profile() {
   const { user } = useAppContext();
 
   const ProfileItem = ({ label, value }) => (
-    <div className="mb-4 bg-white bg-opacity-80 overflow-y-auto rounded-lg p-3 shadow-md backdrop-blur-sm transform transition-transform duration-300 md:hover:scale-105">
+    <div className="mb-4 bg-white bg-opacity-80 overflow-y-auto rounded-lg p-3 shadow-md backdrop-blur-sm 
+    transform transition-transform duration-300 md:hover:scale-105">
       <span className="font-semibold text-teal-700">{label}:</span>
       <span className="ml-2 text-gray-800">{value || "N/A"}</span>
     </div>

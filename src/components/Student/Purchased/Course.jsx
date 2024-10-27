@@ -190,7 +190,7 @@ function CourseComponent() {
         </div>
 
         <div
-          className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transition-all duration-300 transform ${
+          className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transition-all duration-300 transform mt-6 ${
             showSidebar ? "translate-x-0" : "translate-x-full"
           }`}
         >

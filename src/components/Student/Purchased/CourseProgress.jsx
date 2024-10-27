@@ -18,7 +18,7 @@ const CircularProgress = ({ totalVideos, watchedVideos, className }) => {
     circumference - (progressPercentage / 100) * circumference;
 
   return (
-    <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
+    <div className={`bg-white rounded-lg  p-6 ${className}`}>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-700">Course Progress</h3>
       </div>
@@ -64,14 +64,14 @@ const CircularProgress = ({ totalVideos, watchedVideos, className }) => {
 
       <div className="mt-6 space-y-2">
         <div className="flex justify-between text-sm text-gray-600">
-          <span>Completed Videos</span>
+          {/* <span>Completed Videos</span>
           <span className="font-medium">
             {watchedVideos.length } of {totalVideos}
-          </span>
+          </span> */}
         </div>
 
-        <div className="flex justify-between text-sm text-gray-600">
-          <span>Remaining</span>
+        <div className="flex gap-2 text-sm text-gray-600">
+          <span>Remaining :{" "}</span>
           <span className="font-medium">
             {totalVideos - watchedVideos.length}{" "}
             {totalVideos - watchedVideos.length === 1 ? "video" : "videos"}
