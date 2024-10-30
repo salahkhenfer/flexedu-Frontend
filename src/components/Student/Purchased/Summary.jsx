@@ -22,7 +22,7 @@ function SummaryComponent() {
         const fetchSummaryData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/Students/${user.id}/Purchased/Summaries${summaryId}`,
+                    `http://localhost:3000/Students/${user.id}/Purchased/Summaries/${summaryId}`,
                     { withCredentials: true }
                 );
 
