@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../../AppContext";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -48,7 +48,6 @@ function Course() {
                 );
 
                 if (response.status === 200) {
-
                     setCourse(response.data.Course);
                     setAllReviews(response.data.Reviews);
                 } else if (response.status === 401) {
@@ -130,7 +129,7 @@ function Course() {
                         return {
                             ...prevCourse,
                             Course_Meets: [
-                                ...prevCourse.Course_Meets,
+                                ...prevcourse?.Course_Meets,
                                 response.data,
                             ],
                         };
@@ -305,7 +304,7 @@ function Course() {
                     ))
                 ) : (
                     <p className="text-center text-gray-500 py-8">
-                        No Meetings available for this course.
+                        No Meetings available for this course?.
                     </p>
                 )}
             </div>
@@ -351,7 +350,7 @@ function Course() {
                     ))
                 ) : (
                     <p className="text-center text-gray-500 py-8">
-                        No videos available for this course.
+                        No videos available for this course?.
                     </p>
                 )}
             </div>
@@ -361,9 +360,9 @@ function Course() {
                 </h2>
                 {course?.Reviews?.map((review) => (
                     <CourseReviewCard
-                        key={review.id}
+                        key={review?.id}
                         review={review}
-                        courseId={course.id}
+                        courseId={course?.id}
                         userId={user?.id}
                         setAllReviews={setAllReviews}
                     />

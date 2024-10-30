@@ -1,13 +1,10 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { PDFDocument } from "pdf-lib";
 import axios from "axios";
 import {
-    AlertCircle,
     Upload,
     FileText,
-    DollarSign,
-    Tag,
     X,
 } from "lucide-react";
 import Swal from "sweetalert2";
@@ -193,7 +190,6 @@ const AddSummary = () => {
                                             }
                                         })
                                         .catch((error) => {
-                                           
                                             Swal.fire(
                                                 "Error",
                                                 "Upload failed. Please try again.",

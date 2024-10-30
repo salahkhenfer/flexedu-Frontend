@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useAppContext } from "../../../AppContext";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { IoIosWarning } from "react-icons/io";
-import { IoAdd, IoSearch, IoBook, IoSchool } from "react-icons/io5";
+import {  IoSearch } from "react-icons/io5";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { motion } from "framer-motion";
 import Card from "./Student_Summaries_Card";
 dayjs.extend(customParseFormat);
 
 function Student_Summaries() {
     const navigate = useNavigate();
-    const { user } = useAppContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [summaries, setSummaries] = useState([]);

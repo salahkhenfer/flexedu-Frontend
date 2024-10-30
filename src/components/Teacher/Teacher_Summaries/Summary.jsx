@@ -1,11 +1,9 @@
-import React from "react";
 import { useAppContext } from "../../../AppContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosWarning } from "react-icons/io";
 import Swal from "sweetalert2";
-import { IoAdd } from "react-icons/io5";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -248,7 +246,7 @@ function Summary() {
 
                                 {Summary?.Review_Summaries?.map((review) => (
                                     <SummaryReviewCard
-                                        key={review.id}
+                                        key={review?.id}
                                         review={review}
                                         setAllReviews={setAllReviews}
                                         summaryId={Summary.id}

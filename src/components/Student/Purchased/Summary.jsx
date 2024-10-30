@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -154,7 +154,7 @@ function SummaryComponent() {
                         Reviews
                     </h2>
                     {summaryData?.all_reviews?.map((review) => (
-                        <Summary_Review_Card key={review.id} review={review} />
+                        <Summary_Review_Card key={review?.id} review={review} />
                     ))}
                 </div>
             </div>

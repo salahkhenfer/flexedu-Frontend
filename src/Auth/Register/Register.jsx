@@ -1,14 +1,9 @@
-import React from "react";
 import Register_image from "../../../public/Register.jpg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import handleRegister from "./Post_Register";
 function Register() {
-    const [Privacy, setPrivacy] = useState(true);
-    const handleChangePrivacy = () => {
-        setPrivacy(!Privacy);
-    };
     const [userType_value, setuserType_value] = useState("teacher");
     function handle_change_UserType(value) {
         setuserType_value(value);
@@ -221,19 +216,11 @@ function Register() {
 
                                     {isSubmitting ? (
                                         <span className="small-loader my-5  m-auto"></span>
-                                    ) : Privacy ? (
+                                    ) : (
                                         <button
                                             type="submit"
                                             className=" bg-perpol_v py-2 mt-4 rounded-2xl text-white font-semibold "
                                             disabled={isSubmitting}
-                                        >
-                                            Get Started
-                                        </button>
-                                    ) : (
-                                        <button
-                                            type="submit"
-                                            className=" bg-gray_white py-2 mt-4 rounded-2xl  text-gray-400 font-semibold "
-                                            disabled={true}
                                         >
                                             Get Started
                                         </button>

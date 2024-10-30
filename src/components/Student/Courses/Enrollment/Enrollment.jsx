@@ -1,27 +1,18 @@
-import { useState, useEffect, useRef } from "react";
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useState, useEffect } from "react";
 
 import axios from "axios";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import {  useNavigate, useLocation } from "react-router-dom";
 import { IoIosWarning } from "react-icons/io";
 import Swal from "sweetalert2";
-import { IoAdd } from "react-icons/io5";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { CiImageOn } from "react-icons/ci";
-import { FaStar, FaStarHalf } from "react-icons/fa";
-import { useAppContext } from "../../../../AppContext";
-import config from "../../../../config";
-import { FaRegImage } from "react-icons/fa";
-import Axios from "axios";
+
+
 import Not_pending_view from "./Not_pending_view";
 import Pending_View from "./Pending_View";
 dayjs.extend(customParseFormat);
 function Enrollment() {
   const navigate = useNavigate(); // Fixed typo
-  const { user } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [course, setCourse] = useState(null); // Ensure course state is initialized

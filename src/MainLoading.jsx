@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "../public/Logo.png";
 
 function MainLoading() {

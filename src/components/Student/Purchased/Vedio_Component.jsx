@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function Video_Component({ videoData }) {
     const videoRef = useRef(null);
@@ -8,7 +8,6 @@ function Video_Component({ videoData }) {
     };
 
     useEffect(() => {
-
         // Reset the video when videoData changes
         if (videoRef.current) {
             videoRef.current.load();

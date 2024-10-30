@@ -1,17 +1,13 @@
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import React from "react";
+
 import { CiImageOn } from "react-icons/ci";
 import { FaStar, FaStarHalf } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { useAppContext } from "../../../AppContext";
+import { Link } from "react-router-dom";
 
 dayjs.extend(customParseFormat);
 
 function Student_Courses_Card({ course, setCourses }) {
-    const navigate = useNavigate();
-    const { user } = useAppContext();
-
     return (
         <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1">
             <div className="relative">
@@ -87,7 +83,7 @@ function Student_Courses_Card({ course, setCourses }) {
                         to={`/Student/Purchased/Courses/${course?.id}`}
                         className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-blue-700"
                     >
-                        View 
+                        View
                     </Link>
                 </div>
             </div>

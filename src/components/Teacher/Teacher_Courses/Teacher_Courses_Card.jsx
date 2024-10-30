@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -129,7 +129,7 @@ function Teacher_Courses_Card({ course, setCourses }) {
                         to={`/Teacher/Courses/${course?.id}`}
                         className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-blue-700"
                     >
-                        <FaEye className="mr-2" /> View 
+                        <FaEye className="mr-2" /> View
                     </Link>
                     <button
                         onClick={DeleteCourse}

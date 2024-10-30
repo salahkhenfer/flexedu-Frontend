@@ -1,11 +1,10 @@
-import React from "react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-function MeetCard({user,course,setCourse,  meet, index }) {
+function MeetCard({ user, course, setCourse, meet, index }) {
     const [deleteLoading, setDeleteLoading] = useState(false);
     const navigate = useNavigate();
     const handle_delete_meet = async () => {

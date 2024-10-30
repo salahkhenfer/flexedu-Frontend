@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -11,7 +10,7 @@ const SummaryReviewCard = ({ userId, review, setAllReviews, summaryId }) => {
     ));
     const reviewedBy =
         review?.Student?.firstName || review?.Student?.lastName
-            ? `${review.Student?.firstName} ${review.Student?.lastName}`
+            ? `${review?.Student?.firstName} ${review?.Student?.lastName}`
             : "Anonymous"; // Fallback if FirstName or LastName is not provided
 
     return (
@@ -34,7 +33,7 @@ const SummaryReviewCard = ({ userId, review, setAllReviews, summaryId }) => {
                     <div className="text-sm text-gray-500">{reviewedBy}</div>
                     <div className="text-sm text-gray-400">
                         {review?.createdAt
-                            ? new Date(review.createdAt).toLocaleDateString()
+                            ? new Date(review?.createdAt).toLocaleDateString()
                             : null}
                     </div>
                 </div>
@@ -62,7 +61,7 @@ const SummaryReviewCard = ({ userId, review, setAllReviews, summaryId }) => {
                                     setDeleteLoading(true);
                                     try {
                                         const response = await axios.delete(
-                                            `http://localhost:3000/Teachers/${userId}/Summaries/${summaryId}/Reviews/${review.id}`,
+                                            `http://localhost:3000/Teachers/${userId}/Summaries/${summaryId}/Reviews/${review?.id}`,
                                             {
                                                 withCredentials: true,
                                                 validateStatus: () => true,
@@ -92,7 +91,6 @@ const SummaryReviewCard = ({ userId, review, setAllReviews, summaryId }) => {
                                             );
                                         }
                                     } catch (err) {
-
                                         await Swal.fire(
                                             "Error",
                                             "Somthing went wrong",

@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import Logo from "../../../../public/Logo.png";
-import message_icon from "../../../../public/Profile/message.png";
 import notification_icon from "../../../../public/Profile/Notification.png";
 import user_default from "../../../../public/Profile/user_default2.png";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { TbLogout2 } from "react-icons/tb";
 import { FiUser } from "react-icons/fi";
 import { useAppContext } from "../../../AppContext";

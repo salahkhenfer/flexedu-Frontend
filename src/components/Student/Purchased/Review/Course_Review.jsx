@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const CourseReview = ({ userId, courseId }) => {
@@ -36,7 +36,7 @@ const CourseReview = ({ userId, courseId }) => {
             setSuccess("Review submitted successfully!");
             window.location.reload();
         } catch (err) {
-            setError("Failed to submit the review.");
+            setError("Failed to submit the review?.");
         } finally {
             setLoading(false);
         }

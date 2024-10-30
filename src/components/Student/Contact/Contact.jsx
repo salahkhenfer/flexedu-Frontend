@@ -1,4 +1,3 @@
-import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"; // Importing social icons
 import Logo from "../../../../public/Logo.png";
 import config from "../../../config";

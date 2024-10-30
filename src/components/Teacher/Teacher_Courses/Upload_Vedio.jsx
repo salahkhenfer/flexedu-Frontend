@@ -1,12 +1,10 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import { useAppContext } from "../../../AppContext";
+import { useLocation, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Upload, FileVideo, X, PlayCircle } from "lucide-react";
 
 function Upload_Video() {
-    const { user } = useAppContext();
     const [videoFile, setVideoFile] = useState(null);
     const [dragging, setDragging] = useState(false);
     const fileInputRef = useRef(null);
@@ -16,7 +14,6 @@ function Upload_Video() {
     const [isUploading, setIsUploading] = useState(false);
     const location = useLocation();
     const CourseId = location.pathname.split("/")[3];
-    const navigate = useNavigate();
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024 * 1024; // 2GB limit
 

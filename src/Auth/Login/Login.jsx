@@ -1,14 +1,8 @@
-import React from "react";
 import Login_image from "../../../public/Login (2).jpg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import handleLogin from "./Post_Login";
 function Login() {
-    const [Privacy, setPrivacy] = useState(true);
-    const handleChangePrivacy = () => {
-        setPrivacy(!Privacy);
-    };
     return (
         <div className="flex">
             <div className=" max-w-1/2 lg:max-w-1/2 hidden md:block   h-[calc(100vh)]">
@@ -98,39 +92,14 @@ function Login() {
                                             style={errorInputMessage}
                                         />
                                     </div>
-                                    {/* <div className=" flex gap-3 text-sm">
-                    <input
-                      checked={Privacy}
-                      onClick={handleChangePrivacy}
-                      type="checkbox"
-                      className={`w-4 h-4`}
-                    />
-                    <div>
-                      By checking the box below, you acknowledge that you have
-                      read, understood, and agree to be bound by these{" "}
-                      <Link
-                        to={"/Privacy?prev=Login"}
-                        className=" font-semibold underline"
-                      >
-                        Terms of Service.
-                      </Link>
-                    </div>
-                  </div> */}
+
                                     {isSubmitting ? (
                                         <span className="small-loader my-5  m-auto"></span>
-                                    ) : Privacy ? (
+                                    ) : (
                                         <button
                                             type="submit"
                                             className=" bg-perpol_v py-2 mt-4 rounded-2xl text-white font-semibold "
                                             disabled={isSubmitting}
-                                        >
-                                            Get Started
-                                        </button>
-                                    ) : (
-                                        <button
-                                            type="submit"
-                                            className=" bg-gray_white py-2 mt-4 rounded-2xl  text-gray-400 font-semibold "
-                                            disabled={true}
                                         >
                                             Get Started
                                         </button>

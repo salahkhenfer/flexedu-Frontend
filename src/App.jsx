@@ -1,8 +1,6 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import axios from "axios";
-import { useNavigate } from "react-router";
 import { useAppContext } from "./AppContext";
 import Logo from "../public/Logo.png";
 import Register from "../public/Register.png";
@@ -13,10 +11,9 @@ import NavBar from "./landingPage/NavBar/NavBar";
 // import NavBar from "./landingPage/NavBar/NavBar";
 
 function App() {
-    const Navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     // const [userType, setUserType] = useState(null);
-    const { set_Auth, isAuth, store_login } = useAppContext();
+    const { set_Auth,  store_login } = useAppContext();
     useEffect(() => {
         const fetchData = async () => {
             try {

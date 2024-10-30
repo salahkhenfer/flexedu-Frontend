@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import React from "react";
 
-function ImageLoader({ src, alt}) {
+function ImageLoader({ src, alt }) {
     const [isLoading, setIsLoading] = useState(true);
     const handleLoad = () => {
         setIsLoading(false);

@@ -2,7 +2,7 @@ import Axios from "axios";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { FaRegImage, FaStar, FaStarHalf } from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
@@ -12,7 +12,7 @@ import { useAppContext } from "../../../../AppContext";
 import config from "../../../../config";
 dayjs.extend(customParseFormat);
 
-function Payment_not_pendingview({ summary, Purcase, setPayment_Status }) {
+function Payment_not_pendingview({ summary,  setPayment_Status }) {
     const { user } = useAppContext();
     const Navigate = useNavigate();
     const location = useLocation();

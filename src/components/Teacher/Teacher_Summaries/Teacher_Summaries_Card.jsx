@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -130,7 +130,7 @@ function Teacher_Summaries_Card({ Summary, setSummaries }) {
                         to={`/Teacher/Summaries/${Summary?.id}`}
                         className="bg-purple-600 text-white px-4 py-2 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-purple-700"
                     >
-                        <FaEye className="mr-2" /> View 
+                        <FaEye className="mr-2" /> View
                     </Link>
                     <button
                         onClick={deleteSummary}

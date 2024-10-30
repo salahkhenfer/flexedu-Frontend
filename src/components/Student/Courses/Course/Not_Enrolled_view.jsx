@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { IoIosWarning } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
@@ -10,7 +9,7 @@ import {
 } from "react-icons/fa";
 import dayjs from "dayjs";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Course_Review_Card from "./Reviews/Course_Review_Card";
@@ -50,7 +49,6 @@ function Not_Enrolled_view({ course, review }) {
                 Swal.fire("Error", response.data.message, "error");
             }
         } catch (err) {
-
             Swal.fire("Error", err.message, "error");
         } finally {
             setenroll_loading(false);
@@ -209,7 +207,7 @@ function Not_Enrolled_view({ course, review }) {
                         </p>
                     )}
                 </div>
-                {review && review.length > 0 && (
+                {review && review?.length > 0 && (
                     <div>
                         <div className="mt-8 max-w-4xl mx-auto">
                             <h2 className="text-2xl font-semibold text-gray-600 text-center mb-4">
@@ -217,10 +215,10 @@ function Not_Enrolled_view({ course, review }) {
                             </h2>
                             {
                                 <div className=" flex flex-col gap-3 w-full">
-                                    {review.length > 0
-                                        ? review.map((review) => (
+                                    {review?.length > 0
+                                        ? review?.map((review) => (
                                               <Course_Review_Card
-                                                  key={review.id}
+                                                  key={review?.id}
                                                   review={review}
                                               />
                                           ))
@@ -230,7 +228,7 @@ function Not_Enrolled_view({ course, review }) {
                                 // <div className="flex items-center justify-center h-48 w-full ">
                                 //     <IoIosWarning className="text-4xl text-gray-400" />
                                 //     <p className="text-gray-500 ml-2">
-                                //         No reviews available for this course.
+                                //         No reviews available for this course?.
                                 //     </p>
                                 // </div>
                             }

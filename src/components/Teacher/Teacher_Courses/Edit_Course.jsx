@@ -1,4 +1,3 @@
-import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,15 +7,10 @@ import Swal from "sweetalert2";
 import edit_Course from "./Api/edit_Course";
 import Axios from "axios";
 import axios from "axios";
-import { IoIosWarning } from "react-icons/io";
-import { IoAdd } from "react-icons/io5";
-import { FaArrowDown, FaArrowUp, FaMoneyBillWave } from "react-icons/fa";
+import { FaMoneyBillWave } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useLocation } from "react-router-dom";
-import { CiImageOn } from "react-icons/ci";
-import { FaStar } from "react-icons/fa";
-import { FaStarHalf } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa";
 import Delete_CoursePic from "./Api/Delete_CoursePic";
 

@@ -1,10 +1,8 @@
-import React from "react";
 import { useState } from "react";
 import Menu_Toogler from "./Menu_Toogler";
 import Mobile_Nav_Items from "./Mobile_Nav_Items";
 import { Link } from "react-router-dom";
 import Logo from "../../../../public/Logo.png";
-import message_icon from "../../../../public/Profile/message.png";
 import notification_icon from "../../../../public/Profile/Notification.png";
 import { useNavigate } from "react-router-dom";
 

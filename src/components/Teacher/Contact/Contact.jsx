@@ -1,4 +1,3 @@
-import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"; // Importing social icons
 import Logo from "../../../../public/Logo.png";
 import config from "../../../config";
@@ -11,8 +10,10 @@ function Contact() {
     const TELEPHONE = config.TELEPHONE;
 
     const ContactItem = ({ label, value }) => (
-      <div className="mb-4 bg-white bg-opacity-80 backdrop-blur-sm rounded-lg p-4 shadow-md transform md:hover:scale-105 text-sm md:text-lg
-         transition-transform duration-300">
+        <div
+            className="mb-4 bg-white bg-opacity-80 backdrop-blur-sm rounded-lg p-4 shadow-md transform md:hover:scale-105 text-sm md:text-lg
+         transition-transform duration-300"
+        >
             <span className="font-semibold text-indigo-700">{label}:</span>
             <span className="ml-2 text-gray-800">{value || "N/A"}</span>
         </div>

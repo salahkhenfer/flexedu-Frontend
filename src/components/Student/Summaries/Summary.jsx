@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../../AppContext";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -228,7 +228,7 @@ function Summary() {
                     </Link> */}
                 </div>
             </div>
-            {review && review.length > 0 && (
+            {review && review?.length > 0 && (
                 <div>
                     <div className="mt-8 max-w-4xl mx-auto">
                         <h2 className="text-2xl font-semibold text-gray-600 text-center mb-4">
@@ -236,10 +236,10 @@ function Summary() {
                         </h2>
                         {
                             <div className=" flex flex-col gap-3 w-full">
-                                {review.length > 0
-                                    ? review.map((review) => (
+                                {review?.length > 0
+                                    ? review?.map((review) => (
                                           <Summary_Review_Card
-                                              key={review.id}
+                                              key={review?.id}
                                               review={review}
                                           />
                                       ))

@@ -1,9 +1,6 @@
-import React from "react";
 import dayjs from "dayjs";
 
-
 function MeetCard({ meet, index }) {
-    
     return (
         <div
             key={meet.id}
@@ -27,7 +24,6 @@ function MeetCard({ meet, index }) {
                     </a>
                 </div>
             </div>
-            
         </div>
     );
 }

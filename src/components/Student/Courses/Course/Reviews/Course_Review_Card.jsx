@@ -1,5 +1,3 @@
-import React from "react";
-
 const CourseReviewCard = ({ review }) => {
     const rating = review?.Rate || 0; // Default to 0 if Rate is null
     const stars = Array.from({ length: rating }).map((_, idx) => (
@@ -7,7 +5,7 @@ const CourseReviewCard = ({ review }) => {
     ));
     const reviewedBy =
         review?.Student?.firstName || review?.Student?.lastName
-            ? `${review.Student?.firstName} ${review.Student?.lastName}`
+            ? `${review?.Student?.firstName} ${review?.Student?.lastName}`
             : "Anonymous"; // Fallback if FirstName or LastName is not provided
 
     return (
@@ -29,7 +27,7 @@ const CourseReviewCard = ({ review }) => {
                 <div className="text-sm text-gray-500">{reviewedBy}</div>
                 <div className="text-sm text-gray-400">
                     {review?.createdAt
-                        ? new Date(review.createdAt).toLocaleDateString()
+                        ? new Date(review?.createdAt).toLocaleDateString()
                         : null}
                 </div>
             </div>

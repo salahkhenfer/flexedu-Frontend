@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../../AppContext";
 import { IoIosWarning } from "react-icons/io";
-import { MdAttachMoney, MdBookmark } from "react-icons/md";
 import { FaGraduationCap, FaFileAlt } from "react-icons/fa";
-import Courses_Card from "./CourseCard";
 import SummaryCard from "./SummaryCard";
 import StudentCoursesCard from "./CourseCard";
 

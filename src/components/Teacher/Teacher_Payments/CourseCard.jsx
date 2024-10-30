@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { CiImageOn } from "react-icons/ci";
-import { FaStar, FaStarHalf, FaUsers, FaVideo, FaClock } from "react-icons/fa";
-import axios from "axios";
-import { useAppContext } from "../../../AppContext";
+import { FaStar, FaStarHalf, FaUsers } from "react-icons/fa";
 
 const StudentCoursesCard = ({ course }) => {
-
     const renderStars = (rating) => {
         return (
             <div className="flex">
@@ -31,7 +26,7 @@ const StudentCoursesCard = ({ course }) => {
 
     return (
         <div
-            key={course?.Course.id}
+            key={course?.course?.id}
             className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105"
         >
             <div className="relative">
@@ -68,13 +63,13 @@ const StudentCoursesCard = ({ course }) => {
                 </div>
             </div>
             <div className="p-4 bg-gray-50 flex justify-between items-center">
-                {course?.Course.Price === 0 ? (
+                {course?.course?.Price === 0 ? (
                     <p className="text-lg font-semibold text-green-600">
                         Free{" "}
                     </p>
                 ) : (
                     <p className="text-lg font-semibold text-green-600">
-                        {course?.Course.Price} DA
+                        {course?.course?.Price} DA
                     </p>
                 )}
             </div>
