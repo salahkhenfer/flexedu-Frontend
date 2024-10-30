@@ -37,7 +37,6 @@ function Student_Courses() {
                     const courses = response.data.Courses;
 
                     setCourses(courses);
-                    console.log(courses);
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
                     Navigate("/Login");

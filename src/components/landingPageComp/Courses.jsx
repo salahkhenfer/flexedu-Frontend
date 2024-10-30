@@ -18,7 +18,6 @@ const Courses = () => {
                 );
                 setCourses(response.data.Courses); // Assuming your API response has `Courses` key
 
-                console.log(response.data.Courses);
             } catch (error) {
                 // _____________
             }

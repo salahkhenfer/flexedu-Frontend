@@ -31,15 +31,12 @@ function CourseComponent() {
 
                 if (response.status === 200) {
                     setCourseData(response.data);
-                    console.log(response.data);
 
                     setCourseData(response.data);
-                    console.log(response.data.course_progress.Progress);
                     setActiveVideoIndex(response.data.course_progress.Progress);
                     setVideosWatched(
                         response.data.course_progress.WatchedVideos
                     );
-                    console.log(response.data.course_progress.WatchedVideos);
                     setIsReviewed(response.data.isReviewed);
                 } else if (response.status === 401) {
                     Swal.fire("Error", "You should login again", "error");
@@ -82,7 +79,6 @@ function CourseComponent() {
     };
 
     const handleChangeProgress = async (progress) => {
-        console.log(progress);
 
         try {
             const res = await axios.post(
@@ -93,9 +89,7 @@ function CourseComponent() {
                 },
                 { withCredentials: true }
             );
-            console.log(res);
         } catch (error) {
-            console.log(error);
         }
     };
     const truncateTitle = (title, wordLimit = 10) => {
