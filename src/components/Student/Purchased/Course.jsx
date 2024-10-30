@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import VideoComponent from "./Vedio_Component";
@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import { useAppContext } from "../../../AppContext";
 import CourseReview from "./Review/Course_Review";
 import { FaStar, FaUsers, FaPlay, FaChevronRight } from "react-icons/fa";
-import Rating from "react-rating-stars-component";
 import CourseReviewCard from "./Review/Course_Review_Card";
 import MeetCard from "../../Teacher/Teacher_Courses/MeetCard";
 import CourseProgress from "./CourseProgress";

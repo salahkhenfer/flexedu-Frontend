@@ -91,7 +91,7 @@ function Enrollment() {
   }
 
   if (isEnrolled) {
-    navigate(`Student/Purchased/Courses/${CourseId}`);
+    navigate(`/Student/Purchased/Courses/${CourseId}`);
     return null;
   }
   if (!Payment_Status || Payment_Status == "rejected")
