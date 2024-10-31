@@ -1,65 +1,135 @@
-import { useRef } from "react";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import React, { useRef, useState } from "react";
 
-// Create an instance of the default layout plugin with custom toolbar and hidden attachments
 const PDFReader = ({ fileUrl }) => {
-    const viewerRef = useRef(null); // Ref for the PDF viewer container
+  const viewerRef = useRef(null);
+  const [pdfViewer, setPdfViewer] = useState(null);
 
-    // Customize the default layout plugin to hide the attachment tab
-    const defaultLayoutPluginInstance = defaultLayoutPlugin({
-        sidebarTabs: (defaultTabs) =>
-            defaultTabs.filter((tab) => tab.key !== "attachment"), // Remove the attachment tab
-        renderToolbar: (toolbarSlot) => (
-            <div style={{ display: "flex" }}>
-                {toolbarSlot.searchPopover}
-                {toolbarSlot.previousPageButton}
-                {toolbarSlot.currentPageInput}
-                {toolbarSlot.nextPageButton}
-                {toolbarSlot.zoomOutButton}
-                {toolbarSlot.zoomPopover}
-                {toolbarSlot.zoomInButton}
-                {toolbarSlot.downloadButton}
-            </div>
-        ),
-    });
+  // Dynamically import PDF.js only when component mounts
+  React.useEffect(() => {
+    const loadPdfViewer = async () => {
+      try {
+        // Import PDF.js dynamically
+        const pdfjsLib = await import("pdfjs-dist");
 
-    // Function to toggle full screen
-    const toggleFullScreen = () => {
+        // Set worker source - using CDN for reliability
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+        // Load the PDF
+        const loadingTask = pdfjsLib.getDocument(fileUrl);
+        const pdf = await loadingTask.promise;
+
+        // Get the first page
+        const page = await pdf.getPage(1);
+        const viewport = page.getViewport({ scale: 1.5 });
+
+        // Prepare canvas
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        // Render PDF page
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport,
+        };
+
         if (viewerRef.current) {
-            if (!document.fullscreenElement) {
-                viewerRef.current.requestFullscreen().catch((err) => {
-                    // eslint-disable-next-line no-console
-                });
-            } else {
-                document.exitFullscreen();
-            }
+          viewerRef.current.innerHTML = "";
+          viewerRef.current.appendChild(canvas);
         }
+
+        const renderTask = page.render(renderContext);
+        await renderTask.promise;
+
+        setPdfViewer({ pdf, currentPage: 1 });
+      } catch (error) {
+        console.error("Error loading PDF:", error);
+      }
     };
 
-    return (
-        <div>
-            <div className="w-full flex justify-center">
-                <button
-                    onClick={toggleFullScreen}
-                    style={{ marginBottom: "10px" }}
-                    className="py-2 my-3 px-1 bg-gray-300 w-fit rounded font-semibold text-gray-800 hover:bg-gray-400 hover:text-gray-900"
-                >
-                    Full Screen
-                </button>
-            </div>
-            <div ref={viewerRef} style={{ height: "750px" }}>
-                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-                    <Viewer
-                        fileUrl={fileUrl}
-                        plugins={[defaultLayoutPluginInstance]}
-                    />
-                </Worker>
-            </div>
-        </div>
-    );
+    loadPdfViewer();
+  }, [fileUrl]);
+
+  // Function to handle page navigation
+  const changePage = async (delta) => {
+    if (!pdfViewer) return;
+
+    const newPage = pdfViewer.currentPage + delta;
+    if (newPage < 1 || newPage > pdfViewer.pdf.numPages) return;
+
+    try {
+      const page = await pdfViewer.pdf.getPage(newPage);
+      const viewport = page.getViewport({ scale: 1.5 });
+
+      const canvas = viewerRef.current.querySelector("canvas");
+      const context = canvas.getContext("2d");
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+      };
+
+      await page.render(renderContext).promise;
+      setPdfViewer({ ...pdfViewer, currentPage: newPage });
+    } catch (error) {
+      console.error("Error changing page:", error);
+    }
+  };
+
+  // Toggle full screen
+  const toggleFullScreen = () => {
+    if (viewerRef.current) {
+      if (!document.fullscreenElement) {
+        viewerRef.current.requestFullscreen().catch((err) => {
+          console.error("Error attempting to enable fullscreen:", err);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  };
+
+  return (
+    <div className="w-full max-w-4xl mx-auto">
+      <div className="flex justify-center gap-4 mb-4">
+        <button
+          onClick={() => changePage(-1)}
+          disabled={!pdfViewer || pdfViewer.currentPage <= 1}
+          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+        >
+          Previous
+        </button>
+        {pdfViewer && (
+          <span className="py-2">
+            Page {pdfViewer.currentPage} of {pdfViewer.pdf.numPages}
+          </span>
+        )}
+        <button
+          onClick={() => changePage(1)}
+          disabled={
+            !pdfViewer || pdfViewer.currentPage >= pdfViewer?.pdf?.numPages
+          }
+          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+        >
+          Next
+        </button>
+        <button
+          onClick={toggleFullScreen}
+          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+        >
+          Full Screen
+        </button>
+      </div>
+      <div
+        ref={viewerRef}
+        className="border rounded-lg overflow-auto bg-gray-100 flex justify-center items-center"
+        style={{ height: "750px" }}
+      />
+    </div>
+  );
 };
 
 export default PDFReader;
