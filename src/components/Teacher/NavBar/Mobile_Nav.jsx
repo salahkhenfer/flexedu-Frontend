@@ -93,7 +93,6 @@ function Mobile_Nav({ Active_nav, handleLogout, LogoutClicked }) {
                                         Delete_Notification(notification.id);
                                         Navigate(notification.link);
                                         setopen_Notifications(false);
-                                        setProfileClicked(false);
                                     }}
                                     key={notification.id}
                                     className="flex items-center gap-3 py-1 px-3 border-b cursor-pointer hover:bg-gray-100"
