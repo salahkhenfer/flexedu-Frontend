@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
-import {  useNavigate, useLocation } from "react-router-dom";
-import { IoIosWarning } from "react-icons/io";
-import Swal from "sweetalert2";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-
+import { IoIosWarning } from "react-icons/io";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import Not_pending_view from "./Not_pending_view";
 import Pending_View from "./Pending_View";
@@ -27,7 +26,7 @@ function Enrollment() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:3000/Students/Courses/${CourseId}`,
+          `https://api.flexedu-dz.com/Students/Courses/${CourseId}`,
           {
             withCredentials: true,
             validateStatus: () => true,
