@@ -96,7 +96,6 @@ function Mobile_Nav({ Active_nav, handleLogout, LogoutClicked }) {
                   <div className=" flex gap-2 ">
                     <IoMdNotificationsOutline className="shrink-0 mt-2" />
                     <div>
-<<<<<<< HEAD
                       <div className="text-black_text font-semibold">
                         {notification?.title}
                       </div>
@@ -105,30 +104,6 @@ function Mobile_Nav({ Active_nav, handleLogout, LogoutClicked }) {
                       </div>
                       <div className="text-gray_v text-xs pt-1">
                         {/* {new Date(
-=======
-                        {Notifications?.length > 0 ? (
-                            Notifications.map((notification) => (
-                                <div
-                                    onClick={() => {
-                                        Delete_Notification(notification.id);
-                                        Navigate(notification.link);
-                                        setopen_Notifications(false);
-                                    }}
-                                    key={notification.id}
-                                    className="flex items-center gap-3 py-1 px-3 border-b cursor-pointer hover:bg-gray-100"
-                                >
-                                    <div className=" flex gap-2 ">
-                                        <IoMdNotificationsOutline className="shrink-0 mt-2" />
-                                        <div>
-                                            <div className="text-black_text font-semibold">
-                                                {notification?.title}
-                                            </div>
-                                            <div className="text-gray_v text-sm">
-                                                {notification?.text}
-                                            </div>
-                                            <div className="text-gray_v text-xs pt-1">
-                                                {/* {new Date(
->>>>>>> 818caa85845ce745447d680658e36595c0f3daa6
                                                     notification?.createdAt
                                                 ).toLocaleDateString()} */}
                         {dayjs(notification?.createdAt).format("DD MMMM YYYY")}
